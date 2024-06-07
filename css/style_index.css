@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+body {
+    font-family: Lato, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.tarjeta {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    width: 500px;
+    padding: 20px 50px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.imagen-perfil-contenedor {
+    margin: 0 auto;
+}
+
+.imagen-perfil {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #ff4081;
+    object-fit: cover;
+}
+
+.boton-cerrar {
+    font-size: 26px;
+    cursor: pointer;
+    color: #ff4081;
+}
+
+.info {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.info h2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.info h3 {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.info h2,
+.info h3 {
+    margin: 5px 0;
+    color: #726C6C;
+}
+
+.seccion {
+    margin-top: 20px;
+}
+
+.seccion h4 {
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    font-family: Lato;
+}
+
+.habilidades {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.habilidades input {
+    width: calc(50% - 10px);
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Lato;
+}
+
+.acordeon .seccion-acordeon {
+    margin-top: 20px;
+}
+
+.acordeon-titulo {
+    cursor: pointer;
+    margin: 0;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
+
+.acordeon-contenido {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    margin-top: 10px;
+}
+
+.acordeon-contenido.abierto {
+    max-height: 200px;
+}
+
+.tagify {
+    border-radius: 5px;
+}
+
+.tagify__tag {
+    font-size: 14px;
+    font-family: Lato;
+}
+
+.boton-guardar {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff4081;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.boton-guardar:hover {
+    background-color: #ff6091;
+}
