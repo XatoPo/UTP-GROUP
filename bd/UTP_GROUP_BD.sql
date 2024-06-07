@@ -44,13 +44,8 @@ CREATE TABLE students (
     password VARCHAR(255),
     profile_picture VARCHAR(255),
     description TEXT,
-    hobbies TEXT,
     career VARCHAR(100),
-    study_mode ENUM('Presencial', 'Virtual', 'Asincrónica'),
-    gender ENUM('Masculino', 'Femenino', 'Otro'),
-    age INT,
-    birthdate DATE,
-    campus VARCHAR(100)
+    study_mode ENUM('Presencial', 'Virtual', 'Asincrónica')
 );
 
 -- TABAL DE PROFESORES
@@ -82,9 +77,15 @@ CREATE TABLE student_courses (
 CREATE TABLE skills (
     skill_id INT AUTO_INCREMENT PRIMARY KEY,
     student_id VARCHAR(10),
-    skill_name VARCHAR(100),
-    description TEXT,
-    icon VARCHAR(255),
+    skill_name VARCHAR(60),
+    FOREIGN KEY (student_id) REFERENCES students(student_id)
+);
+
+-- TABLA DE HOBBIES
+CREATE TABLE hobbies (
+    hobby_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(10),
+    hobby_name VARCHAR(60),
     FOREIGN KEY (student_id) REFERENCES students(student_id)
 );
 
