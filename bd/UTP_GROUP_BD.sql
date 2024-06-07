@@ -129,3 +129,6 @@ CREATE TABLE feedback (
     FOREIGN KEY (receiver_id) REFERENCES students(student_id),
     FOREIGN KEY (group_id) REFERENCES groups(group_id)
 );
+
+-- DATOS TABLA DE ESTUDIANTES
+INSERT INTO students (student_id, name, email, password, cellphone, profile_picture, description, career, study_mode) VALUES ('1', 'Flavio', 'flaviovm2013@gmail.com', '123456', '+55 11 12345678', 'https://i.imgur.com/ZK0hK9o.png', 'Estudiante de la Universidad de Tucuman', 'Ingeniería', 'Presencial');
