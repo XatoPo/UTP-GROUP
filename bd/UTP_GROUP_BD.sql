@@ -42,6 +42,7 @@ CREATE TABLE students (
     name VARCHAR(100),
     email VARCHAR(100) UNIQUE,
     password VARCHAR(255),
+    cellphone VARCHAR(15),
     profile_picture VARCHAR(255),
     description TEXT,
     career VARCHAR(100),
