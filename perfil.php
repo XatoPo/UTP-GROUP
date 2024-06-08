@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,7 +19,7 @@
             <div class="boton-cerrar">&times;</div>
         </div>
         <div class="info">
-            <h2>Eduardo Brito - U21201370</h2>
+            <h2><?php echo $_SESSION['nombre'] ?> -<?php echo $_SESSION['cod_estudiante'] ?></h2>
             <h3>Ingeniería de Software</h3>
         </div>
         <div class="seccion">
