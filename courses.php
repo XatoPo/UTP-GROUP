@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+session_start();
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -45,7 +47,7 @@
                         <i class="fa-regular fa-bell text-xl"></i>
                     </button>
                     <div class="flex flex-col items-end">
-                        <p class="text-sm">Hola, <strong>Francesco</strong></p>
+                        <p class="text-sm">Hola, <strong><?php echo $_SESSION['nombre']?></strong></p>
                         <p class="text-xs">Estudiante</p>
                     </div>
                     <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">
