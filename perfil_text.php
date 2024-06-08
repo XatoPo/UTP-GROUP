@@ -1,4 +1,7 @@
-<?php 
+
+
+<?php
+
 session_start();
 ?>
 <!DOCTYPE html>
@@ -25,9 +28,15 @@ session_start();
                     <img src="images/perfil/panda_full.jpg" class="w-20 h-20 rounded-[50%] border-[3px] border-[#ff4081] object-cover" alt="Foto de perfil">
                 </div>
             </div>
+<<<<<<< HEAD
             <div class="text-center mt-5 my-[5px] mx-0 text-[#726C6C]">
                 <h2 class="text-xl font-semibold"><?php echo $_SESSION['nombre'] ?></h2>
                 <h3 class="text-sm font-normal"><?php echo $_SESSION['carrera'] ?></h3>
+=======
+            <div class="text-center mt-3 my-[5px] mx-0 text-black">
+                <h2 class="text-3xl text-pretty font-extrabold"><?php echo $_SESSION['nombre'] ?> -<?php echo $_SESSION['cod_estudiante'] ?></h2>
+                <h3 class="text-base font-semibold"><?php echo $_SESSION['carrera'] ?></h3>
+>>>>>>> f31f2a12749a6cf28b6e5f7066bd5255836411ff
             </div>
             <div class="mt-5">
                 <h4 class="mb-2 font-bold">Descripción</h4>
@@ -66,7 +75,11 @@ session_start();
                 <input class="text-sm border border-[#ccc] rounded-[5px]" name="tags-pasatiempos" placeholder="" value="">
             </div>
             <div class="mt-5">
+<<<<<<< HEAD
                 <input type="submit" value="Guardar" name="Guardar" class="w-full p-[10px] bg-[#f94c61] text-white border border-[#f94c61] rounded-[5px] text-base cursor-pointer transition-all hover:text-[#f94c61] hover:bg-white">
+=======
+                <button class="w-full p-[10px] font-bold bg-[#f94c61] text-white border border-[#f94c61] rounded-[5px] text-base cursor-pointer transition-all hover:text-[#f94c61] hover:bg-white">Guardar</button>
+>>>>>>> f31f2a12749a6cf28b6e5f7066bd5255836411ff
             </div>
         </div>
     </form>

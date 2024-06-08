@@ -118,6 +118,7 @@ CREATE TABLE groups (
     group_id CHAR(6) PRIMARY KEY,
     course_id INT,
     group_name VARCHAR(100),
+    number_of_students INT,
     FOREIGN KEY (course_id) REFERENCES courses(course_id)
 );
 
@@ -143,10 +144,21 @@ DELIMITER //
 CREATE TRIGGER trg_role_id BEFORE INSERT ON roles
 FOR EACH ROW
 BEGIN
-    SET NEW.role_id = CONCAT('ROLE', (SELECT IFNULL(MAX(CAST(SUBSTRING(role_id, 5) AS UNSIGNED)), 0) + 1));
+    SET NEW.role_id = (SELECT CONCAT('ROLE', IFNULL(MAX(CAST(SUBSTRING(role_id, 5) AS UNSIGNED)), 0) + 1) FROM roles);
 END;
 //
 DELIMITER ;
+
+-- TABLA DE ESTUDIANTES POR GRUPOS
+CREATE TABLE students_groups (
+    student_id VARCHAR(10),
+    group_id CHAR(6),
+    role_id CHAR(6),
+    FOREIGN KEY (role_id) REFERENCES roles(role_id),
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (group_id) REFERENCES groups(group_id),
+    PRIMARY KEY (student_id, group_id)
+);
 
 -- TABLA DE FEEDBACK
 CREATE TABLE feedback (
@@ -174,7 +186,11 @@ DELIMITER ;
 
 -- DATOS TABLA DE ESTUDIANTES
 INSERT INTO students (student_id, name, email, password, cellphone, profile_picture, description, career, study_mode, birth_date, academic_cycle) VALUES 
-('U21201391', 'Flavio Sebastian Villanueva Medina', 'U21201391@gmail.com', 'ContPrueba373', '+51 992851981', 'images\perfil\U21201391-photo.jpg', 'Soy un estudiante apasionado de Ingeniería de Software, me considero proactivo, adaptable a entornos laborales dinámicos y con una rápida capacidad de aprendizaje de nuevas tecnologías. Estoy constantemente explorando y actualizándome en innovaciones tecnológicas. Además de mi pasión por la programación, soy un amante de la música y tengo una gran melomanía, disfruto escuchando música en mis tiempos libres. También soy un apasionado de Marvel, los cómics y el coleccionismo. Me encanta sumergirme en los mundos de superhéroes y adquirir artículos de colección relacionados. Busco desafíos que impulsan mi crecimiento como programador y oportunidades para aplicar mis habilidades en un entorno colaborativo y desafiante, combinando mi pasión por la tecnología con mis intereses personales.', 'Ingeniería de Software', 'Presencial', '2002-01-28', 7),
+('U21208430', 'Francesco Riva Reyes', 'U21208430@utp.edu.pe', 'Francesco1234UGR', '+51 941959936', '', '', 'Ingeniería de Software', 'Presencial', '2004-01-02', 7),
+('U21220883', 'Sebastian Salvador Quenta Tunque', 'U21220883@utp.edu.pe', 'Salva3434UGR', '+51 916286018 ', '', '', 'Ingeniería de Software', 'Presencial', '2004-04-03', 7),
+('U21210984', 'Morelia Paola Gonzales Valdivia', 'U21210984@utp.edu.pe', 'Morlia1234UGR', '+51 972799160', '', '', 'Ingeniería de Software', 'Virtual', '2004-02-16', 7),
+('U21201391', 'Flavio Sebastian Villanueva Medina', 'U21201391@gmail.com', 'ContPrueba373', '+51 992851981', 'images\perfil\U21201391-photo.jpg', 'Soy un estudiante apasionado de Ingeniería de Software, me considero proactivo, adaptable a entornos laborales dinámicos y con una rápida capacidad de aprendizaje de nuevas tecnologías. Estoy constantemente explorando y actualizándome en innovaciones tecnológicas. Además de mi pasión por la programación, soy un amante de la música y tengo una gran melomanía, disfruto escuchando música en mis tiempos libres. También soy un apasionado de Marvel, los cómics y el coleccionismo. Me encanta sumergirme en los mundos de superhéroes y adquirir artículos de colección relacionados. Busco desafíos que impulsan mi crecimiento como programador y oportunidades para aplicar mis habilidades en un entorno colaborativo y desafiante, combinando mi pasión por la tecnología con mis intereses personales.', 'Ingeniería de Software', 'Presencial', '2004-01-28', 7),
+('U21200272', 'Eduardo Davis Brito Escobar', 'U21200272@gmail.com', 'Eduar1234UGR', '+51 997839791', 'images\perfil\U21200272-photo.jpg', 'Soy un estudiante de Ingeniería de Sistemas e Informática, me considero bastante hábil en el ámbito de diseño, por lo que puedo ejercer un óptimo papel en este, además me encanta analizar hasta el más mínimo detalle los proyectos para que no pueda tener ningún error futuro.', 'Ingeniería de Sistemas e Informática', 'Presencial', '2003-09-15', 7),
 ('U21201392', 'Andrea Isabel Ramirez Lopez', 'U21201392@utp.edu.pe', 'ContPrueba374', '+51 997654321', 'images/perfil/U21201392-photo.jpg', 'Soy estudiante de Administración de Empresas, interesada en la gestión de recursos humanos y estrategias empresariales. Me gusta el trabajo en equipo y busco siempre mejorar mis habilidades en liderazgo y comunicación.', 'Administración de Empresas', 'Presencial', '2006-04-10', 2),
 ('U21201393', 'Carlos Enrique Gomez Torres', 'U21201393@utp.edu.pe', 'ContPrueba375', '+51 993456789', 'images/perfil/U21201393-photo.jpg', 'Estudiante de Ingeniería Civil, apasionado por el diseño estructural y la construcción sostenible. Disfruto trabajando en proyectos que involucran innovación en la ingeniería y busco contribuir al desarrollo de infraestructuras eficientes.', 'Ingeniería Civil', 'Virtual', '2007-09-25', 1),
 ('U21201394', 'Lucia Marisol Paredes Herrera', 'U21201394@utp.edu.pe', 'ContPrueba376', '+51 991234567', 'images/perfil/U21201394-photo.jpg', 'Futura comunicadora social, enfocada en el periodismo digital y la producción audiovisual. Me gusta contar historias y crear contenido que impacte positivamente en la sociedad.', 'Comunicación Social', 'Asincrónica', '2005-11-20', 3),
@@ -239,10 +255,10 @@ INSERT INTO student_courses (student_id, course_id) VALUES
 ('U21201391', 1001),
 ('U21201392', 1001),
 ('U21201393', 1001),
-('U21201394', 1001),        
+('U21201394', 1001),
 ('U21201395', 1001),
 ('U21201396', 1001),
-('U21201397', 1001),        
+('U21201397', 1001),
 ('U21201398', 1001),
 ('U21201399', 1001),
 ('U21201400', 1001),
@@ -263,7 +279,42 @@ INSERT INTO student_courses (student_id, course_id) VALUES
 ('U21201415', 1001),
 ('U21201416', 1001),
 ('U21201417', 1001),
-('U21201418', 1001);
+('U21201418', 1001),
+('U21201419', 1001),
+('U21201420', 1001),
+('U21201421', 1001),
+
+('U21201422', 1002),
+('U21201423', 1002),
+('U21201424', 1002),
+('U21208430', 1002),
+('U21220883', 1002),
+('U21210984', 1002),
+('U21201391', 1002),
+('U21201392', 1002),
+('U21201393', 1002),
+('U21201394', 1002),
+('U21201395', 1002),
+('U21201396', 1002),
+('U21201397', 1002),
+('U21201398', 1002),
+('U21201399', 1002),
+('U21201400', 1002),
+('U21201401', 1002),
+('U21201402', 1002),
+('U21201403', 1002),
+('U21201404', 1002),
+('U21201405', 1002),
+('U21201406', 1002),
+('U21201407', 1002),
+('U21201408', 1002),
+('U21201409', 1002),
+('U21201410', 1002),
+('U21201411', 1002),
+('U21201412', 1002),
+('U21201413', 1002),
+('U21201414', 1002),
+('U21201415', 1002);
 
 -- DATOS TABLA HABILIDADES
 INSERT INTO skills (student_id, skill_name, skill_topic) VALUES 
@@ -644,3 +695,104 @@ INSERT INTO hobbies (student_id, hobby_name) VALUES
 ('U21201424', 'Cocinar comida tailandesa'),
 ('U21201424', 'Tocar el violín'),
 ('U21201424', 'Escuchar música pop');
+
+-- DATOS TABLA DE ROLES
+INSERT INTO roles (role_name, description) VALUES 
+('Líder', 'El líder de un grupo de estudiantes es el responsable de la organización y el control de los recursos de la asignatura. Está encargado de asegurar la seguridad y la eficiencia de los recursos, y de coordinar las actividades de los estudiantes. Además, es responsable de garantizar la calidad y la integridad de los materiales y recursos utilizados en la asignatura.'),
+('Motivador', 'El motivador es el responsable de motivar y inspirar a los estudiantes a participar en la asignatura. Está encargado de crear un ambiente de aprendizaje positivo y de proporcionar los recursos y materiales necesarios para que los estudiantes puedan desarrollar sus habilidades y conocimientos en el área de estudio. Además, es responsable de garantizar que los estudiantes estén motivados a continuar aprendiendo y a desarrollar sus habilidades.'),
+('Creativo', 'El creativo es el responsable de generar ideas y soluciones innovadoras para resolver los problemas y mejorar la calidad de la asignatura. Está encargado de proporcionar los estudiantes con recursos y materiales para desarrollar sus ideas y soluciones, y de asegurar que los resultados sean efectivos y satisfactorios. Además, es responsable de garantizar que los estudiantes estén capaces de pensar de manera creativa y de desarrollar sus habilidades en el área de estudio.'),
+('Mediador', 'El mediador es el responsable de coordinar y supervisar las actividades de los estudiantes en la asignatura. Está encargado de asegurar que los estudiantes estén participando de actividades de manera efectiva y de garantizar que los recursos y materiales estén disponibles para que los estudiantes puedan desarrollar sus habilidades y conocimientos en el área de estudio. Además, es responsable de garantizar que los estudiantes estén satisfechos con la asignatura y que estén dispuestos a continuar aprendiendo y desarrollando sus habilidades.'),
+('Investigador', 'El investigador es el responsable de investigar y desarrollar nuevas tecnologías y soluciones en el área de estudio. Está encargado de proporcionar los estudiantes con recursos y materiales para desarrollar sus investigaciones y de asegurar que los resultados sean efectivos y satisfactorios. Además, es responsable de garantizar que los estudiantes estén capaces de pensar de manera creativa y de desarrollar sus habilidades en el área de estudio.');
+
+-- DATOS TABLA DE GRUPOS
+INSERT INTO groups (course_id, group_name, number_of_students) VALUES
+(1001, 'Grupo 1', 5),
+(1001, 'Grupo 2', 5),
+(1001, 'Grupo 3', 5),
+(1001, 'Grupo 4', 5), 
+(1001, 'Grupo 5', 5),
+(1001, 'Grupo 6', 6),
+
+(1002, 'Grupo 1', 5),
+(1002, 'Grupo 2', 5),
+(1002, 'Grupo 3', 5),
+(1002, 'Grupo 4', 5), 
+(1002, 'Grupo 5', 5),
+(1002, 'Grupo 6', 6);
+
+-- DATOS TABLA DE ESTUDIANTES-GRUPOS
+INSERT INTO students_groups (student_id, group_id, role_id) VALUES 
+('U21201391', 'GR1000', 'ROLE1'),
+('U21201392', 'GR1000', 'ROLE2'),
+('U21201393', 'GR1000', 'ROLE3'),
+('U21201394', 'GR1000', 'ROLE4'),
+('U21201395', 'GR1000', 'ROLE5'),
+
+('U21201396', 'GR1001', 'ROLE1'),
+('U21201397', 'GR1001', 'ROLE2'),
+('U21201398', 'GR1001', 'ROLE3'),
+('U21201399', 'GR1001', 'ROLE4'),
+('U21201400', 'GR1001', 'ROLE5'),
+
+('U21201401', 'GR1002', 'ROLE1'),
+('U21201402', 'GR1002', 'ROLE2'),
+('U21201403', 'GR1002', 'ROLE3'),
+('U21201404', 'GR1002', 'ROLE4'),
+('U21201405', 'GR1002', 'ROLE5'),
+
+('U21201406', 'GR1003', 'ROLE1'),
+('U21201407', 'GR1003', 'ROLE2'),
+('U21201408', 'GR1003', 'ROLE3'),
+('U21201409', 'GR1003', 'ROLE4'),
+('U21201410', 'GR1003', 'ROLE5'),
+
+('U21201411', 'GR1004', 'ROLE1'),
+('U21201412', 'GR1004', 'ROLE2'),
+('U21201413', 'GR1004', 'ROLE3'),
+('U21201414', 'GR1004', 'ROLE4'),
+('U21201415', 'GR1004', 'ROLE5'),
+
+('U21201416', 'GR1005', 'ROLE1'),
+('U21201417', 'GR1005', 'ROLE2'),
+('U21201418', 'GR1005', 'ROLE3'),
+('U21201419', 'GR1005', 'ROLE4'),
+('U21201420', 'GR1005', 'ROLE5'),
+('U21201421', 'GR1005', 'ROLE5'),
+
+('U21201422', 'GR1006', 'ROLE1'),
+('U21201423', 'GR1006', 'ROLE2'),
+('U21201424', 'GR1006', 'ROLE3'),
+('U21208430', 'GR1006', 'ROLE4'),
+('U21220883', 'GR1006', 'ROLE5'),
+
+('U21210984', 'GR1007', 'ROLE1'),
+('U21201391', 'GR1007', 'ROLE2'),
+('U21201392', 'GR1007', 'ROLE3'),
+('U21201393', 'GR1007', 'ROLE4'),
+('U21201394', 'GR1007', 'ROLE5'),
+
+('U21201395', 'GR1008', 'ROLE1'),
+('U21201396', 'GR1008', 'ROLE2'),
+('U21201397', 'GR1008', 'ROLE3'),
+('U21201398', 'GR1008', 'ROLE4'),
+('U21201399', 'GR1008', 'ROLE5'),
+
+('U21201400', 'GR1009', 'ROLE1'),
+('U21201401', 'GR1009', 'ROLE2'),
+('U21201402', 'GR1009', 'ROLE3'),
+('U21201403', 'GR1009', 'ROLE4'),
+('U21201404', 'GR1009', 'ROLE5'),
+
+('U21201405', 'GR1010', 'ROLE1'),
+('U21201406', 'GR1010', 'ROLE2'),
+('U21201407', 'GR1010', 'ROLE3'),
+('U21201408', 'GR1010', 'ROLE4'),
+('U21201409', 'GR1010', 'ROLE5'),
+
+('U21201410', 'GR1011', 'ROLE1'),
+('U21201411', 'GR1011', 'ROLE2'),
+('U21201412', 'GR1011', 'ROLE3'),
+('U21201413', 'GR1011', 'ROLE4'),
+('U21201414', 'GR1011', 'ROLE5'),
+('U21201415', 'GR1011', 'ROLE5'),
+('U21201416', 'GR1011', 'ROLE5');
