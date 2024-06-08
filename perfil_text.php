@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +17,8 @@
 
 <body>
     <main>
+
+    <form action="controlller/control?opc=2" method="POST">
         <div class="bg-white rounded-2xl shadow-lg w-[500px] py-5 px-12 box-border relative">
             <div class="flex justify-between items-center">
                 <div class="my-0 mx-auto">
@@ -21,24 +26,24 @@
                 </div>
             </div>
             <div class="text-center mt-5 my-[5px] mx-0 text-[#726C6C]">
-                <h2 class="text-xl font-semibold">Morelia Paola Gonzales Valdivia</h2>
-                <h3 class="text-sm font-normal">Ingeniería de Software</h3>
+                <h2 class="text-xl font-semibold"><?php echo $_SESSION['nombre'] ?></h2>
+                <h3 class="text-sm font-normal"><?php echo $_SESSION['carrera'] ?></h3>
             </div>
             <div class="mt-5">
                 <h4 class="mb-2 font-bold">Descripción</h4>
-                <textarea class="w-full h-[100px] p-[10px] box-border border border-[#ccc] rounded-md resize-none text-sm tracking-tight" placeholder="Soy una persona..."></textarea>
+                <textarea name="descripcion" class="w-full h-[100px] p-[10px] box-border border border-[#ccc] rounded-md resize-none text-sm tracking-tight" placeholder="Soy una persona..."></textarea>
             </div>
             <div class="mt-5">
                 <div>
                     <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="javascript: toggle(this);">Skills Blandas</h4>
                     <div class="max-h-0 overflow-hidden transition-all close">
                         <div class="flex flex-wrap gap-[10px] mt-[10px]">
-                            <input class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="1">
-                            <input class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="4">
-                            <input class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="2">
-                            <input class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="5">
-                            <input class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="3">
-                            <input class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="6">
+                            <input name="skills_blandas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="1">
+                            <input name="skills_blandas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="4">
+                            <input name="skills_blandas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="2">
+                            <input name="skills_blandas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="5">
+                            <input name="skills_blandas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="3">
+                            <input name="skills_blandas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="6">
                         </div>
                     </div>
                 </div>
@@ -46,12 +51,12 @@
                     <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold"  onclick="javascript: toggle(this);">Skills Técnicas</h4>
                     <div class="max-h-0 overflow-hidden transition-all close">
                         <div class="flex flex-wrap gap-[10px] mt-[10px]">
-                            <input class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="1">
-                            <input class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="4">
-                            <input class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="2">
-                            <input class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="5">
-                            <input class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="3">
-                            <input class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="6">
+                            <input name="skills_tecnicas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="1">
+                            <input name="skills_tecnicas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="4">
+                            <input name="skills_tecnicas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="2">
+                            <input name="skills_tecnicas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="5">
+                            <input name="skills_tecnicas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="3">
+                            <input name="skills_tecnicas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="6">
                         </div>
                     </div>
                 </div>
@@ -61,9 +66,10 @@
                 <input class="text-sm border border-[#ccc] rounded-[5px]" name="tags-pasatiempos" placeholder="" value="">
             </div>
             <div class="mt-5">
-                <button class="w-full p-[10px] bg-[#f94c61] text-white border border-[#f94c61] rounded-[5px] text-base cursor-pointer transition-all hover:text-[#f94c61] hover:bg-white">Guardar</button>
+                <input type="submit" value="Guardar" name="Guardar" class="w-full p-[10px] bg-[#f94c61] text-white border border-[#f94c61] rounded-[5px] text-base cursor-pointer transition-all hover:text-[#f94c61] hover:bg-white">
             </div>
         </div>
+    </form>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
     <script src="js/perfil.js"></script>
