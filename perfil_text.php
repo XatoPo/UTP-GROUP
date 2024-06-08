@@ -29,9 +29,10 @@ session_start();
                 </div>
             </div>
 
-            <div class="text-center mt-5 my-[5px] mx-0 text-[#726C6C]">
+            <div class="text-center mt-5 my-[5px] mx-0 text-black">
                 <h2 class="text-xl font-semibold"><?php echo $_SESSION['nombre'] ?></h2>
                 <h3 class="text-sm font-normal"><?php echo $_SESSION['carrera'] ?></h3>
+            </div>
 
             <div class="mt-5">
                 <h4 class="mb-2 font-bold">Descripción</h4>
