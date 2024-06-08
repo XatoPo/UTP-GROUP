@@ -20,7 +20,7 @@ session_start();
         </div>
         <div class="info">
             <h2><?php echo $_SESSION['nombre'] ?> -<?php echo $_SESSION['cod_estudiante'] ?></h2>
-            <h3>Ingeniería de Software</h3>
+            <h3><?php echo $_SESSION['carrera'] ?></h3>
         </div>
         <div class="seccion">
             <h4>Descripción</h4>
