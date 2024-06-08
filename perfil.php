@@ -11,7 +11,7 @@
     <div class="tarjeta">
         <div class="encabezado">
             <div class="imagen-perfil-contenedor">
-                <img src="img/panda.jpg" alt="Imagen de Perfil" class="imagen-perfil">
+                <img src="images/perfil/panda.jpg" alt="Imagen de Perfil" class="imagen-perfil">
             </div>
             <div class="boton-cerrar">&times;</div>
         </div>
