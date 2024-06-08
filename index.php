@@ -16,7 +16,7 @@
             <div class="boton-cerrar">&times;</div>
         </div>
         <div class="info">
-            <h2>Morelia Gonzales - U21210984</h2>
+            <h2>Francesco Riva - U21210984</h2>
             <h3>Ingeniería de Software</h3>
         </div>
         <div class="seccion">
