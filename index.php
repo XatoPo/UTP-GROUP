@@ -11,12 +11,12 @@
     <div class="tarjeta">
         <div class="encabezado">
             <div class="imagen-perfil-contenedor">
-                <img src="img/panda.avif" alt="Imagen de Perfil" class="imagen-perfil">
+                <img src="img/panda.jpg" alt="Imagen de Perfil" class="imagen-perfil">
             </div>
             <div class="boton-cerrar">&times;</div>
         </div>
         <div class="info">
-            <h2>Francesco Riva - U21210984</h2>
+            <h2>Flavio Sebastian Villanueva Medina - U21201391</h2>
             <h3>Ingeniería de Software</h3>
         </div>
         <div class="seccion">

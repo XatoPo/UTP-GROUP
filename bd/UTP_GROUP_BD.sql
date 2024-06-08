@@ -131,4 +131,4 @@ CREATE TABLE feedback (
 );
 
 -- DATOS TABLA DE ESTUDIANTES
-INSERT INTO students (student_id, name, email, password, cellphone, profile_picture, description, career, study_mode) VALUES ('1', 'Flavio', 'flaviovm2013@gmail.com', '123456', '+55 11 12345678', 'https://i.imgur.com/ZK0hK9o.png', 'Estudiante de la Universidad de Tucuman', 'Ingeniería', 'Presencial');
+INSERT INTO students (student_id, name, email, password, cellphone, profile_picture, description, career, study_mode) VALUES ('U21201391', 'Flavio Sebastian Villanueva Medina', 'U21201391@gmail.com', '123456', '+51 992851981', '', 'Estudiante de Ingeniería de Software de la Universidad Tecnologica del Perú', 'Ingeniería de Software', 'Presencial');
