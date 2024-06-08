@@ -7,7 +7,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos | UTP + class</title>
+    <title>Estudiantes | UTP + class</title>
     <link rel="shortcut icon" href="images/icon/favicon-utp-class.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -108,7 +108,7 @@ session_start();
                     <!-- Diseño tarjeta 1 -->
                     <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg relative h-[130px]">
                         <div class="col-span-1 flex justify-center items-center">
-                            <img src="images/perfil/panda_full.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24" alt="">
+                            <img src="images/perfil/panda_full.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
                         </div>
                         <div class="col-span-2 flex justify-between items-center">
                             <div class="flex flex-col justify-center h-full py-2 pe-8">
@@ -130,7 +130,7 @@ session_start();
                     <!-- Diseño tarjeta 2 -->
                     <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
                         <div class="col-span-1 flex justify-center items-center">
-                            <img src="images/perfil/panda_full.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24" alt="">
+                            <img src="images/perfil/panda_full.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
                         </div>
                         <div class="col-span-2 flex flex-col justify-between py-5">
                             <div class="flex flex-col">
@@ -143,7 +143,7 @@ session_start();
                     <!-- Diseño tarjeta 3 -->
                     <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
                         <div class="col-span-1 flex justify-center items-center">
-                            <img src="images/perfil/panda_full.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24" alt="">
+                            <img src="images/perfil/panda_full.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
                         </div>
                         <div class="col-span-2 flex flex-col justify-between py-5">
                             <div class="flex flex-col">
