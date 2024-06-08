@@ -17,7 +17,7 @@ session_start();
 
 <body class="bg-[#f6f9ff] h-screen">
     <main class="flex h-full">
-        <aside class="bg-blue-950 flex flex-col gap-y-1 w-[65px] h-full">
+        <aside class="bg-[#000f37] flex flex-col gap-y-1 w-[65px] h-full">
             <div class="p-1 flex flex-col items-center justify-center w-[65px] h-[65px]">
                 <i class="fa-solid fa-bars text-2xl text-white"></i>
             </div>
