@@ -36,6 +36,7 @@
                         <input type="text" placeholder="6">
                     </div>
                 </div>
+            
             </div>
             <div class="seccion-acordeon">
                 <h4 class="acordeon-titulo">Conocimientos</h4>
