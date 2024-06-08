@@ -4,7 +4,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 session_start();
 
-include "../util/connection.php";
 include "../dao/utp_group_dao.php";
 
 $action = isset($_GET["opc"]) ? $_GET["opc"] : "";
@@ -13,6 +12,10 @@ switch ($action) {
     case 1:
         iniciarSesion($conn);
         break;
+
+    case 2:
+        getProfileDataByID($id);
+    
 
     default:
         echo "This is the default case";
