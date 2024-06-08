@@ -25,7 +25,7 @@
         </div>
         <div class="acordeon">
             <div class="seccion-acordeon">
-                <h4 class="acordeon-titulo">Habilidades blandas</h4>
+                <h4 class="acordeon-titulo">Skills Blandas</h4>
                 <div class="acordeon-contenido">
                     <div class="habilidades">
                         <input type="text" placeholder="1">
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="seccion-acordeon">
-                <h4 class="acordeon-titulo">Conocimientos</h4>
+                <h4 class="acordeon-titulo">Skills Técnicas</h4>
                 <div class="acordeon-contenido">
                     <div class="habilidades">
                         <input type="text" placeholder="1">
