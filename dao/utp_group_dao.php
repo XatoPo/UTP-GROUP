@@ -6,7 +6,8 @@ include "../util/connection.php";
 // Función para obtener los datos del estudiante según su ID
 function getStudentDataById($id) {
     // Crear una conexión a la base de datos
-    $conn = getConnection();
+    $conexion = new Conexion();
+    $conn = $conexion->conecta();
 
     // Verificar si la conexión es exitosa
     if ($conn->connect_error) {
@@ -14,10 +15,7 @@ function getStudentDataById($id) {
     }
 
     // Preparar la consulta SQL
-    $sql = "SELECT s.*
-            FROM students s
-            WHERE s.student_id = '$id';";
-            
+    $sql = "SELECT s.* FROM students s WHERE s.student_id = ?";
     $stmt = $conn->prepare($sql);
 
     // Verificar si la preparación fue exitosa
@@ -35,14 +33,15 @@ function getStudentDataById($id) {
 
     // Cerrar la conexión y retornar los datos del estudiante
     $stmt->close();
-    $conn->close();
+    $conexion->desconecta();
 
     return $student_data;
 }
 
 function getStudentHobbiesById($id) {
     // Crear una conexión a la base de datos
-    $conn = getConnection();
+    $conexion = new Conexion();
+    $conn = $conexion->conecta();
 
     // Verificar si la conexión es exitosa
     if ($conn->connect_error) {
@@ -50,10 +49,7 @@ function getStudentHobbiesById($id) {
     }
 
     // Preparar la consulta SQL
-    $sql = "SELECT h.hobby_id ,h.hobby_name 
-            FROM students s
-            INNER JOIN hobbies h ON s.student_id = h.student_id
-            WHERE s.student_id = '$id';";
+    $sql = "SELECT h.hobby_id, h.hobby_name FROM students s INNER JOIN hobbies h ON s.student_id = h.student_id WHERE s.student_id = ?";
     $stmt = $conn->prepare($sql);
 
     // Verificar si la preparación fue exitosa
@@ -71,14 +67,15 @@ function getStudentHobbiesById($id) {
 
     // Cerrar la conexión y retornar los datos del estudiante
     $stmt->close();
-    $conn->close();
+    $conexion->desconecta();
 
     return $hobbies_data;
 }
 
-function getStudentSkillsById($id,$skill_topic) {
+function getStudentSkillsById($id, $skill_topic) {
     // Crear una conexión a la base de datos
-    $conn = getConnection();
+    $conexion = new Conexion();
+    $conn = $conexion->conecta();
 
     // Verificar si la conexión es exitosa
     if ($conn->connect_error) {
@@ -86,11 +83,7 @@ function getStudentSkillsById($id,$skill_topic) {
     }
 
     // Preparar la consulta SQL
-    $sql = "SELECT sk.skill_id, sk.skill_name, sk.skill_topic 
-            FROM students s
-            INNER JOIN skills sk ON s.student_id = sk.student_id
-            WHERE s.student_id = '$id'
-            AND sk.skill_topic = '$skill_topic';";
+    $sql = "SELECT sk.skill_id, sk.skill_name, sk.skill_topic FROM students s INNER JOIN skills sk ON s.student_id = sk.student_id WHERE s.student_id = ? AND sk.skill_topic = ?";
     $stmt = $conn->prepare($sql);
 
     // Verificar si la preparación fue exitosa
@@ -99,7 +92,7 @@ function getStudentSkillsById($id,$skill_topic) {
     }
 
     // Vincular parámetros y ejecutar la consulta
-    $stmt->bind_param("i", $id);
+    $stmt->bind_param("is", $id, $skill_topic);
     $stmt->execute();
 
     // Obtener el resultado de la consulta
@@ -108,10 +101,9 @@ function getStudentSkillsById($id,$skill_topic) {
 
     // Cerrar la conexión y retornar los datos del estudiante
     $stmt->close();
-    $conn->close();
+    $conexion->desconecta();
 
     return $skills_data;
 }
-
 
 ?>
