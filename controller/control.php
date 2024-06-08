@@ -31,7 +31,7 @@ function iniciarSesion($conn) {
             $contraseña = $_POST['password'];
 
             // Prepare the SQL statement
-            $stmt = mysqli_prepare($conn, "SELECT student_id, password, name FROM students WHERE student_id = ?");
+            $stmt = mysqli_prepare($conn, "SELECT student_id, password, career, name FROM students WHERE student_id = ?");
             if ($stmt === false) {
                 die('Prepare failed: ' . mysqli_error($conn));
             }
@@ -42,7 +42,7 @@ function iniciarSesion($conn) {
             // Execute the statement
             if (mysqli_stmt_execute($stmt)) {
                 // Bind the result variables
-                mysqli_stmt_bind_result($stmt, $student_id, $contraseña_db, $nombre);
+                mysqli_stmt_bind_result($stmt, $student_id, $contraseña_db, $carrera, $nombre);
                 
                 // Fetch the result
                 if (mysqli_stmt_fetch($stmt)) {
@@ -50,6 +50,7 @@ function iniciarSesion($conn) {
                     if ($contraseña == $contraseña_db) {
                         $_SESSION['nombre'] = $nombre;
                         $_SESSION['cod_estudiante'] = $student_id;
+                        $_SESSION['carrera'] = $carrera;
                         
                         header("Location: ../courses.php");
                         exit();
