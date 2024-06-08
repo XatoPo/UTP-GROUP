@@ -16,7 +16,7 @@
             <div class="boton-cerrar">&times;</div>
         </div>
         <div class="info">
-            <h2>Flavio Sebastian Villanueva Medina - U21201392</h2>
+            <h2>Eduardo Brito - U21201370</h2>
             <h3>Ingeniería de Software</h3>
         </div>
         <div class="seccion">
