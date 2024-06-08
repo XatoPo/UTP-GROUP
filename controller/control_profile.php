@@ -2,7 +2,7 @@
 // control_profile.php
 
 // Incluir el archivo DAO
-include 'dao/student_dao.php';
+include 'dao/utp_group_dao.php';
 
 function getProfileDataByID($student_id) {
     // Obtener los datos del estudiante llamando a la función en el DAO
