@@ -796,3 +796,17 @@ INSERT INTO students_groups (student_id, group_id, role_id) VALUES
 ('U21201414', 'GR1011', 'ROLE5'),
 ('U21201415', 'GR1011', 'ROLE5'),
 ('U21201416', 'GR1011', 'ROLE5');
+
+-- funcionales de la aplicacion
+-- 1. Login usuario
+DELIMITER $$
+CREATE FUNCTION validarLogin (
+    student_id_v VARCHAR(10),
+    password_v VARCHAR(255)
+) RETURNS BOOLEAN
+BEGIN
+    DECLARE existe BOOLEAN;
+    SELECT EXISTS(SELECT * FROM students WHERE student_id_v = student_id AND password_v = password) INTO existe;
+    RETURN existe;
+END$$
+DELIMITER ;
