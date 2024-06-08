@@ -20,6 +20,8 @@
                     <h1 class="text-2xl font-bold text-gray-700">Bienvenido a</h1>
                     <img src="images/logo/logo-pao-class.png" class="w-56" alt="">
                 </div>
+<<<<<<< HEAD
+
                 <h3 class="font-bold text-3xl">INICIO DE SESIÓN</h3>
                 
                 <form action="controller/control.php?opc=1" method="POST">
@@ -30,6 +32,20 @@
                         <label
                             class="absolute bg-[#f6f9ff] inline-flex px-2 ms-2 -top-3 text-sm text-black transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3 peer-focus:text-black peer-focus:text-sm peer-focus:px-2"
                             for="id">Código de estudiante</label>
+=======
+            
+            </div>
+            <div class="seccion-acordeon">
+                <h4 class="acordeon-titulo">Conocimientos</h4>
+                <div class="acordeon-contenido">
+                    <div class="habilidades">
+                        <input type="text" placeholder="1">
+                        <input type="text" placeholder="4">
+                        <input type="text" placeholder="2">
+                        <input type="text" placeholder="5">
+                        <input type="text" placeholder="3">
+                        <input type="text" placeholder="6">
+>>>>>>> 753c4d5588463d524afada658a1f182a43234737
                     </div>
                     <div class="flex flex-col relative">
                         <input
