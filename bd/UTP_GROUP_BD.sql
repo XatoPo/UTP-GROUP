@@ -173,8 +173,6 @@ END;
 DELIMITER ;
 
 -- DATOS TABLA DE ESTUDIANTES
-Aquí tienes los registros con las fechas de nacimiento y los ciclos académicos añadidos:
-
 INSERT INTO students (student_id, name, email, password, cellphone, profile_picture, description, career, study_mode, birth_date, academic_cycle) VALUES 
 ('U21201391', 'Flavio Sebastian Villanueva Medina', 'U21201391@gmail.com', 'ContPrueba373', '+51 992851981', 'images\perfil\U21201391-photo.jpg', 'Soy un estudiante apasionado de Ingeniería de Software, me considero proactivo, adaptable a entornos laborales dinámicos y con una rápida capacidad de aprendizaje de nuevas tecnologías. Estoy constantemente explorando y actualizándome en innovaciones tecnológicas. Además de mi pasión por la programación, soy un amante de la música y tengo una gran melomanía, disfruto escuchando música en mis tiempos libres. También soy un apasionado de Marvel, los cómics y el coleccionismo. Me encanta sumergirme en los mundos de superhéroes y adquirir artículos de colección relacionados. Busco desafíos que impulsan mi crecimiento como programador y oportunidades para aplicar mis habilidades en un entorno colaborativo y desafiante, combinando mi pasión por la tecnología con mis intereses personales.', 'Ingeniería de Software', 'Presencial', '2002-01-28', 7),
 ('U21201392', 'Andrea Isabel Ramirez Lopez', 'U21201392@utp.edu.pe', 'ContPrueba374', '+51 997654321', 'images/perfil/U21201392-photo.jpg', 'Soy estudiante de Administración de Empresas, interesada en la gestión de recursos humanos y estrategias empresariales. Me gusta el trabajo en equipo y busco siempre mejorar mis habilidades en liderazgo y comunicación.', 'Administración de Empresas', 'Presencial', '2006-04-10', 2),
