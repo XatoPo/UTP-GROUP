@@ -8,14 +8,18 @@ if (isset($_SESSION['student_id'])) {
     $student_id = $_SESSION['student_id'];
 
     $obj = new utp_group_dao();
-
-    $estudiantes = $obj->ObtenerEstudiantesPorCurso(1001);
-    
+    if (isset($_GET['course_id'])) {
+        $curso_id = $_GET['course_id'];
+        $_SESSION['course_id'] = $curso_id;
+        $_SESSION['course_data'] = $obj->ObtenerCursoPorId($_SESSION['course_id']);
+    }
+    $estudiantes = $obj->ObtenerEstudiantesPorCurso($_SESSION['course_id']);
 
 } else {
     header("Location: login.php");
     exit();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -30,8 +34,6 @@ if (isset($_SESSION['student_id'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
     <link rel="stylesheet" href="css/font.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 </head>
 
 <body class="bg-[#f6f9ff] h-screen">
@@ -61,18 +63,15 @@ if (isset($_SESSION['student_id'])) {
         </aside>
         <div class="flex-1 ml-16">
         <div class="flex-1">
-            <header class="bg-white flex items-center justify-between px-5 h-[65px] w-full">
+        <header class="bg-white flex items-center justify-between px-5 h-[65px] w-full">
                 <img src="images/logo/logo-pao-class.png" class="w-40" alt="">
                 <div class="flex items-center justify-center gap-x-3">
                     <button class="flex items-center justify-center rounded-full p-2 w-[40px] h-[40px] hover:bg-blue-950 hover:text-white transition-all">
                         <i class="fa-regular fa-bell text-xl"></i>
                     </button>
                     <div class="flex flex-col items-end">
-                        <?php if (isset($_SESSION['student_data']['name'])) : ?>
-                            <p class="text-sm">Hola, <strong><?php echo $_SESSION['student_data']['name']; ?></strong></p>
-                        <?php else : ?>
-                            <p class="text-sm">Hola, Usuario</p>
-                        <?php endif; ?> <p class="text-xs">Estudiante</p>
+                        <p class="text-sm">Hola, <strong><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></strong></p>
+                        <p class="text-xs">Estudiante</p>
                     </div>
                     <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">
                         <i class="fa-solid fa-user"></i>
@@ -258,10 +257,12 @@ if (isset($_SESSION['student_id'])) {
                         <h4 class="mb-2 font-bold">Descripción</h4>
                         <p class="descripcion text-sm text-pretty"><?php echo htmlspecialchars($student['description']); ?></p>
                     </div>
+                    
                     <div class="mt-5 inline-flex items-center gap-x-2 cursor-pointer" onclick="javascript: toggle(this);">
                         <i class="fa-solid fa-caret-down bg-[#203672] rounded-sm px-1 text-white"></i>
                         <h4 class="font-bold">Skills blandas</h4>
                     </div>
+
                     <div class="max-h-0 overflow-hidden grid grid-cols-2 gap-x-5 close">
                         <div class="col-span-1 flex flex-col">
                             <div class="mb-2 flex items-center gap-x-1">
@@ -292,6 +293,7 @@ if (isset($_SESSION['student_id'])) {
                             </div>
                         </div>
                     </div>
+
                     <div class="mt-5 inline-flex items-center gap-x-2 cursor-pointer" onclick="javascript: toggle(this);">
                         <i class="fa-solid fa-caret-down bg-[#203672] rounded-sm px-1 text-white"></i>
                         <h4 class="font-bold">Skills duras</h4>
