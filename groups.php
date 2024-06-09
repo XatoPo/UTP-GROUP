@@ -136,8 +136,8 @@ if (isset($_SESSION['student_id'])) {
                     </header>
                     <section class="flex-col">
                         <div class="flex items-center mt-5 ms-5">
-                            <div class="inline-flex py-2.5 px-8 bg-white border-2 border-[#f94c61] rounded-lg">
-                                <p class="font-bold text-3xl">GRUPOS</p>
+                            <div class="inline-flex py-2.5 px-8 bg-white border-2 border-[#000f37] rounded-lg">
+                                <p class="font-medium text-3xl">GRUPOS</p>
                             </div>
                             <div class="flex ml-4 bg-[#000f37] p-1 rounded-lg">
                                 <?php foreach ($roles as $role) : ?>
