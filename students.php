@@ -106,9 +106,9 @@ $course_modality = isset($_GET['course_modality']) ? htmlspecialchars($_GET['cou
                             <p class="text-xs font-extrabold">Volver a cursos</p>
                         </a>
                         <div class="flex gap-x-1 font-bold items-center ps-2">
-                            <p class="text-[#4A4F55] text-sm"><?php echo $course_name; ?> - Sección <?php echo $course_section; ?></p>
+                            <p class="text-[#4A4F55] text-sm"><?php echo $_SESSION['course_data']['course_name']; ?> - Sección <?php echo $_SESSION['course_id']; ?></p>
                             <div class="bg-[#B21F5F] text-[#FCDAE2] text-xs py-0.5 px-3 rounded-full">
-                                <?php echo $course_modality; ?>
+                                <?php echo $_SESSION['course_data']['modality']; ?>
                             </div>
                         </div>
                     </div>
