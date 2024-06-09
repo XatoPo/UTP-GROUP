@@ -235,7 +235,7 @@ if (isset($_SESSION['student_id'])) {
 
                 <div class="mt-5">
                     <h4 class="mb-2 font-bold">Descripción</h4>
-                    <p class="descripcion text-sm text-pretty" id="descripcion_estudiante"></p>
+                    <p class="descripcion p-[7.5px] border border-[#ccc] rounded-[5px] text-sm text-pretty h-[75px] overflow-auto" id="descripcion_estudiante"><?php echo htmlspecialchars($student['description']); ?></p>
                 </div>
 
                 <div class="mt-5">
