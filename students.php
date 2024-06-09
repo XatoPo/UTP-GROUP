@@ -175,7 +175,7 @@ if (isset($_SESSION['student_id'])) {
                 <div class="bg-white rounded-2xl shadow-lg w-[500px] py-5 px-12 box-border relative">
                     <div class="flex justify-between items-center">
                         <div class="my-0 mx-auto">
-                            <img id="imagePerfil" src="" class="image w-20 h-20 rounded-[50%] border-[3px] border-[#ff4081] object-cover" alt="Foto de perfil">
+                            <img id="imagePerfil" src="" class="image w-20 h-20 rounded-[50%] border-[3px] border-[#ff4081] object-cover" alt="Foto de perfil" onerror="this.onerror=null;this.src='images/perfil/default-photo.jpg';">
                         </div>
                         <div id="closeModalBtn" class="text-3xl cursor-pointer text-[#f94c61]">&times;</div>
                     </div>
