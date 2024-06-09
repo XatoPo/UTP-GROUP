@@ -63,6 +63,7 @@ CREATE TABLE courses (
     course_id INT AUTO_INCREMENT PRIMARY KEY,
     course_name VARCHAR(100),
     professor_id VARCHAR(10),
+    modality ENUM('Presencial', 'Virtual 24/7', 'Asincrónica'),
     FOREIGN KEY (professor_id) REFERENCES professors(professor_id)
 ) AUTO_INCREMENT = 1001;
 
@@ -234,21 +235,21 @@ INSERT INTO professors (professor_id, name, email, password) VALUES
 ('C15141', 'Elena Gabriela Morales Fuentes', 'C15141@utp.edu.pe', 'Profcotra404');
 
 -- DATOS TABLA DE CURSOS
-INSERT INTO courses (course_name, professor_id) VALUES
-('Herramientas para la Comunicación Efectiva', 'C15137'),
-('Programación Lógica y Funcional', 'C15138'),
-('Programación de Videojuegos con C++', 'C15139'),
-('Seguridad Informática', 'C15140'),
-('Programación de Sistemas de Información', 'C15141'),
-('Sistemas Distribuidos', 'C15141'),
-('Redes y Comunicación de Datos I', 'C15140'),
-('Redes y Comunicación de Datos II', 'C15139'),
-('Arquitectura de Computadoras', 'C15138'),
-('Química', 'C15137'),
-('Quimica Inorganica', 'C15137'),
-('Problemas y Desafios del Perú Actual', 'C15138'),
-('Logica y Probabilidad', 'C15139'),
-('Matematica para los Negocios', 'C15140');
+INSERT INTO courses (course_name, professor_id, modality) VALUES
+('Herramientas para la Comunicación Efectiva', 'C15137', 'Presencial'),
+('Programación Lógica y Funcional', 'C15138', 'Virtual 24/7'),
+('Programación de Videojuegos con C++', 'C15139', 'Virtual 24/7'),
+('Seguridad Informática', 'C15140', 'Virtual 24/7'),
+('Programación de Sistemas de Información', 'C15141', 'Presencial'),
+('Sistemas Distribuidos', 'C15141', 'Presencial'),
+('Redes y Comunicación de Datos I', 'C15140', 'Presencial'),
+('Redes y Comunicación de Datos II', 'C15139', 'Virtual 24/7'),
+('Arquitectura de Computadoras', 'C15138', 'Presencial'),
+('Química', 'C15137', 'Presencial'),
+('Quimica Inorganica', 'C15137', 'Virtual 24/7'),
+('Problemas y Desafios del Perú Actual', 'C15138', 'Presencial'),
+('Logica y Probabilidad', 'C15139', 'Presencial'),
+('Matematica para los Negocios', 'C15140', 'Virtual 24/7');
 
 -- DATOS TABLA ESTUDIANTES-CURSOS
 INSERT INTO student_courses (student_id, course_id) VALUES 
@@ -314,7 +315,71 @@ INSERT INTO student_courses (student_id, course_id) VALUES
 ('U21201412', 1002),
 ('U21201413', 1002),
 ('U21201414', 1002),
-('U21201415', 1002);
+('U21201415', 1002),
+
+('U21201422', 1003),
+('U21201423', 1003),
+('U21201424', 1003),
+('U21208430', 1003),
+('U21220883', 1003),
+('U21210984', 1003),
+('U21201391', 1003),
+('U21201392', 1003),
+('U21201393', 1003),
+('U21201394', 1003),
+('U21201395', 1003),
+('U21201396', 1003),
+('U21201397', 1003),
+('U21201398', 1003),
+('U21201399', 1003),
+('U21201400', 1003),
+('U21201401', 1003),
+('U21201402', 1003),
+('U21201403', 1003),
+('U21201404', 1003),
+('U21201405', 1003),
+('U21201406', 1003),
+('U21201407', 1003),
+('U21201408', 1003),
+('U21201409', 1003),
+('U21201410', 1003),
+('U21201411', 1003),
+('U21201412', 1003),
+('U21201413', 1003),
+('U21201414', 1003),
+('U21201415', 1003),
+
+('U21201391', 1004),
+('U21201392', 1004),
+('U21201393', 1004),
+('U21201394', 1004),
+('U21201395', 1004),
+('U21201396', 1004),
+('U21201397', 1004),
+('U21201398', 1004),
+('U21201399', 1004),
+('U21201400', 1004),
+('U21201401', 1004),
+('U21201402', 1004),
+('U21201403', 1004),
+('U21201404', 1004),
+('U21201405', 1004),
+('U21201406', 1004),
+('U21201407', 1004),
+('U21201408', 1004),
+('U21201409', 1004),
+('U21201410', 1004),
+('U21201411', 1004),
+('U21201412', 1004),
+('U21201413', 1004),
+('U21201414', 1004),
+('U21201415', 1004),
+('U21201416', 1004),
+('U21201417', 1004),
+('U21201418', 1004),
+('U21201419', 1004),
+('U21201420', 1004),
+('U21201421', 1004);
 
 -- DATOS TABLA HABILIDADES
 INSERT INTO skills (student_id, skill_name, skill_topic) VALUES 

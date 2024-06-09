@@ -17,7 +17,7 @@ class utp_group_dao
     }
 
     // OBTENER DATOS DE USUARIO POR CORREO
-    function obtenerEstudiantePor($student_id_v)
+    function ObtenerEstudiantePorId($student_id_v)
     {
         $cn = new connection();
         $sql = "CALL ObtenerEstudiantePorId('$student_id_v')";

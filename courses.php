@@ -9,7 +9,7 @@ if (isset($_SESSION['student_id'])) {
 
     $obj = new utp_group_dao();
 
-    $student = $obj->obtenerEstudiantePor($student_id);
+    $student = $obj->ObtenerEstudiantePorId($student_id);
 
     if ($student) {
         $_SESSION['student_data'] = $student;
@@ -80,7 +80,7 @@ if (isset($_SESSION['student_id'])) {
                             <i class="fa-solid fa-chevron-down"></i>
                         </button>
                         <div id="dropdownMenu" class="absolute right-0 mt-5 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Perfil</a>
+                            <a href="perfil_text.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Perfil</a>
                             <a href="controller/logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar Sesión</a>
                         </div>
                     </div>
