@@ -4,16 +4,6 @@ include_once 'util/connection.php';
 
 session_start();
 
-// Verificar si las variables de sesión existen
-$course_name = isset($_SESSION['course_name']) ? htmlspecialchars($_SESSION['course_name']) : 'Nombre del curso no especificado';
-$course_section = isset($_SESSION['course_section']) ? htmlspecialchars($_SESSION['course_section']) : 'Sección no especificada';
-$course_modality = isset($_SESSION['course_modality']) ? htmlspecialchars($_SESSION['course_modality']) : 'Modalidad no especificada';
-
-// Limpiar las variables de sesión después de usarlas, si es necesario
-unset($_SESSION['course_name']);
-unset($_SESSION['course_section']);
-unset($_SESSION['course_modality']);
-
 if (isset($_SESSION['student_id'])) {
     $student_id = $_SESSION['student_id'];
 
@@ -32,9 +22,9 @@ if (isset($_SESSION['student_id'])) {
     exit();
 }
 
-$course_name = isset($_POST['course_name']) ? htmlspecialchars($_POST['course_name']) : 'Nombre del curso no especificado';
-$course_section = isset($_POST['course_section']) ? htmlspecialchars($_POST['course_section']) : 'Sección no especificada';
-$course_modality = isset($_POST['course_modality']) ? htmlspecialchars($_POST['course_modality']) : 'Modalidad no especificada';
+$course_name = isset($_GET['course_name']) ? htmlspecialchars($_GET['course_name']) : 'Nombre del curso no especificado';
+$course_section = isset($_GET['course_section']) ? htmlspecialchars($_GET['course_section']) : 'Sección no especificada';
+$course_modality = isset($_GET['course_modality']) ? htmlspecialchars($_GET['course_modality']) : 'Modalidad no especificada';
 ?>
 <!DOCTYPE html>
 <html lang="es">
