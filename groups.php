@@ -177,7 +177,7 @@ if (isset($_SESSION['student_id'])) {
                                     <div class="row-span-3 grid grid-cols-5">
                                         <div class="col-span-4 flex flex-col bg-white py-1.5 px-5">
                                             <h5 class="font-extrabold tracking-tight">Integrantes</h5>
-                                            <ol class="list-decimal-custom space-y-7 mt-1 space-y-7">
+                                            <ol class="list-decimal-custom space-y-7 mt-1 space-y-">
                                                 <?php
                                                 $students_group = $obj->ObtenerAlumnosPorGrupoId($grupo['group_id']);
                                                 foreach ($students_group as $student) : ?>
@@ -223,7 +223,7 @@ if (isset($_SESSION['student_id'])) {
                         </div>
 
                         <!-- Modal -->
-                        <div id="myModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                        <div id="myModal" class="fixed inset-0 hidden flex items-center justify-center bg-black bg-opacity-50">
                             <div class="bg-white p-6 rounded shadow-lg">
                                 <h2 class="text-xl font-bold mb-4" id="modal-title">Confirmación de entrada al grupo</h2>
                                 <p class="mb-4" id="modal-content">¿Deseas entrar al grupo?</p>
