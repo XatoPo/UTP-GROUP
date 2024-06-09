@@ -24,3 +24,9 @@ function openModal(number) {
     modalTitle.innerHTML = 'Confirmación de entrada al grupo ' + number;
     modalContent.innerHTML = '¿Deseas entrar al grupo ' + number + '?';
 }
+
+function openProfile(id) {
+    const modal = document.getElementById('myModal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}

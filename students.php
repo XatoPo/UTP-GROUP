@@ -12,6 +12,7 @@ session_start();
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css">
     <link rel="stylesheet" href="css/font.css">
 </head>
 
@@ -118,7 +119,7 @@ session_start();
                         </div>
                         <div class="col-span-2 flex flex-col justify-between py-5">
                             <div class="flex flex-col">
-                                <a href="#" class="text-xl font-bold text-pretty hover:underline">Morelia Paola Gonzales Valdivia</a>
+                                <a href="#" class="text-xl font-bold text-pretty">Morelia Paola Gonzales Valdivia</a>
                                 <p class="text-xs text-[#4f6168]">Ingeniería de Software - 20 años - 6to ciclo</p>
                             </div>
                             <div class="flex gap-x-2 me-10">
@@ -133,7 +134,7 @@ session_start();
                         </div>
                         <div class="col-span-2 flex flex-col justify-between py-5">
                             <div class="flex flex-col">
-                                <a href="#" class="text-xl font-bold text-pretty hover:underline">Morelia Paola Gonzales Valdivia</a>
+                                <a href="#" class="text-xl font-bold text-pretty">Morelia Paola Gonzales Valdivia</a>
                                 <p class="text-xs text-[#4f6168]">Ingeniería de Software - 20 años - 6to ciclo</p>
                             </div>
                             <div class="flex gap-x-2 me-10">
@@ -148,7 +149,7 @@ session_start();
                         </div>
                         <div class="col-span-2 flex flex-col justify-between py-5">
                             <div class="flex flex-col">
-                                <a href="#" class="text-xl font-bold text-pretty hover:underline">Morelia Paola Gonzales Valdivia</a>
+                                <a href="#" class="text-xl font-bold text-pretty">Morelia Paola Gonzales Valdivia</a>
                                 <p class="text-xs text-[#4f6168]">Ingeniería de Software - 20 años - 6to ciclo</p>
                             </div>
                             <div class="flex gap-x-2 me-10">
@@ -163,7 +164,7 @@ session_start();
                         </div>
                         <div class="col-span-2 flex flex-col justify-between py-5">
                             <div class="flex flex-col">
-                                <a href="#" class="text-xl font-bold text-pretty hover:underline">Morelia Paola Gonzales Valdivia</a>
+                                <a href="#" class="text-xl font-bold text-pretty">Morelia Paola Gonzales Valdivia</a>
                                 <p class="text-xs text-[#4f6168]">Ingeniería de Software - 20 años - 6to ciclo</p>
                             </div>
                             <div class="flex gap-x-2 me-10">
@@ -178,7 +179,7 @@ session_start();
                         </div>
                         <div class="col-span-2 flex flex-col justify-between py-5">
                             <div class="flex flex-col">
-                                <a href="#" class="text-xl font-bold text-pretty hover:underline">Morelia Paola Gonzales Valdivia</a>
+                                <a href="#" class="text-xl font-bold text-pretty">Morelia Paola Gonzales Valdivia</a>
                                 <p class="text-xs text-[#4f6168]">Ingeniería de Software - 20 años - 6to ciclo</p>
                             </div>
                             <div class="flex gap-x-2 me-10">
@@ -193,11 +194,11 @@ session_start();
                         </div>
                         <div class="col-span-2 flex flex-col justify-between py-5">
                             <div class="flex flex-col">
-                                <a href="#" class="text-xl font-bold text-pretty hover:underline">Morelia Paola Gonzales Valdivia</a>
+                                <a href="#" class="text-xl font-bold text-pretty">Morelia Paola Gonzales Valdivia</a>
                                 <p class="text-xs text-[#4f6168]">Ingeniería de Software - 20 años - 6to ciclo</p>
                             </div>
                             <div class="flex gap-x-2 me-10">
-                                <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all">Ver perfil</button>
+                                <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all" onclick="javascript: openProfile('U21208430');">Ver perfil</button>
                                 <button class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all">Hacer grupo</button>
                             </div>
                         </div>
@@ -207,18 +208,112 @@ session_start();
         </div>
         <!-- Modal -->
         <div id="myModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
-            <div class="bg-white p-6 rounded shadow-lg">
-                <h2 class="text-xl font-bold mb-4" id="modal-title">Confirmación de entrada al grupo</h2>
-                <p class="mb-4" id="modal-content">¿Deseas entrar al grupo?</p>
-                <div>
-                    <button id="closeModalBtn" class="bg-red-500 text-white px-4 py-2 rounded">Confirmar</button>
-                    <button id="closeModalBtn" class="bg-gray-200 text-black px-4 py-2 rounded">Cancelar</button>
+            <div class="bg-white rounded-2xl shadow-lg w-[500px] py-5 px-12 box-border relative">
+                <div class="flex justify-between items-center">
+                    <div class="my-0 mx-auto">
+                        <img src="images/perfil/panda_full.jpg" class="w-20 h-20 rounded-[50%] border-[3px] border-[#ff4081] object-cover" alt="Foto de perfil">
+                    </div>
+                    <div id="closeModalBtn" class="text-3xl cursor-pointer text-[#f94c61]">&times;</div>
+                </div>
+                <div class="text-center mt-5 my-[5px] mx-0 text-black">
+                    <h2 class="text-xl font-semibold">Francesco Riva Reyes - U21208430</h2>
+                    <h3 class="text-sm font-normal">Ingeniería de Software</h3>
+                </div>
+                <div class="mt-5 flex justify-center gap-x-4">
+                    <div class="flex flex-col items-center relative">
+                        <div class="flex justify-center bg-pink-300 w-12 rounded-md">
+                            <p>👑</p>
+                        </div>
+                        <p class="text-xs">Líder</p>
+                        <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                            <p class="text-white text-xs">45</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center relative">
+                        <div class="flex justify-center bg-pink-300 w-12 rounded-md">
+                            <p>😁</p>
+                        </div>
+                        <p class="text-xs">Motivadorx</p>
+                        <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                            <p class="text-white text-xs">45</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center relative">
+                        <div class="flex justify-center bg-pink-300 w-12 rounded-md">
+                            <p>🎨</p>
+                        </div>
+                        <p class="text-xs">Creativo</p>
+                        <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                            <p class="text-white text-xs">45</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center relative">
+                        <div class="flex justify-center bg-pink-300 w-12 rounded-md">
+                            <p>🧘‍♂️</p>
+                        </div>
+                        <p class="text-xs">Mediador</p>
+                        <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                            <p class="text-white text-xs">45</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center relative">
+                        <div class="flex justify-center bg-pink-300 w-12 rounded-md">
+                            <p>🕵️‍♂️</p>
+                        </div>
+                        <p class="text-xs">Investigador</p>
+                        <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                            <p class="text-white text-xs">45</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <h4 class="mb-2 font-bold">Descripción</h4>
+                    <p class="text-sm text-pretty">Soy una persona alegre y positiva. Sé que al grupo le daré muy buena vibra. Asimismo, tengo ideas muy buenas para dar las mejores vibras.</p>
+                </div>
+                <div class="mt-5 grid grid-cols-2 gap-x-5">
+                    <div class="col-span-1 flex flex-col">
+                        <h4 class="mb-2 font-bold">Skills blandas</h4>
+                        <div class="mb-2 flex items-center gap-x-1">
+                            <p class="font-extrabold text-gray-600">1</p>
+                            <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">Comunicación</p>
+                        </div>
+                        <div class="mb-2 flex items-center gap-x-1">
+                            <p class="font-extrabold text-gray-600">2</p>
+                            <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">Trabajo en equipo</p>
+                        </div>
+                        <div class="flex items-center gap-x-1">
+                            <p class="font-extrabold text-gray-600">3</p>
+                            <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">Creatividad</p>
+                        </div>
+                    </div>
+                    <div class="col-span-1 flex flex-col">
+                        <h4 class="mb-2 font-bold">Skills duras</h4>
+                        <div class="mb-2 flex items-center gap-x-1">
+                            <p class="font-extrabold text-gray-600">1</p>
+                            <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">Diseño de PPTs</p>
+                        </div>
+                        <div class="mb-2 flex items-center gap-x-1">
+                            <p class="font-extrabold text-gray-600">2</p>
+                            <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">UX/UI en Figma</p>
+                        </div>
+                        <div class="flex items-center gap-x-1">
+                            <p class="font-extrabold text-gray-600">3</p>
+                            <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">HTML, CSS, PHP, Python</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <h4 class="mb-2 font-bold">Pasatiempos</h4>
+                    <input class="text-sm border-0" readonly value="Música, TKD, More Academy">
                 </div>
             </div>
         </div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
     <script src="js/dropdown.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/student_profile.js"></script>
 </body>
 
 </html>
