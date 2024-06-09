@@ -79,75 +79,114 @@ session_start();
                         </div>
                     </div>
                     <div class="flex font-extrabold text-sm text-[#4f6168] px-4">
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Sílabo</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Contenido</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Evaluaciones</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Tareas</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Foros</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Notas</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Anuncios</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Zoom</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Group</p>
                         </div>
-                        <div class="py-2 px-3 border-b-[3.5px] border-[#0661fc]">
+                        <div class="py-2 px-3 cursor-pointer border-b-[3.5px] border-[#0661fc]">
                             <p>Class</p>
                         </div>
                     </div>
                 </header>
                 <section class="grid grid-cols-3 gap-2 pt-2">
-                    <!-- Diseño tarjeta 1 -->
-                    <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg relative h-[130px]">
-                        <div class="col-span-1 flex justify-center items-center">
-                            <img src="images/perfil/panda_full.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
-                        </div>
-                        <div class="col-span-2 flex justify-between items-center">
-                            <div class="flex flex-col justify-center h-full py-2 pe-8">
-                                <a href="#" class="text-xl font-bold text-pretty hover:underline">Morelia Paola Gonzales Valdivia</a>
-                                <p class="text-xs text-[#4f6168]">Ingeniería de Software - 20 años - 6to ciclo</p>
-                            </div>
-                        </div>
-                        <div class="absolute top-0 right-0">
-                            <div class="flex flex-col">
-                                <button class="bg-[#f94c61] border border-[#f94c61] text-white w-8 h-8 rounded-sm flex justify-center items-center hover:bg-white hover:text-[#f94c61] transition-all">
-                                    <i class="fa-regular fa-eye"></i>
-                                </button>
-                                <button class="border border-black text-black w-8 h-8 rounded-sm flex justify-center items-center hover:bg-gray-200 transition-all">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Diseño tarjeta 2 -->
                     <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
                         <div class="col-span-1 flex justify-center items-center">
-                            <img src="images/perfil/panda_full.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
+                            <img src="images/perfil/U21201391-photo.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
                         </div>
                         <div class="col-span-2 flex flex-col justify-between py-5">
                             <div class="flex flex-col">
                                 <a href="#" class="text-xl font-bold text-pretty hover:underline">Morelia Paola Gonzales Valdivia</a>
                                 <p class="text-xs text-[#4f6168]">Ingeniería de Software - 20 años - 6to ciclo</p>
                             </div>
-                            <button class="bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm me-20 hover:bg-white hover:text-[#f94c61] transition-all">Hacer grupo</button>
+                            <div class="flex gap-x-2 me-10">
+                                <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all">Ver perfil</button>
+                                <button class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all">Hacer grupo</button>
+                            </div>
                         </div>
                     </div>
-                    <!-- Diseño tarjeta 3 -->
+                    <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
+                        <div class="col-span-1 flex justify-center items-center">
+                            <img src="images/perfil/U21201391-photo.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
+                        </div>
+                        <div class="col-span-2 flex flex-col justify-between py-5">
+                            <div class="flex flex-col">
+                                <a href="#" class="text-xl font-bold text-pretty hover:underline">Morelia Paola Gonzales Valdivia</a>
+                                <p class="text-xs text-[#4f6168]">Ingeniería de Software - 20 años - 6to ciclo</p>
+                            </div>
+                            <div class="flex gap-x-2 me-10">
+                                <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all">Ver perfil</button>
+                                <button class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all">Hacer grupo</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
+                        <div class="col-span-1 flex justify-center items-center">
+                            <img src="images/perfil/U21201391-photo.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
+                        </div>
+                        <div class="col-span-2 flex flex-col justify-between py-5">
+                            <div class="flex flex-col">
+                                <a href="#" class="text-xl font-bold text-pretty hover:underline">Morelia Paola Gonzales Valdivia</a>
+                                <p class="text-xs text-[#4f6168]">Ingeniería de Software - 20 años - 6to ciclo</p>
+                            </div>
+                            <div class="flex gap-x-2 me-10">
+                                <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all">Ver perfil</button>
+                                <button class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all">Hacer grupo</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
+                        <div class="col-span-1 flex justify-center items-center">
+                            <img src="images/perfil/U21201391-photo.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
+                        </div>
+                        <div class="col-span-2 flex flex-col justify-between py-5">
+                            <div class="flex flex-col">
+                                <a href="#" class="text-xl font-bold text-pretty hover:underline">Morelia Paola Gonzales Valdivia</a>
+                                <p class="text-xs text-[#4f6168]">Ingeniería de Software - 20 años - 6to ciclo</p>
+                            </div>
+                            <div class="flex gap-x-2 me-10">
+                                <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all">Ver perfil</button>
+                                <button class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all">Hacer grupo</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
+                        <div class="col-span-1 flex justify-center items-center">
+                            <img src="images/perfil/U21201391-photo.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
+                        </div>
+                        <div class="col-span-2 flex flex-col justify-between py-5">
+                            <div class="flex flex-col">
+                                <a href="#" class="text-xl font-bold text-pretty hover:underline">Morelia Paola Gonzales Valdivia</a>
+                                <p class="text-xs text-[#4f6168]">Ingeniería de Software - 20 años - 6to ciclo</p>
+                            </div>
+                            <div class="flex gap-x-2 me-10">
+                                <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all">Ver perfil</button>
+                                <button class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all">Hacer grupo</button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
                         <div class="col-span-1 flex justify-center items-center">
                             <img src="images/perfil/U21201391-photo.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
@@ -166,8 +205,20 @@ session_start();
                 </section>
             </div>
         </div>
+        <!-- Modal -->
+        <div id="myModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white p-6 rounded shadow-lg">
+                <h2 class="text-xl font-bold mb-4" id="modal-title">Confirmación de entrada al grupo</h2>
+                <p class="mb-4" id="modal-content">¿Deseas entrar al grupo?</p>
+                <div>
+                    <button id="closeModalBtn" class="bg-red-500 text-white px-4 py-2 rounded">Confirmar</button>
+                    <button id="closeModalBtn" class="bg-gray-200 text-black px-4 py-2 rounded">Cancelar</button>
+                </div>
+            </div>
+        </div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="js/dropdown.js"></script>
 </body>
 
 </html>

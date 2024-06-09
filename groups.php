@@ -62,7 +62,6 @@ session_start();
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar Sesión</a>
                         </div>
                     </div>
-
                 </div>
             </header>
             <div class="divide-y-2 divide-[#4f6168] px-5 py-2.5">
@@ -80,34 +79,34 @@ session_start();
                         </div>
                     </div>
                     <div class="flex font-extrabold text-sm text-[#4f6168] px-4">
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Sílabo</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Contenido</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Evaluaciones</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Tareas</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Foros</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Notas</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Anuncios</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Zoom</p>
                         </div>
-                        <div class="py-2 px-3">
+                        <div class="py-2 px-3 cursor-pointer border-b-[3.5px] border-[#0661fc]">
                             <p>Group</p>
                         </div>
-                        <div class="py-2 px-3 border-b-[3.5px] border-[#0661fc]">
+                        <div class="py-2 px-3 cursor-pointer">
                             <p>Class</p>
                         </div>
                     </div>
