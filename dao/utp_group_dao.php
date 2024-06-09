@@ -92,19 +92,33 @@ class utp_group_dao
     // ACTUALIZAR O INSERTAR HOBBIES
     function GuardarHobbies($hobbies, $student_id) {
         $cn = new connection();
-        foreach ($hobbies as $hobby) {
-            if (isset($hobby['hobby_id'])) {
-                $sql = "UPDATE hobbies SET hobby_name = ? WHERE hobby_id = ?";
-                $stmt = $cn->conecta()->prepare($sql);
-                $stmt->bind_param("ss", $hobby['hobby_name'], $hobby['hobby_id']);
-            } else {
-                $sql = "INSERT INTO hobbies (student_id, hobby_name) VALUES (?, ?)";
-                $stmt = $cn->conecta()->prepare($sql);
-                $stmt->bind_param("ss", $student_id, $hobby['hobby_name']);
-            }
+
+        // Eliminar todos los hobbies actuales del estudiante
+        $sql = "DELETE FROM hobbies WHERE student_id = ?";
+        $stmt = $cn->conecta()->prepare($sql);
+        $stmt->bind_param("s", $student_id);
+        $stmt->execute();
+        $stmt->close();
+
+        // Insertar los nuevos hobbies
+        foreach ($hobbies as $hobby_name) {
+            $sql = "INSERT INTO hobbies (student_id, hobby_name) VALUES (?, ?)";
+            $stmt = $cn->conecta()->prepare($sql);
+            $stmt->bind_param("ss", $student_id, $hobby_name);
             $stmt->execute();
             $stmt->close();
         }
+        mysqli_close($cn->conecta());
+    }
+
+    // ACTUALIZAR DESCRIPCION DEL ESTUDIANTE
+    function ActualizarDescripcionEstudiante($student_id, $description) {
+        $cn = new connection();
+        $sql = "UPDATE students SET description = ? WHERE student_id = ?";
+        $stmt = $cn->conecta()->prepare($sql);
+        $stmt->bind_param("ss", $description, $student_id);
+        $stmt->execute();
+        $stmt->close();
         mysqli_close($cn->conecta());
     }
 }
