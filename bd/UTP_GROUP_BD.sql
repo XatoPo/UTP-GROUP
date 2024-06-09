@@ -928,7 +928,7 @@ CREATE PROCEDURE ObtenerEstudiantesPorCursoId (
     IN course_id_s INT(11)
 )
 BEGIN
-    SELECT s.student_id, s.name, s.career, s.birth_date , s.academic_cycle, s.profile_picture 
+    SELECT * 
     FROM students s
     INNER JOIN student_courses sc ON s.student_id = sc.student_id 
     WHERE sc.course_id = course_id_s;

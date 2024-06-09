@@ -169,9 +169,7 @@ if (isset($_SESSION['student_id'])) {
         <!-- Modal -->
         <?php
         foreach ($estudiantes as $estudiante) {
-        ?>
 
-        <?php
             $id = $estudiante['student_id'];
             $student = $obj->ObtenerEstudiantePorId($id);
             $skills = $obj->ObtenerSkillsPorEstudiante($id);
