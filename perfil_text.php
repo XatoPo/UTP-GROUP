@@ -6,7 +6,6 @@ session_start();
 
 if (isset($_SESSION['student_id'])) {
     $student_id = $_SESSION['student_id'];
-
     $obj = new utp_group_dao();
 
     $skills = $obj->ObtenerSkillsPorEstudiante($student_id);
@@ -15,9 +14,77 @@ if (isset($_SESSION['student_id'])) {
     header("Location: login.php");
     exit();
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
+    $skills_blandas = $_POST['skills_blandas'];
+    $skills_tecnicas = $_POST['skills_tecnicas'];
+    $hobbies = $_POST['hobbies'];
+
+    // Procesar y actualizar skills
+    $skills_data = [];
+    foreach ($skills as $skill) {
+        if ($skill['skill_topic'] == 'Skills Blandas') {
+            $skills_data[] = [
+                'skill_id' => $skill['skill_id'],
+                'skill_name' => $skills_blandas[$skill['skill_id']],
+                'skill_topic' => 'Skills Blandas'
+            ];
+        } else {
+            $skills_data[] = [
+                'skill_id' => $skill['skill_id'],
+                'skill_name' => $skills_tecnicas[$skill['skill_id']],
+                'skill_topic' => 'Skills Técnicas'
+            ];
+        }
+    }
+
+    // Insertar nuevas habilidades si no existen
+    foreach ($skills_blandas as $skill_name) {
+        if (!in_array($skill_name, array_column($skills_data, 'skill_name'))) {
+            $skills_data[] = [
+                'skill_name' => $skill_name,
+                'skill_topic' => 'Skills Blandas'
+            ];
+        }
+    }
+    foreach ($skills_tecnicas as $skill_name) {
+        if (!in_array($skill_name, array_column($skills_data, 'skill_name'))) {
+            $skills_data[] = [
+                'skill_name' => $skill_name,
+                'skill_topic' => 'Skills Técnicas'
+            ];
+        }
+    }
+
+    $obj->GuardarSkills($skills_data, $student_id);
+
+    // Procesar y actualizar hobbies
+    $hobbies_data = [];
+    foreach ($hobbies as $hobby) {
+        $hobbies_data[] = [
+            'hobby_id' => $hobby['hobby_id'],
+            'hobby_name' => $hobbies[$hobby['hobby_id']]
+        ];
+    }
+
+    // Insertar nuevos hobbies si no existen
+    foreach ($hobbies as $hobby_name) {
+        if (!in_array($hobby_name, array_column($hobbies_data, 'hobby_name'))) {
+            $hobbies_data[] = [
+                'hobby_name' => $hobby_name
+            ];
+        }
+    }
+
+    $obj->GuardarHobbies($hobbies_data, $student_id);
+
+    header("Location: perfil.php");
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -32,66 +99,89 @@ if (isset($_SESSION['student_id'])) {
 
 <body>
     <main>
-
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-        <div class="bg-white rounded-2xl shadow-lg w-[500px] py-5 px-12 box-border relative">
-            <div class="flex justify-between items-center">
-                <div class="my-0 mx-auto">
-                    <!-- IMAGEN DE PERFIL -->
-                    <img src="images/perfil/<?php echo htmlspecialchars($_SESSION['student_data']['profile_picture']); ?>" class="w-20 h-20 rounded-[50%] border-[3px] border-[#ff4081] object-cover" alt="Foto de perfil">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+            <div class="bg-white rounded-2xl shadow-lg w-[500px] py-5 px-12 box-border relative">
+                <div class="flex justify-between items-center">
+                    <div class="my-0 mx-auto">
+                        <!-- IMAGEN DE PERFIL -->
+                        <img src="images/perfil/<?php echo htmlspecialchars($_SESSION['student_data']['profile_picture']); ?>" class="w-20 h-20 rounded-[50%] border-[3px] border-[#ff4081] object-cover" alt="Foto de perfil">
+                    </div>
                 </div>
-            </div>
 
-            <div class="text-center mt-5 my-[5px] mx-0 text-black">
-                <!-- LLAMAR A TITULO DE PERFIL -->
-                <h2 class="text-xl font-semibold"><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></h2>
-                <h3 class="text-sm font-normal"><?php echo htmlspecialchars($_SESSION['student_data']['career']); ?></h3>
-            </div>
+                <div class="text-center mt-5 my-[5px] mx-0 text-black">
+                    <!-- LLAMAR A TITULO DE PERFIL -->
+                    <h2 class="text-xl font-semibold"><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></h2>
+                    <h3 class="text-sm font-normal"><?php echo htmlspecialchars($_SESSION['student_data']['career']); ?></h3>
+                </div>
 
-            <div class="mt-5">
-                <h4 class="mb-2 font-bold">Descripción</h4>
-                <textarea name="description" class="w-full h-[100px] p-[10px] box-border border border-[#ccc] rounded-md resize-none text-sm tracking-tight" placeholder="Soy una persona..."><?php echo htmlspecialchars($_SESSION['student_data']['description']); ?></textarea>
-            </div>
-            <div class="mt-5">
-                <div>
-                    <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="javascript: toggle(this);">Skills Blandas</h4>
-                    <div class="max-h-0 overflow-hidden transition-all close">
-                        <div class="flex flex-wrap gap-[10px] mt-[10px]">
-                            <input name="skills_blandas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="1">
-                            <input name="skills_blandas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="4">
-                            <input name="skills_blandas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="2">
-                            <input name="skills_blandas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="5">
-                            <input name="skills_blandas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="3">
-                            <input name="skills_blandas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="6">
+                <div class="mt-5">
+                    <h4 class="mb-2 font-bold">Descripción</h4>
+                    <textarea name="description" class="w-full h-[100px] p-[10px] box-border border border-[#ccc] rounded-md resize-none text-sm tracking-tight" placeholder="Soy una persona..."><?php echo htmlspecialchars($_SESSION['student_data']['description']); ?></textarea>
+                </div>
+
+                <div class="mt-5">
+                    <div>
+                        <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="toggleSection('skillsBlandas', 'skillsTecnicas');">Skills Blandas</h4>
+                        <div id="skillsBlandas" class="max-h-0 overflow-hidden transition-all close">
+                            <div class="flex flex-wrap gap-[10px] mt-[10px]">
+                                <?php foreach ($skills as $index => $skill): ?>
+                                    <?php if ($skill['skill_topic'] == 'Skills Blandas'): ?>
+                                        <input name="skills_blandas[<?php echo $skill['skill_id']; ?>]" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="<?php echo htmlspecialchars($skill['skill_name']); ?>" placeholder="Skill <?php echo $index + 1; ?>">
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="toggleSection('skillsTecnicas', 'skillsBlandas');">Skills Técnicas</h4>
+                        <div id="skillsTecnicas" class="max-h-0 overflow-hidden transition-all close">
+                            <div class="flex flex-wrap gap-[10px] mt-[10px]">
+                                <?php foreach ($skills as $index => $skill): ?>
+                                    <?php if ($skill['skill_topic'] == 'Skills Técnicas'): ?>
+                                        <input name="skills_tecnicas[<?php echo $skill['skill_id']; ?>]" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="<?php echo htmlspecialchars($skill['skill_name']); ?>" placeholder="Skill <?php echo $index + 1; ?>">
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="mt-5">
-                    <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold"  onclick="javascript: toggle(this);">Skills Técnicas</h4>
-                    <div class="max-h-0 overflow-hidden transition-all close">
-                        <div class="flex flex-wrap gap-[10px] mt-[10px]">
-                            <input name="skills_tecnicas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="1">
-                            <input name="skills_tecnicas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="4">
-                            <input name="skills_tecnicas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="2">
-                            <input name="skills_tecnicas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="5">
-                            <input name="skills_tecnicas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="3">
-                            <input name="skills_tecnicas" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" placeholder="6">
-                        </div>
+                    <h4 class="mb-2 font-bold">Pasatiempos</h4>
+                    <div class="flex flex-wrap gap-[10px]">
+                        <input name="hobbies" id="hobbies" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="<?php echo implode(',', array_column($hobbies, 'hobby_name')); ?>">
                     </div>
                 </div>
+                <div class="mt-5">
+                    <input type="submit" value="ACTUALIZAR" name="Actualizar" class="w-full p-[10px] bg-[#f94c61] text-white border border-[#f94c61] rounded-[5px] text-base cursor-pointer transition-all hover:text-[#f94c61] hover:bg-white">
+                </div>
             </div>
-            <div class="mt-5">
-                <h4 class="mb-2 font-bold">Pasatiempos</h4>
-                <input class="text-sm border border-[#ccc] rounded-[5px]" name="tags-pasatiempos" placeholder="" value="">
-            </div>
-            <div class="mt-5">
-                <input type="submit" value="ACTUALIZAR" name="Actualizar" class="w-full p-[10px] bg-[#f94c61] text-white border border-[#f94c61] rounded-[5px] text-base cursor-pointer transition-all hover:text-[#f94c61] hover:bg-white">
-            </div>
-        </div>
-    </form>
+        </form>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
-    <script src="js/perfil.js"></script>
-</body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new Tagify(document.querySelector('#hobbies'));
 
+            const toggleSection = (showId, hideId) => {
+                document.getElementById(showId).classList.toggle('close');
+                document.getElementById(showId).classList.toggle('open');
+                document.getElementById(hideId).classList.add('close');
+                document.getElementById(hideId).classList.remove('open');
+            };
+
+            document.querySelectorAll('h4.cursor-pointer').forEach(header => {
+                header.addEventListener('click', () => {
+                    const sectionId = header.nextElementSibling.id;
+                    const otherSectionId = sectionId === 'skillsBlandas' ? 'skillsTecnicas' : 'skillsBlandas';
+                    toggleSection(sectionId, otherSectionId);
+                });
+            });
+        });
+    </script>
+    <style>
+        .close { max-height: 0; }
+        .open { max-height: 1000px; } /* Arbitrary large value to allow full expansion */
+        .transition-all { transition: max-height 0.3s ease-in-out; }
+    </style>
+</body>
 </html>
