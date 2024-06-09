@@ -194,17 +194,22 @@ if (isset($_SESSION['student_id'])) {
                                 </div>
                             <?php endforeach; ?>
                             <!-------------------------------------------------------------------------------------------------------------------------------------------->
-            <!-- Modal -->
-            <div id="myModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
-                <div class="bg-white p-6 rounded shadow-lg">
-                    <h2 class="text-xl font-bold mb-4" id="modal-title">Confirmación de entrada al grupo</h2>
-                    <p class="mb-4" id="modal-content">¿Deseas entrar al grupo?</p>
-                    <div>
-                        <button id="closeModalBtn" class="bg-red-500 text-white px-4 py-2 rounded">Confirmar</button>
-                        <button id="closeModalBtn" class="bg-gray-200 text-black px-4 py-2 rounded">Cancelar</button>
+                        </div>
                     </div>
+                </section>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div id="myModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white p-6 rounded shadow-lg">
+                <h2 class="text-xl font-bold mb-4" id="modal-title">Confirmación de entrada al grupo</h2>
+                <p class="mb-4" id="modal-content">¿Deseas entrar al grupo?</p>
+                <div>
+                    <button id="closeModalBtn" class="bg-red-500 text-white px-4 py-2 rounded">Confirmar</button>
+                    <button id="closeModalBtn" class="bg-gray-200 text-black px-4 py-2 rounded">Cancelar</button>
                 </div>
             </div>
+        </div>
     </main>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
