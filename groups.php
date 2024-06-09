@@ -135,9 +135,20 @@ if (isset($_SESSION['student_id'])) {
                         </div>
                     </header>
                     <section class="flex-col">
-                        <div class="inline-flex py-2.5 px-8 bg-white border-2 border-[#f94c61] rounded-lg mt-5 ms-5">
-                            <p class="font-bold text-3xl">GRUPOS</p>
+                        <div class="flex items-center mt-5 ms-5">
+                            <div class="inline-flex py-2.5 px-8 bg-white border-2 border-[#f94c61] rounded-lg">
+                                <p class="font-bold text-3xl">GRUPOS</p>
+                            </div>
+                            <div class="flex ml-4 bg-[#000f37] p-1 rounded-lg">
+                                <?php foreach ($roles as $role) : ?>
+                                    <div class="flex flex-col items-center justify-center ml-4">
+                                        <img src="images/roles/<?php echo $role['role_name']; ?>.png" class="w-8 h-8" alt="<?php echo $role['role_name']; ?>">
+                                        <p class="text-xs text-white"><?php echo $role['role_name']; ?></p>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
+
                         <div class="grid grid-cols-3 gap-3 mt-5 mx-5">
                             <!-------------------------------------------------------------------------------------------------------------------------------------------->
                             <?php foreach ($grupos as $grupo) : ?>
@@ -153,7 +164,7 @@ if (isset($_SESSION['student_id'])) {
                                     <div class="row-span-3 grid grid-cols-5">
                                         <div class="col-span-4 flex flex-col bg-white py-1.5 px-5">
                                             <h5 class="font-extrabold tracking-tight">Integrantes</h5>
-                                            <ol class="list-decimal-custom space-y-2 mt-1">
+                                            <ol class="list-decimal-custom space-y-2 mt-1 space-y-5">
                                                 <?php
                                                 $students_group = $obj->ObtenerAlumnosPorGrupoId($grupo['group_id']);
                                                 foreach ($students_group as $student) : ?>
@@ -178,7 +189,6 @@ if (isset($_SESSION['student_id'])) {
                                                 <?php endforeach; ?>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             <?php endforeach; ?>
@@ -203,10 +213,11 @@ if (isset($_SESSION['student_id'])) {
                     const selectedOption = this.options[this.selectedIndex];
                     const imageUrl = selectedOption.getAttribute('data-image');
                     const roleImage = this.parentElement.querySelector('.role-image');
+                    const roleText = this.parentElement.querySelector('.role-text');
                     roleImage.src = imageUrl;
+                    roleText.style.display = 'none';
                 });
 
-                // Set initial image for each select
                 const initialOption = select.options[select.selectedIndex];
                 const initialImageUrl = initialOption.getAttribute('data-image');
                 const initialRoleImage = select.parentElement.querySelector('.role-image');
@@ -214,6 +225,7 @@ if (isset($_SESSION['student_id'])) {
             });
         });
     </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/dropdown.js"></script>
