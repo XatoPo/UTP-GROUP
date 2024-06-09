@@ -177,7 +177,7 @@ if (isset($_SESSION['student_id'])) {
                                     <div class="row-span-3 grid grid-cols-5">
                                         <div class="col-span-4 flex flex-col bg-white py-1.5 px-5">
                                             <h5 class="font-extrabold tracking-tight">Integrantes</h5>
-                                            <ol class="list-decimal-custom space-y-7 mt-1 space-y-7">
+                                            <ol class="list-decimal-custom space-y-7 mt-1 space-y-">
                                                 <?php
                                                 $students_group = $obj->ObtenerAlumnosPorGrupoId($grupo['group_id']);
                                                 foreach ($students_group as $student) : ?>
