@@ -340,7 +340,7 @@ if (isset($_SESSION['student_id'])) {
                 <h2 class="text-xl font-bold mb-4" id="modal-title">Confirmación de entrada al grupo</h2>
                 <p class="mb-4" id="modal-content">¿Deseas entrar al grupo?</p>
                 <div>
-                    <button id="closeModalBtn" class="bg-red-500 text-white px-4 py-2 rounded">Confirmar</button>
+                    <button id="" class="bg-red-500 text-white px-4 py-2 rounded">Confirmar</button>
                     <button id="closeModalBtn" class="bg-gray-200 text-black px-4 py-2 rounded">Cancelar</button>
                 </div>
             </div>
