@@ -9,13 +9,11 @@ if (isset($_SESSION['student_id'])) {
 
     $obj = new utp_group_dao();
 
-    $student = $obj->ObtenerEstudiantePorId($student_id);
+    $studentMe = $_SESSION['student_data'];
+    $grupos = $obj->ObtenerGruposPorCursoId($_SESSION['course_id']);
 
-    if ($student) {
-        $_SESSION['student_data'] = $student;
-    } else {
-        echo "No se pudieron obtener los datos del estudiante.";
-    }
+    $roles = $obj->ListarRoles();
+
 } else {
     header("Location: login.php");
     exit();
@@ -34,6 +32,8 @@ if (isset($_SESSION['student_id'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/font.css">
     <link rel="stylesheet" href="css/group.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 <body class="bg-[#f6f9ff] h-screen">
@@ -140,6 +140,46 @@ if (isset($_SESSION['student_id'])) {
                         <p class="font-bold text-3xl">GRUPOS</p>
                     </div>
                     <div class="grid grid-cols-3 gap-3 mt-5 mx-5">
+                        <!-------------------------------------------------------------------------------------------------------------------------------------------->
+                        <?php foreach ($grupos as $grupo) : ?>
+                            <div class="col-span-1 grid grid-rows-4">
+                                <div class="row-span-1 grid grid-cols-5">
+                                    <div class="col-span-4 flex bg-[#000f37] justify-center">
+                                        <p class="font-bold text-2xl text-white p-2"><?php echo $grupo['group_name']; ?></p>
+                                    </div>
+                                    <button onclick="javascript: openModal(2);" class="col-span-1 bg-[#3ddcda] flex text-white justify-center items-center text-3xl hover:text-4xl transition-all">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="row-span-3 grid grid-cols-5">
+                                    <div class="col-span-4 flex flex-col bg-white py-1.5 px-5">
+                                        <h5 class="font-extrabold tracking-tight">Integrantes</h5>
+                                        <ol class="list-decimal-custom space-y-2 mt-1">
+                                            <?php
+                                            $students_group = $obj->ObtenerAlumnosPorGrupoId($grupo['group_id']);
+                                            foreach ($students_group as $student) : ?>
+                                                <li class="text-sm font-bold"><?php echo $student['name']; ?></li>
+                                            <?php endforeach; ?>
+                                        </ol>
+                                    </div>
+                                    <div class="col-span-1 flex flex-col items-center bg-gray-200 py-1.5">
+                                        <h5 class="font-extrabold tracking-tight">Rol</h5>
+                                        <div class="flex flex-col space-y-1">
+                                            <?php foreach ($students_group as $student) : ?>
+                                                <select class="py-0 px-0 bg-gray-400 border-0 rounded-md" name="" id="">
+                                                    <?php foreach ($roles as $role) : ?>
+                                                        <option value="<?php echo $role['role_id']; ?>">
+                                                            <img src="images/roles/<?php echo $role['role_name'];?>.png" class="w-6 h-6"> <?php echo $role['role_name']; ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                        <!-------------------------------------------------------------------------------------------------------------------------------------------->
                         <!-- Diseño de grupo 1 -->
                         <div class="col-span-1 grid grid-rows-4">
                             <div class="row-span-1 grid grid-cols-5">
@@ -193,6 +233,7 @@ if (isset($_SESSION['student_id'])) {
                                 </div>
                             </div>
                         </div>
+                        <!-------------------------------------------------------------------------------------------------------------------------------------------->
                         <!-- Diseño de grupo 2 -->
                         <div class="col-span-1 grid grid-rows-4">
                             <div class="row-span-1 grid grid-cols-5">

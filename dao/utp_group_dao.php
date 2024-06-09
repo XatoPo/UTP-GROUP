@@ -145,6 +145,80 @@ class utp_group_dao
         mysqli_close($cn->conecta());
         return $curso;
     }
+
+    // OBTENER GRUPOS POR CURSO
+    function ObtenerGruposPorCursoId($course_id) {
+        $cn = new connection();
+        $sql = "CALL ObtenerGruposPorCursoId('$course_id')";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        $grupos = array();
+        while ($fila = mysqli_fetch_assoc($res)) {
+            $grupos[] = $fila;
+        }
+        mysqli_close($cn->conecta());
+        return $grupos;
+    }
+
+    // OBTENER ALUMNOS POR GRUPO
+    function ObtenerAlumnosPorGrupoId($group_id) {
+        $cn = new connection();
+        $sql = "CALL ObtenerAlumnosPorGrupoId('$group_id')";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        $alumnos = array();
+        while ($fila = mysqli_fetch_assoc($res)) {
+            $alumnos[] = $fila;
+        }
+        mysqli_close($cn->conecta());
+        return $alumnos;
+    }
+
+    // PROCEDURE PARA AGREGAR ALUMNO EN GRUPO
+    function AgregarAlumnoEnGrupo($group_id, $student_id) {
+        $cn = new connection();
+        $sql = "CALL AgregarAlumnoEnGrupo('$group_id', '$student_id')";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        mysqli_close($cn->conecta());
+    }
+
+    // PROCEDURE PARA ELIMINAR ALUMNO DEL GRUPO
+    function EliminarAlumnoDelGrupo($group_id, $student_id) {
+        $cn = new connection();        
+        $sql = "CALL EliminarAlumnoDelGrupo('$group_id', '$student_id')";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        mysqli_close($cn->conecta());
+    }
+
+    // PROCEDURE PARA EDITAR ROL DEL ALUMNO DEL GRUPO
+    function EditarRolAlumnoDelGrupo($group_id, $student_id, $role_id) {
+        $cn = new connection();
+        $sql = "CALL EditarRolAlumnoDelGrupo('$group_id', '$student_id', '$role_id')";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        mysqli_close($cn->conecta());
+    }
+
+    // PROCEDURE PARA OBTENER ROL DEL ALUMNO DEL GRUPO
+    function ObtenerRolAlumnoDelGrupo($group_id, $student_id) {
+        $cn = new connection();
+        $sql = "CALL ObtenerRolAlumnoDelGrupo('$group_id', '$student_id')";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        $rol = mysqli_fetch_assoc($res);
+        mysqli_close($cn->conecta());
+        return $rol;
+    }
+    
+    // PROCEDURE PARA LISTRAR ROLES
+    function ListarRoles() {
+        $cn = new connection();
+        $sql = "CALL ListarRoles()";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        $roles = array();
+        while ($fila = mysqli_fetch_assoc($res)) {
+            $roles[] = $fila;
+        }
+        mysqli_close($cn->conecta());
+        return $roles;
+    }
+
 }
 
 ?>
