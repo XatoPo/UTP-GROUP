@@ -25,7 +25,7 @@ function openModal(number) {
 }
 
 function openProfile(id) {
-    fetch(base_url+"/controller/student.php?action=get_data&estudiante_id=" + id)
+    fetch("/controller/student.php?action=get_data&estudiante_id=" + id)
         .then(response => response.json())
         .then(data => {
             document.getElementById('descripcion_estudiante').innerText  = data.informacion.description;

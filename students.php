@@ -263,10 +263,7 @@ if (isset($_SESSION['student_id'])) {
             </div>
         </div>
     </main>
-    <script>
-        var getUrl = window.location;
-        var base_url = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
     <script src="js/dropdown.js"></script>
