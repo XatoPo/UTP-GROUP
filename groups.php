@@ -42,10 +42,12 @@ if (isset($_SESSION['student_id'])) {
             <div class="p-1 flex flex-col items-center justify-center w-[65px] h-[65px]">
                 <i class="fa-solid fa-bars text-2xl text-white"></i>
             </div>
+            <a href="courses.php">
             <div class="p-1 flex flex-col items-center justify-center w-[65px] h-[65px]">
                 <i class="fa-solid fa-book text-2xl text-white"></i>
                 <p class="text-white text-xs">Cursos</p>
             </div>
+            </a>
             <div class="p-1 flex flex-col items-center justify-center w-[65px] h-[65px]">
                 <i class="fa-regular fa-comment text-2xl text-white"></i>
                 <p class="text-white text-xs">Chat</p>
