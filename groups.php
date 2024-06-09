@@ -154,7 +154,7 @@ if (isset($_SESSION['student_id'])) {
                             <?php foreach ($grupos as $grupo) : ?>
                                 <div class="col-span-1 grid grid-rows-4">
                                     <div class="row-span-1 grid grid-cols-5">
-                                        <div class="col-span-4 flex bg-[#000f37] justify-center">
+                                        <div class="col-span-4 flex bg-[#000f37] justify-center items-center">
                                             <p class="font-bold text-2xl text-white p-2"><?php echo $grupo['group_name']; ?></p>
                                         </div>
                                         <button onclick="javascript: openModal(2);" class="col-span-1 bg-[#3ddcda] flex text-white justify-center items-center text-3xl hover:text-4xl transition-all">
@@ -195,7 +195,7 @@ if (isset($_SESSION['student_id'])) {
                             <?php endforeach; ?>
                             <!-------------------------------------------------------------------------------------------------------------------------------------------->
                         </div>
-                    </div>
+                </div>
                 </section>
             </div>
         </div>
