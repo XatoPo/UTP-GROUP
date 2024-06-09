@@ -73,6 +73,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
         }
     }
 
+    // Eliminar skills si el campo está vacío
+    foreach ($skills as $skill) {
+        if ($skill['skill_topic'] == 'Skills Blandas') {
+            if (empty(trim($skills_blandas[$skill['skill_id']]))) {
+                // Eliminar la skill
+                $obj->EliminarSkill($skill['skill_id']);
+            }
+        } elseif ($skill['skill_topic'] == 'Skills Técnicas') {
+            if (empty(trim($skills_tecnicas[$skill['skill_id']]))) {
+                // Eliminar la skill
+                $obj->EliminarSkill($skill['skill_id']);
+            }
+        }
+    }
+
     $obj->GuardarSkills($skills_data, $student_id);
 
     // Procesar y actualizar hobbies

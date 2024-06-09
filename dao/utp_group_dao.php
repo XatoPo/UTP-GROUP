@@ -103,6 +103,16 @@ class utp_group_dao
         mysqli_close($cn->conecta());
     }
 
+    function EliminarSkill($skill_id) {
+        $cn = new connection();
+        $sql = "DELETE FROM skills WHERE skill_id = ?";
+        $stmt = $cn->conecta()->prepare($sql);
+        $stmt->bind_param("s", $skill_id);
+        $stmt->execute();
+        $stmt->close();
+        mysqli_close($cn->conecta());
+    }
+
     // ACTUALIZAR O INSERTAR HOBBIES
     function GuardarHobbies($hobbies, $student_id) {
         $cn = new connection();
