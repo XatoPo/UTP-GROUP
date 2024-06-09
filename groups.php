@@ -177,11 +177,12 @@ if (isset($_SESSION['student_id'])) {
                                             <div class="flex flex-col space-y-1">
                                                 <?php foreach ($students_group as $student) : ?>
                                                     <div class="relative inline-block w-full text-gray-700">
-                                                        <select class="block appearance-none w-full bg-gray-400 border-0 rounded-md py-2 pl-3 pr-8 leading-tight focus:outline-none focus:bg-gray-300 focus:border-gray-500 role-select" name="" id="">
+                                                        <select class="block appearance-none w-10 bg-gray-400 border-0 rounded-md py-2 pl-3 pr-8 leading-tight focus:outline-none focus:bg-gray-300 focus:border-gray-500 role-select" name="" id="">
                                                             <?php foreach ($roles as $role) : ?>
                                                                 <option value="<?php echo $role['role_id']; ?>" data-image="images/roles/<?php echo $role['role_name']; ?>.png"><?php echo $role['role_name']; ?></option>
                                                             <?php endforeach; ?>
                                                         </select>
+
                                                         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2">
                                                             <img src="" class="role-image w-6 h-6">
                                                         </div>
@@ -193,17 +194,17 @@ if (isset($_SESSION['student_id'])) {
                                 </div>
                             <?php endforeach; ?>
                             <!-------------------------------------------------------------------------------------------------------------------------------------------->
-            <!-- Modal -->
-            <div id="myModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
-                <div class="bg-white p-6 rounded shadow-lg">
-                    <h2 class="text-xl font-bold mb-4" id="modal-title">Confirmación de entrada al grupo</h2>
-                    <p class="mb-4" id="modal-content">¿Deseas entrar al grupo?</p>
-                    <div>
-                        <button id="closeModalBtn" class="bg-red-500 text-white px-4 py-2 rounded">Confirmar</button>
-                        <button id="closeModalBtn" class="bg-gray-200 text-black px-4 py-2 rounded">Cancelar</button>
-                    </div>
-                </div>
-            </div>
+                            <!-- Modal -->
+                            <div id="myModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
+                                <div class="bg-white p-6 rounded shadow-lg">
+                                    <h2 class="text-xl font-bold mb-4" id="modal-title">Confirmación de entrada al grupo</h2>
+                                    <p class="mb-4" id="modal-content">¿Deseas entrar al grupo?</p>
+                                    <div>
+                                        <button id="closeModalBtn" class="bg-red-500 text-white px-4 py-2 rounded">Confirmar</button>
+                                        <button id="closeModalBtn" class="bg-gray-200 text-black px-4 py-2 rounded">Cancelar</button>
+                                    </div>
+                                </div>
+                            </div>
     </main>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
