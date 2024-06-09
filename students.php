@@ -14,7 +14,6 @@ if (isset($_SESSION['student_id'])) {
         $_SESSION['course_data'] = $obj->ObtenerCursoPorId($_SESSION['course_id']);
     }
     $estudiantes = $obj->ObtenerEstudiantesPorCurso($_SESSION['course_id']);
-
 } else {
     header("Location: login.php");
     exit();
@@ -62,88 +61,88 @@ if (isset($_SESSION['student_id'])) {
             </div>
         </aside>
         <div class="flex-1 ml-16">
-        <div class="flex-1">
-        <header class="bg-white flex items-center justify-between px-5 h-[65px] w-full">
-                <img src="images/logo/logo-pao-class.png" class="w-40" alt="">
-                <div class="flex items-center justify-center gap-x-3">
-                    <button class="flex items-center justify-center rounded-full p-2 w-[40px] h-[40px] hover:bg-blue-950 hover:text-white transition-all">
-                        <i class="fa-regular fa-bell text-xl"></i>
-                    </button>
-                    <div class="flex flex-col items-end">
-                        <p class="text-sm">Hola, <strong><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></strong></p>
-                        <p class="text-xs">Estudiante</p>
-                    </div>
-                    <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                    <div class="relative">
-                        <button id="dropdownButton" class="flex items-center justify-center">
-                            <i class="fa-solid fa-chevron-down"></i>
+            <div class="flex-1">
+                <header class="bg-white flex items-center justify-between px-5 h-[65px] w-full">
+                    <img src="images/logo/logo-pao-class.png" class="w-40" alt="">
+                    <div class="flex items-center justify-center gap-x-3">
+                        <button class="flex items-center justify-center rounded-full p-2 w-[40px] h-[40px] hover:bg-blue-950 hover:text-white transition-all">
+                            <i class="fa-regular fa-bell text-xl"></i>
                         </button>
-                        <div id="dropdownMenu" class="absolute right-0 mt-5 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden">
-                            <a href="perfil_text.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Perfil</a>
-                            <a href="controller/logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar Sesión</a>
+                        <div class="flex flex-col items-end">
+                            <p class="text-sm">Hola, <strong><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></strong></p>
+                            <p class="text-xs">Estudiante</p>
                         </div>
-                    </div>
-                </div>
-            </header>
-            <div class="divide-y-2 divide-[#4f6168] px-5 py-2.5">
-                <header>
-                    <div class="flex py-2.5 px-5 divide-x-2 divide-black gap-x-2">
-                        <a href="courses.php" class="flex items-center text-[#0661fc] gap-x-1">
-                            <i class="fa-solid fa-arrow-left"></i>
-                            <p class="text-xs font-extrabold">Volver a cursos</p>
-                        </a>
-                        <div class="flex gap-x-1 font-bold items-center ps-2">
-                            <p class="text-[#4A4F55] text-sm"><?php echo $_SESSION['course_data']['course_name']; ?> - Sección <?php echo $_SESSION['course_id']; ?></p>
-                            <div class="bg-[#B21F5F] text-[#FCDAE2] text-xs py-0.5 px-3 rounded-full">
-                                <?php echo $_SESSION['course_data']['modality']; ?>
+                        <div class="flex items-center justify-center">
+                            <img src="images/perfil/<?php echo htmlspecialchars($_SESSION['student_data']['profile_picture']); ?>" class=" w-[40px] h-[40px] rounded-full block" alt="Foto de perfil">
+                        </div>
+                        <div class="relative">
+                            <button id="dropdownButton" class="flex items-center justify-center">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </button>
+                            <div id="dropdownMenu" class="absolute right-0 mt-5 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden">
+                                <a href="perfil_text.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Perfil</a>
+                                <a href="controller/logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar Sesión</a>
                             </div>
                         </div>
                     </div>
-                    <div class="flex font-extrabold text-sm text-[#4f6168] px-4">
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Sílabo</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Contenido</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Evaluaciones</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Tareas</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Foros</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Notas</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Anuncios</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Zoom</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <a href="groups.php">Group</a>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer border-b-[3.5px] border-[#0661fc]">
-                            <a href="students.php">Class</a>
-                        </div>
-                    </div>
                 </header>
-                <section class="grid grid-cols-3 gap-2 pt-2">
-                    <?php
-                    foreach ($estudiantes as $estudiante) {
-                    ?>
+                <div class="divide-y-2 divide-[#4f6168] px-5 py-2.5">
+                    <header>
+                        <div class="flex py-2.5 px-5 divide-x-2 divide-black gap-x-2">
+                            <a href="courses.php" class="flex items-center text-[#0661fc] gap-x-1">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                <p class="text-xs font-extrabold">Volver a cursos</p>
+                            </a>
+                            <div class="flex gap-x-1 font-bold items-center ps-2">
+                                <p class="text-[#4A4F55] text-sm"><?php echo $_SESSION['course_data']['course_name']; ?> - Sección <?php echo $_SESSION['course_id']; ?></p>
+                                <div class="bg-[#B21F5F] text-[#FCDAE2] text-xs py-0.5 px-3 rounded-full">
+                                    <?php echo $_SESSION['course_data']['modality']; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex font-extrabold text-sm text-[#4f6168] px-4">
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Sílabo</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Contenido</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Evaluaciones</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Tareas</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Foros</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Notas</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Anuncios</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Zoom</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <a href="groups.php">Group</a>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer border-b-[3.5px] border-[#0661fc]">
+                                <a href="students.php">Class</a>
+                            </div>
+                        </div>
+                    </header>
+                    <section class="grid grid-cols-3 gap-2 pt-2">
                         <?php
-                        $fechaNacimiento = $estudiante['birth_date']; // dd/mm/yy
-                        $edad = DateTime::createFromFormat('Y-m-d', $fechaNacimiento)->diff(new DateTime())->y;
-
-                        $cellphone_sin_espacios = str_replace(' ', '', $estudiante['cellphone']);
+                        foreach ($estudiantes as $estudiante) {
                         ?>
+                            <?php
+                            $fechaNacimiento = $estudiante['birth_date']; // dd/mm/yy
+                            $edad = DateTime::createFromFormat('Y-m-d', $fechaNacimiento)->diff(new DateTime())->y;
+
+                            $cellphone_sin_espacios = str_replace(' ', '', $estudiante['cellphone']);
+                            ?>
 
                         <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
                             <div class="col-span-1 flex justify-center items-center">
@@ -163,9 +162,9 @@ if (isset($_SESSION['student_id'])) {
                             </div>
                         </div>
 
-                    <?php
-                    }
-                    ?>
+                        <?php
+                        }
+                        ?>
 
                 </section>
             </div>
@@ -274,11 +273,18 @@ if (isset($_SESSION['student_id'])) {
     <script src="js/modal.js"></script>
     <script src="js/student_profile.js"></script>
     <script src="js/perfil.js"></script>
-    <script src="js/dropdown.js"></script>
     <style>
-        .close { max-height: 0; }
-        .open { max-height: 1000px; }
-        .transition-all { transition: max-height 0.3s ease-in-out; }
+        .close {
+            max-height: 0;
+        }
+
+        .open {
+            max-height: 1000px;
+        }
+
+        .transition-all {
+            transition: max-height 0.3s ease-in-out;
+        }
     </style>
 </body>
 

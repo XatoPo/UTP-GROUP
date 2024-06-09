@@ -11,7 +11,6 @@ if (isset($_SESSION['student_id'])) {
 
     $studentMe = $_SESSION['student_data'];
     $grupos = $obj->ObtenerGruposPorCursoId($_SESSION['course_id']);
-
     $roles = $obj->ListarRoles();
 } else {
     header("Location: login.php");
@@ -74,8 +73,8 @@ if (isset($_SESSION['student_id'])) {
                             <p class="text-sm">Hola, <strong><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></strong></p>
                             <p class="text-xs">Estudiante</p>
                         </div>
-                        <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">
-                            <i class="fa-solid fa-user"></i>
+                        <div class="flex items-center justify-center">
+                            <img src="images/perfil/<?php echo htmlspecialchars($_SESSION['student_data']['profile_picture']); ?>" class=" w-[40px] h-[40px] rounded-full block" alt="Foto de perfil">
                         </div>
                         <div class="relative">
                             <button id="dropdownButton" class="flex items-center justify-center">
@@ -149,23 +148,36 @@ if (isset($_SESSION['student_id'])) {
                                 <?php endforeach; ?>
                             </div>
                         </div>
-
+                        <!-------------------------------------------------------------------------------------------------------------------------------------------->
                         <div class="grid grid-cols-3 gap-3 mt-5 mx-5">
-                            <!-------------------------------------------------------------------------------------------------------------------------------------------->
                             <?php foreach ($grupos as $grupo) : ?>
                                 <div class="col-span-1 grid grid-rows-4">
                                     <div class="row-span-1 grid grid-cols-5">
                                         <div class="col-span-4 flex bg-[#000f37] justify-center items-center">
                                             <p class="font-bold text-2xl text-white p-2"><?php echo $grupo['group_name']; ?> - <?php echo $grupo['group_id']; ?></p>
                                         </div>
-                                        <button onclick="javascript: openModal(2);" class="col-span-1 bg-[#3ddcda] flex text-white justify-center items-center text-3xl hover:text-4xl transition-all">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
+                                        <?php
+                                        $isMember = $obj->EstaEnGrupo($student_id, $grupo['group_id']);
+                                        $isFull = count($obj->ObtenerAlumnosPorGrupoId($grupo['group_id'])) >= $grupo['number_of_students'];
+                                        if ($isFull) {
+                                            echo '<button class="col-span-1 bg-gray-400 flex text-white justify-center items-center text-3xl hover:text-4xl transition-all" disabled>
+                            <i class="fa-solid fa-lock"></i>
+                        </button>';
+                                        } elseif ($isMember) {
+                                            echo '<button onclick="javascript: openModal(\'salir\', \'' . $grupo['group_id'] . '\');" class="col-span-1 bg-[#f94c61] flex text-white justify-center items-center text-3xl hover:text-4xl transition-all">
+                            <i class="fa-solid fa-minus"></i>
+                        </button>';
+                                        } else {
+                                            echo '<button onclick="javascript: openModal(\'unirse\', \'' . $grupo['group_id'] . '\');" class="col-span-1 bg-[#3ddcda] flex text-white justify-center items-center text-3xl hover:text-4xl transition-all">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>';
+                                        }
+                                        ?>
                                     </div>
                                     <div class="row-span-3 grid grid-cols-5">
                                         <div class="col-span-4 flex flex-col bg-white py-1.5 px-5">
                                             <h5 class="font-extrabold tracking-tight">Integrantes</h5>
-                                            <ol class="list-decimal-custom space-y-2 mt-1 space-y-5">
+                                            <ol class="list-decimal-custom mt-1 space-y-5">
                                                 <?php
                                                 $students_group = $obj->ObtenerAlumnosPorGrupoId($grupo['group_id']);
                                                 foreach ($students_group as $student) : ?>
@@ -176,17 +188,30 @@ if (isset($_SESSION['student_id'])) {
                                         <div class="col-span-1 flex flex-col items-center bg-gray-200 py-1.5">
                                             <h5 class="font-extrabold tracking-tight">Rol</h5>
                                             <div class="flex flex-col space-y-1">
-                                                <?php foreach ($students_group as $student) : ?>
+                                                <?php
+                                                $assignedRoles = array_column($students_group, 'role_id');
+                                                foreach ($students_group as $student) :
+                                                    $role_name_v = $obj->ObtenerRolAlumnoDelGrupo($grupo['group_id'], $student['student_id']);
+                                                    ?>
                                                     <div class="relative inline-block w-full text-gray-700">
-                                                        <select class="block appearance-none w-10 bg-gray-400 border-0 rounded-md py-2 pl-3 pr-8 leading-tight focus:outline-none focus:bg-gray-300 focus:border-gray-500 role-select" name="" id="">
-                                                            <?php foreach ($roles as $role) : ?>
-                                                                <option value="<?php echo $role['role_id']; ?>" data-image="images/roles/<?php echo $role['role_name']; ?>.png"><?php echo $role['role_name']; ?></option>
-                                                            <?php endforeach; ?>
-                                                        </select>
-
-                                                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2">
-                                                            <img src="" class="role-image w-6 h-6">
-                                                        </div>
+                                                        <?php if ($student['student_id'] == $student_id) : ?>
+                                                            <select class="block appearance-none w-10 bg-gray-400 border-0 rounded-md py-2 pl-5 pr-8 leading-tight focus:outline-none focus:bg-gray-300 focus:border-gray-500 role-select" name="" id="">
+                                                                <?php foreach ($roles as $role) : ?>
+                                                                    <?php if (!in_array($role['role_id'], $assignedRoles) || $student['role_id'] == $role['role_id']) : ?>
+                                                                        <option value="<?php echo $role['role_id']; ?>" data-image="images/roles/<?php echo $role['role_name']; ?>.png" <?php echo ($role_name_v['role_id'] == $role['role_id']) ? 'selected' : ''; ?>>
+                                                                            <?php echo $role['role_name']; ?>
+                                                                        </option>
+                                                                    <?php endif; ?>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2">
+                                                                <img src="" class="role-image w-6 h-6">
+                                                            </div>
+                                                        <?php else : ?>
+                                                            <span class="inline-block bg-gray-400 border-0 rounded-md py-2 pl-1 pr-8 leading-tight focus:outline-none focus:bg-gray-300 focus:border-gray-500">
+                                                                    <img src="images/roles/<?php echo $role_name_v['role_name']; ?>.png" class="w-6 h-6">
+                                                            </span>
+                                                        <?php endif; ?>
                                                     </div>
                                                 <?php endforeach; ?>
                                             </div>
@@ -194,48 +219,84 @@ if (isset($_SESSION['student_id'])) {
                                     </div>
                                 </div>
                             <?php endforeach; ?>
-                            <!-------------------------------------------------------------------------------------------------------------------------------------------->
                         </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-        <!-- Modal -->
-        <div id="myModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
-            <div class="bg-white p-6 rounded shadow-lg">
-                <h2 class="text-xl font-bold mb-4" id="modal-title">Confirmación de entrada al grupo</h2>
-                <p class="mb-4" id="modal-content">¿Deseas entrar al grupo?</p>
-                <div>
-                    <button id="closeModalBtn" class="bg-red-500 text-white px-4 py-2 rounded">Confirmar</button>
-                    <button id="closeModalBtn" class="bg-gray-200 text-black px-4 py-2 rounded">Cancelar</button>
-                </div>
-            </div>
-        </div>
-    </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const roleSelects = document.querySelectorAll('.role-select');
-            roleSelects.forEach(select => {
-                select.addEventListener('change', function() {
-                    const selectedOption = this.options[this.selectedIndex];
-                    const imageUrl = selectedOption.getAttribute('data-image');
-                    const roleImage = this.parentElement.querySelector('.role-image');
-                    const roleText = this.parentElement.querySelector('.role-text');
-                    roleImage.src = imageUrl;
-                    roleText.style.display = 'none';
-                });
 
-                const initialOption = select.options[select.selectedIndex];
-                const initialImageUrl = initialOption.getAttribute('data-image');
-                const initialRoleImage = select.parentElement.querySelector('.role-image');
-                initialRoleImage.src = initialImageUrl;
-            });
-        });
-    </script>
+                        <!-- Modal -->
+                        <div id="myModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
+                            <div class="bg-white p-6 rounded shadow-lg">
+                                <h2 class="text-xl font-bold mb-4" id="modal-title">Confirmación de entrada al grupo</h2>
+                                <p class="mb-4" id="modal-content">¿Deseas entrar al grupo?</p>
+                                <div>
+                                    <button id="confirmBtn" class="bg-red-500 text-white px-4 py-2 rounded">Confirmar</button>
+                                    <button id="closeModalBtn" class="bg-gray-200 text-black px-4 py-2 rounded">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <script src="js/dropdown.js"></script>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const roleSelects = document.querySelectorAll('.role-select');
+                                roleSelects.forEach(select => {
+                                    select.addEventListener('change', function() {
+                                        const selectedOption = this.options[this.selectedIndex];
+                                        const imageUrl = selectedOption.getAttribute('data-image');
+                                        const roleImage = this.parentElement.querySelector('.role-image');
+                                        roleImage.src = imageUrl;
+                                    });
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <script src="js/modal.js"></script>
-    <script src="js/dropdown.js"></script>
+                                    const initialOption = select.options[select.selectedIndex];
+                                    const initialImageUrl = initialOption.getAttribute('data-image');
+                                    const initialRoleImage = select.parentElement.querySelector('.role-image');
+                                    initialRoleImage.src = initialImageUrl;
+                                });
+                            });
+
+                            function openModal(action, groupId) {
+                                const modal = document.getElementById('myModal');
+                                const modalTitle = document.getElementById('modal-title');
+                                const modalContent = document.getElementById('modal-content');
+                                const confirmBtn = document.getElementById('confirmBtn');
+
+                                if (action === 'unirse') {
+                                    modalTitle.textContent = 'Confirmación de entrada al grupo';
+                                    modalContent.textContent = '¿Deseas entrar al grupo?';
+                                    confirmBtn.onclick = function() {
+                                        realizarAccion('unirse', groupId);
+                                    };
+                                } else if (action === 'salir') {
+                                    modalTitle.textContent = 'Confirmación de salida del grupo';
+                                    modalContent.textContent = '¿Deseas salir del grupo?';
+                                    confirmBtn.onclick = function() {
+                                        realizarAccion('salir', groupId);
+                                    };
+                                }
+
+                                modal.classList.remove('hidden');
+                            }
+
+                            document.getElementById('closeModalBtn').addEventListener('click', function() {
+                                document.getElementById('myModal').classList.add('hidden');
+                            });
+
+                            function realizarAccion(action, groupId) {
+                                const xhr = new XMLHttpRequest();
+                                xhr.open('POST', 'grupo_acciones.php', true);
+                                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                                const studentId = '<?php echo $student_id; ?>';
+
+                                xhr.onload = function() {
+                                    if (xhr.status === 200) {
+                                        location.reload();
+                                    } else {
+                                        alert('Error en la solicitud');
+                                    }
+                                };
+
+                                xhr.send(`action=${action}&group_id=${groupId}&student_id=${studentId}`);
+                            }
+                        </script>
+
 </body>
 
 </html>

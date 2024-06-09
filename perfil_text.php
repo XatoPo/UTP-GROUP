@@ -73,6 +73,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
         }
     }
 
+    // Eliminar skills si el campo está vacío
+    foreach ($skills as $skill) {
+        if ($skill['skill_topic'] == 'Skills Blandas') {
+            if (empty(trim($skills_blandas[$skill['skill_id']]))) {
+                // Eliminar la skill
+                $obj->EliminarSkill($skill['skill_id']);
+            }
+        } elseif ($skill['skill_topic'] == 'Skills Técnicas') {
+            if (empty(trim($skills_tecnicas[$skill['skill_id']]))) {
+                // Eliminar la skill
+                $obj->EliminarSkill($skill['skill_id']);
+            }
+        }
+    }
+
     $obj->GuardarSkills($skills_data, $student_id);
 
     // Procesar y actualizar hobbies
@@ -170,8 +185,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
                     <p class="text-sm">Hola, <strong><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></strong></p>
                     <p class="text-xs">Estudiante</p>
                 </div>
-                <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">
-                    <i class="fa-solid fa-user"></i>
+                <div class="flex items-center justify-center">
+                    <img src="images/perfil/<?php echo htmlspecialchars($_SESSION['student_data']['profile_picture']); ?>" class=" w-[40px] h-[40px] rounded-full block" alt="Foto de perfil">
                 </div>
                 <div class="relative">
                     <button id="dropdownButton" class="flex items-center justify-center">

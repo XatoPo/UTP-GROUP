@@ -103,6 +103,16 @@ class utp_group_dao
         mysqli_close($cn->conecta());
     }
 
+    function EliminarSkill($skill_id) {
+        $cn = new connection();
+        $sql = "DELETE FROM skills WHERE skill_id = ?";
+        $stmt = $cn->conecta()->prepare($sql);
+        $stmt->bind_param("s", $skill_id);
+        $stmt->execute();
+        $stmt->close();
+        mysqli_close($cn->conecta());
+    }
+
     // ACTUALIZAR O INSERTAR HOBBIES
     function GuardarHobbies($hobbies, $student_id) {
         $cn = new connection();
@@ -229,6 +239,15 @@ class utp_group_dao
         }
         mysqli_close($cn->conecta());
         return $roles;
+    }
+
+    function EstaEnGrupo($student_id, $group_id) {
+        $cn = new connection();
+        $sql = "SELECT COUNT(*) as count FROM students_groups WHERE student_id = '$student_id' AND group_id = '$group_id'";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        $row = mysqli_fetch_assoc($res);
+        mysqli_close($cn->conecta());
+        return $row['count'] > 0;
     }
 
 }
