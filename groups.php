@@ -73,8 +73,8 @@ if (isset($_SESSION['student_id'])) {
                             <p class="text-sm">Hola, <strong><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></strong></p>
                             <p class="text-xs">Estudiante</p>
                         </div>
-                        <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">
-                            <i class="fa-solid fa-user"></i>
+                        <div class="flex items-center justify-center">
+                            <img id="profileImage" src="images/perfil/<?php echo htmlspecialchars($_SESSION['student_data']['profile_picture']); ?>" class=" w-[40px] h-[40px] rounded-full block" alt="Foto de perfil">
                         </div>
                         <div class="relative">
                             <button id="dropdownButton" class="flex items-center justify-center">
@@ -177,7 +177,7 @@ if (isset($_SESSION['student_id'])) {
                                     <div class="row-span-3 grid grid-cols-5">
                                         <div class="col-span-4 flex flex-col bg-white py-1.5 px-5">
                                             <h5 class="font-extrabold tracking-tight">Integrantes</h5>
-                                            <ol class="list-decimal-custom space-y-2 mt-1 space-y-5">
+                                            <ol class="list-decimal-custom mt-1 space-y-5">
                                                 <?php
                                                 $students_group = $obj->ObtenerAlumnosPorGrupoId($grupo['group_id']);
                                                 foreach ($students_group as $student) : ?>
@@ -232,7 +232,7 @@ if (isset($_SESSION['student_id'])) {
                                 </div>
                             </div>
                         </div>
-
+                        <script src="js/dropdown.js"></script>
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
                                 const roleSelects = document.querySelectorAll('.role-select');
