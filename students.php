@@ -14,7 +14,6 @@ if (isset($_SESSION['student_id'])) {
         $_SESSION['course_data'] = $obj->ObtenerCursoPorId($_SESSION['course_id']);
     }
     $estudiantes = $obj->ObtenerEstudiantesPorCurso($_SESSION['course_id']);
-
 } else {
     header("Location: login.php");
     exit();
@@ -62,242 +61,242 @@ if (isset($_SESSION['student_id'])) {
             </div>
         </aside>
         <div class="flex-1 ml-16">
-        <div class="flex-1">
-        <header class="bg-white flex items-center justify-between px-5 h-[65px] w-full">
-                <img src="images/logo/logo-pao-class.png" class="w-40" alt="">
-                <div class="flex items-center justify-center gap-x-3">
-                    <button class="flex items-center justify-center rounded-full p-2 w-[40px] h-[40px] hover:bg-blue-950 hover:text-white transition-all">
-                        <i class="fa-regular fa-bell text-xl"></i>
-                    </button>
-                    <div class="flex flex-col items-end">
-                        <p class="text-sm">Hola, <strong><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></strong></p>
-                        <p class="text-xs">Estudiante</p>
-                    </div>
-                    <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                    <div class="relative">
-                        <button id="dropdownButton" class="flex items-center justify-center">
-                            <i class="fa-solid fa-chevron-down"></i>
+            <div class="flex-1">
+                <header class="bg-white flex items-center justify-between px-5 h-[65px] w-full">
+                    <img src="images/logo/logo-pao-class.png" class="w-40" alt="">
+                    <div class="flex items-center justify-center gap-x-3">
+                        <button class="flex items-center justify-center rounded-full p-2 w-[40px] h-[40px] hover:bg-blue-950 hover:text-white transition-all">
+                            <i class="fa-regular fa-bell text-xl"></i>
                         </button>
-                        <div id="dropdownMenu" class="absolute right-0 mt-5 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden">
-                            <a href="perfil_text.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Perfil</a>
-                            <a href="controller/logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar Sesión</a>
+                        <div class="flex flex-col items-end">
+                            <p class="text-sm">Hola, <strong><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></strong></p>
+                            <p class="text-xs">Estudiante</p>
                         </div>
-                    </div>
-                </div>
-            </header>
-            <div class="divide-y-2 divide-[#4f6168] px-5 py-2.5">
-                <header>
-                    <div class="flex py-2.5 px-5 divide-x-2 divide-black gap-x-2">
-                        <a href="courses.php" class="flex items-center text-[#0661fc] gap-x-1">
-                            <i class="fa-solid fa-arrow-left"></i>
-                            <p class="text-xs font-extrabold">Volver a cursos</p>
-                        </a>
-                        <div class="flex gap-x-1 font-bold items-center ps-2">
-                            <p class="text-[#4A4F55] text-sm"><?php echo $_SESSION['course_data']['course_name']; ?> - Sección <?php echo $_SESSION['course_id']; ?></p>
-                            <div class="bg-[#B21F5F] text-[#FCDAE2] text-xs py-0.5 px-3 rounded-full">
-                                <?php echo $_SESSION['course_data']['modality']; ?>
+                        <div class="flex items-center justify-center">
+                            <img id="profileImage" src="images/perfil/<?php echo htmlspecialchars($_SESSION['student_data']['profile_picture']); ?>" class=" w-[40px] h-[40px] rounded-full block" alt="Foto de perfil">
+                        </div>
+                        <div class="relative">
+                            <button id="dropdownButton" class="flex items-center justify-center">
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </button>
+                            <div id="dropdownMenu" class="absolute right-0 mt-5 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden">
+                                <a href="perfil_text.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Perfil</a>
+                                <a href="controller/logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar Sesión</a>
                             </div>
-                        </div>
-                    </div>
-                    <div class="flex font-extrabold text-sm text-[#4f6168] px-4">
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Sílabo</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Contenido</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Evaluaciones</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Tareas</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Foros</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Notas</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Anuncios</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <p>Zoom</p>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer">
-                            <a href="groups.php">Group</a>
-                        </div>
-                        <div class="py-2 px-3 cursor-pointer border-b-[3.5px] border-[#0661fc]">
-                            <a href="students.php">Class</a>
                         </div>
                     </div>
                 </header>
-                <section class="grid grid-cols-3 gap-2 pt-2">
-                    <?php
-                    foreach ($estudiantes as $estudiante) {
-                    ?>
+                <div class="divide-y-2 divide-[#4f6168] px-5 py-2.5">
+                    <header>
+                        <div class="flex py-2.5 px-5 divide-x-2 divide-black gap-x-2">
+                            <a href="courses.php" class="flex items-center text-[#0661fc] gap-x-1">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                <p class="text-xs font-extrabold">Volver a cursos</p>
+                            </a>
+                            <div class="flex gap-x-1 font-bold items-center ps-2">
+                                <p class="text-[#4A4F55] text-sm"><?php echo $_SESSION['course_data']['course_name']; ?> - Sección <?php echo $_SESSION['course_id']; ?></p>
+                                <div class="bg-[#B21F5F] text-[#FCDAE2] text-xs py-0.5 px-3 rounded-full">
+                                    <?php echo $_SESSION['course_data']['modality']; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex font-extrabold text-sm text-[#4f6168] px-4">
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Sílabo</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Contenido</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Evaluaciones</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Tareas</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Foros</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Notas</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Anuncios</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <p>Zoom</p>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer">
+                                <a href="groups.php">Group</a>
+                            </div>
+                            <div class="py-2 px-3 cursor-pointer border-b-[3.5px] border-[#0661fc]">
+                                <a href="students.php">Class</a>
+                            </div>
+                        </div>
+                    </header>
+                    <section class="grid grid-cols-3 gap-2 pt-2">
                         <?php
-                        $fechaNacimiento = $estudiante['birth_date']; // dd/mm/yy
-                        $edad = DateTime::createFromFormat('Y-m-d', $fechaNacimiento)->diff(new DateTime())->y;
+                        foreach ($estudiantes as $estudiante) {
+                        ?>
+                            <?php
+                            $fechaNacimiento = $estudiante['birth_date']; // dd/mm/yy
+                            $edad = DateTime::createFromFormat('Y-m-d', $fechaNacimiento)->diff(new DateTime())->y;
 
-                        $cellphone_sin_espacios = str_replace(' ', '', $estudiante['cellphone']);
+                            $cellphone_sin_espacios = str_replace(' ', '', $estudiante['cellphone']);
+                            ?>
+
+                            <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
+                                <div class="col-span-1 flex justify-center items-center">
+                                    <img src="<?php echo htmlspecialchars($estudiante['profile_picture']); ?>" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
+                                </div>
+                                <div class="col-span-2 flex flex-col justify-between py-5">
+                                    <div class="flex flex-col">
+                                        <p class="text-xl font-bold text-pretty"><?php echo htmlspecialchars($estudiante['name']); ?></p>
+                                        <p class="text-xs text-[#4f6168]"><?php echo htmlspecialchars($estudiante['career']); ?> - <?php echo $edad; ?> años - <?php echo htmlspecialchars($estudiante['academic_cycle']); ?> Ciclo</p>
+                                    </div>
+                                    <div class="flex gap-x-2 me-10">
+                                        <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all" onclick="javascript: openProfile('<?php echo htmlspecialchars($estudiante['student_id']); ?>');"> <i class="fa-solid fa-eye"></i> </button>
+                                        <a class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all flex items-center justify-center" href="https://wa.me/<?php echo $cellphone_sin_espacios; ?>" target="_blank"> <i class="fa-solid fa-comment"></i> </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <?php
+                        }
                         ?>
 
-                        <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
-                            <div class="col-span-1 flex justify-center items-center">
-                                <img src="<?php echo htmlspecialchars($estudiante['profile_picture']); ?>" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
-                            </div>
-                            <div class="col-span-2 flex flex-col justify-between py-5">
-                                <div class="flex flex-col">
-                                    <p class="text-xl font-bold text-pretty"><?php echo htmlspecialchars($estudiante['name']); ?></p>
-                                    <p class="text-xs text-[#4f6168]"><?php echo htmlspecialchars($estudiante['career']); ?> - <?php echo $edad; ?> años - <?php echo htmlspecialchars($estudiante['academic_cycle']); ?> Ciclo</p>
-                                </div>
-                                <div class="flex gap-x-2 me-10">
-                                    <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all" onclick="javascript: openProfile('<?php echo htmlspecialchars($estudiante['student_id']); ?>');"> <i class="fa-solid fa-eye"></i> </button>
-                                    <a class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all flex items-center justify-center" href="https://wa.me/<?php echo $cellphone_sin_espacios; ?>" target="_blank"> <i class="fa-solid fa-comment"></i> </a>                                
-                                </div>
-                            </div>
-                        </div>
-
-                    <?php
-                    }
-                    ?>
-
-                </section>
-            </div>
-        </div>
-        <!-- Modal -->
-        <?php
-        foreach ($estudiantes as $estudiante) {
-        ?>
-
-        <?php
-            $id = $estudiante['student_id'];
-            $student = $obj->ObtenerEstudiantePorId($id);
-            $skills = $obj->ObtenerSkillsPorEstudiante($id);
-            $hobbies = $obj->ObtenerHobbiesPorEstudiante($id);
-
-            // Separar las habilidades blandas y técnicas
-            $skills_blandas = array_filter($skills, fn($skill) => $skill['skill_topic'] == 'Skills Blandas');
-            $skills_tecnicas = array_filter($skills, fn($skill) => $skill['skill_topic'] == 'Skills Técnicas');
-
-            // Asegurar que siempre haya 6 campos para cada tipo de habilidad
-            while (count($skills_blandas) < 6) {
-                $skills_blandas[] = ['skill_id' => 'new_blanda_' . count($skills_blandas), 'skill_name' => '', 'skill_topic' => 'Skills Blandas'];
-            }
-            while (count($skills_tecnicas) < 6) {
-                $skills_tecnicas[] = ['skill_id' => 'new_tecnica_' . count($skills_tecnicas), 'skill_name' => '', 'skill_topic' => 'Skills Técnicas'];
-            }
-        ?>
-            <div id="myModal<?php echo htmlspecialchars($student['student_id']); ?>" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
-                
-                <div class="student_id"></div>
-                <div class="bg-white rounded-2xl shadow-lg w-[500px] py-5 px-12 box-border relative">
-                    <div class="flex justify-between items-center">
-                        <div class="my-0 mx-auto">
-                            <img src="<?php echo htmlspecialchars($student['profile_picture']); ?>" class="image w-20 h-20 rounded-[50%] border-[3px] border-[#ff4081] object-cover" alt="Foto de perfil">
-                        </div>
-                        <div id="closeModalBtn" class="text-3xl cursor-pointer text-[#f94c61]">&times;</div>
-                    </div>
-                    <div class="text-center mt-5 my-[5px] mx-0 text-black">
-                        <h2 class="text-xl font-semibold"><?php echo htmlspecialchars($student['name']); ?> - <?php echo htmlspecialchars($student['student_id']); ?></h2>
-                        <h3 class="text-sm font-normal"><?php echo htmlspecialchars($student['career']); ?></h3>
-                    </div>
-                    
-                    <div class="mt-5 flex justify-center gap-x-4">
-                        <div class="flex flex-col items-center relative">
-                            <div class="flex justify-center bg-[#FFBDBD] w-12 rounded-md">
-                                <p>👑</p>
-                            </div>
-                            <p class="text-xs">Líder</p>
-                            <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
-                                <p class="text-white text-xs">45</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col items-center relative">
-                            <div class="flex justify-center bg-[#A4E2D3] w-12 rounded-md">
-                                <p>😁</p>
-                            </div>
-                            <p class="text-xs">Motivador</p>
-                            <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
-                                <p class="text-white text-xs">45</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col items-center relative">
-                            <div class="flex justify-center bg-[#F1E2BE] w-12 rounded-md">
-                                <p>🎨</p>
-                            </div>
-                            <p class="text-xs">Creativo</p>
-                            <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
-                                <p class="text-white text-xs">45</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col items-center relative">
-                            <div class="flex justify-center bg-[#BDDFFF] w-12 rounded-md">
-                                <p>🧘‍♂</p>
-                            </div>
-                            <p class="text-xs">Mediador</p>
-                            <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
-                                <p class="text-white text-xs">45</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col items-center relative">
-                            <div class="flex justify-center bg-[#D2A5E7] w-12 rounded-md">
-                                <p>🕵‍♂</p>
-                            </div>
-                            <p class="text-xs">Investigador</p>
-                            <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
-                                <p class="text-white text-xs">45</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-5">
-                        <h4 class="mb-2 font-bold">Descripción</h4>
-                        <p class="descripcion text-sm text-pretty"><?php echo htmlspecialchars($student['description']); ?></p>
-                    </div>
-
-                    <div class="mt-5">
-                        <div>
-                            <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="toggleSection('skillsBlandas', 'skillsTecnicas');">Skills Blandas</h4>
-                            <div id="skillsBlandas" class="max-h-0 overflow-hidden transition-all close">
-                                <div class="flex flex-wrap gap-[10px] mt-[10px]">
-                                    <?php
-                                    foreach ($skills_blandas as $index => $skill) {
-                                        echo '<input name="skills_blandas[' . $skill['skill_id'] . ']" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="' . htmlspecialchars($skill['skill_name']) . '" placeholder="Skill ' . ($index + 1) . '">';
-                                    }
-                                    ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-5">
-                            <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="toggleSection('skillsTecnicas', 'skillsBlandas');">Skills Técnicas</h4>
-                            <div id="skillsTecnicas" class="max-h-0 overflow-hidden transition-all close">
-                                <div class="flex flex-wrap gap-[10px] mt-[10px]">
-                                    <?php
-                                    foreach ($skills_tecnicas as $index => $skill) {
-                                        echo '<input name="skills_tecnicas[' . $skill['skill_id'] . ']" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="' . htmlspecialchars($skill['skill_name']) . '" placeholder="Skill ' . ($index + 1) . '">';
-                                    }
-                                    ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-5">
-                        <h4 class="mb-2 font-bold">Pasatiempos</h4>
-                        <div class="flex flex-wrap gap-[10px]">
-                            <input name="hobbies" id="hobbies" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="<?php echo htmlspecialchars(implode(',', array_column($hobbies, 'hobby_name'))); ?>" readonly>
-                        </div>
-                    </div>
-
+                    </section>
                 </div>
             </div>
-        <?php
-        }
-        ?>
+            <!-- Modal -->
+            <?php
+            foreach ($estudiantes as $estudiante) {
+            ?>
+
+                <?php
+                $id = $estudiante['student_id'];
+                $student = $obj->ObtenerEstudiantePorId($id);
+                $skills = $obj->ObtenerSkillsPorEstudiante($id);
+                $hobbies = $obj->ObtenerHobbiesPorEstudiante($id);
+
+                // Separar las habilidades blandas y técnicas
+                $skills_blandas = array_filter($skills, fn ($skill) => $skill['skill_topic'] == 'Skills Blandas');
+                $skills_tecnicas = array_filter($skills, fn ($skill) => $skill['skill_topic'] == 'Skills Técnicas');
+
+                // Asegurar que siempre haya 6 campos para cada tipo de habilidad
+                while (count($skills_blandas) < 6) {
+                    $skills_blandas[] = ['skill_id' => 'new_blanda_' . count($skills_blandas), 'skill_name' => '', 'skill_topic' => 'Skills Blandas'];
+                }
+                while (count($skills_tecnicas) < 6) {
+                    $skills_tecnicas[] = ['skill_id' => 'new_tecnica_' . count($skills_tecnicas), 'skill_name' => '', 'skill_topic' => 'Skills Técnicas'];
+                }
+                ?>
+                <div id="myModal<?php echo htmlspecialchars($student['student_id']); ?>" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
+
+                    <div class="student_id"></div>
+                    <div class="bg-white rounded-2xl shadow-lg w-[500px] py-5 px-12 box-border relative">
+                        <div class="flex justify-between items-center">
+                            <div class="my-0 mx-auto">
+                                <img src="<?php echo htmlspecialchars($student['profile_picture']); ?>" class="image w-20 h-20 rounded-[50%] border-[3px] border-[#ff4081] object-cover" alt="Foto de perfil">
+                            </div>
+                            <div id="closeModalBtn" class="text-3xl cursor-pointer text-[#f94c61]">&times;</div>
+                        </div>
+                        <div class="text-center mt-5 my-[5px] mx-0 text-black">
+                            <h2 class="text-xl font-semibold"><?php echo htmlspecialchars($student['name']); ?> - <?php echo htmlspecialchars($student['student_id']); ?></h2>
+                            <h3 class="text-sm font-normal"><?php echo htmlspecialchars($student['career']); ?></h3>
+                        </div>
+
+                        <div class="mt-5 flex justify-center gap-x-4">
+                            <div class="flex flex-col items-center relative">
+                                <div class="flex justify-center bg-[#FFBDBD] w-12 rounded-md">
+                                    <p>👑</p>
+                                </div>
+                                <p class="text-xs">Líder</p>
+                                <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                                    <p class="text-white text-xs">45</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-center relative">
+                                <div class="flex justify-center bg-[#A4E2D3] w-12 rounded-md">
+                                    <p>😁</p>
+                                </div>
+                                <p class="text-xs">Motivador</p>
+                                <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                                    <p class="text-white text-xs">45</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-center relative">
+                                <div class="flex justify-center bg-[#F1E2BE] w-12 rounded-md">
+                                    <p>🎨</p>
+                                </div>
+                                <p class="text-xs">Creativo</p>
+                                <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                                    <p class="text-white text-xs">45</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-center relative">
+                                <div class="flex justify-center bg-[#BDDFFF] w-12 rounded-md">
+                                    <p>🧘‍♂</p>
+                                </div>
+                                <p class="text-xs">Mediador</p>
+                                <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                                    <p class="text-white text-xs">45</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-center relative">
+                                <div class="flex justify-center bg-[#D2A5E7] w-12 rounded-md">
+                                    <p>🕵‍♂</p>
+                                </div>
+                                <p class="text-xs">Investigador</p>
+                                <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                                    <p class="text-white text-xs">45</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-5">
+                            <h4 class="mb-2 font-bold">Descripción</h4>
+                            <p class="descripcion p-[7.5px] border border-[#ccc] rounded-[5px] text-sm text-pretty h-[75px] overflow-auto"><?php echo htmlspecialchars($student['description']); ?></p>
+                        </div>
+
+                        <div class="mt-5">
+                            <div>
+                                <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="toggleSection('skillsBlandas', 'skillsTecnicas');">Skills Blandas</h4>
+                                <div id="skillsBlandas" class="max-h-0 overflow-hidden transition-all close">
+                                    <div class="flex flex-wrap gap-[10px] mt-[10px]">
+                                        <?php
+                                        foreach ($skills_blandas as $index => $skill) {
+                                            echo '<input name="skills_blandas[' . $skill['skill_id'] . ']" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="' . htmlspecialchars($skill['skill_name']) . '" placeholder="Skill ' . ($index + 1) . '">';
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-5">
+                                <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="toggleSection('skillsTecnicas', 'skillsBlandas');">Skills Técnicas</h4>
+                                <div id="skillsTecnicas" class="max-h-0 overflow-hidden transition-all close">
+                                    <div class="flex flex-wrap gap-[10px] mt-[10px]">
+                                        <?php
+                                        foreach ($skills_tecnicas as $index => $skill) {
+                                            echo '<input name="skills_tecnicas[' . $skill['skill_id'] . ']" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="' . htmlspecialchars($skill['skill_name']) . '" placeholder="Skill ' . ($index + 1) . '">';
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-5">
+                            <h4 class="mb-2 font-bold">Pasatiempos</h4>
+                            <div class="flex flex-wrap gap-[10px]">
+                                <input name="hobbies" id="hobbies" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="<?php echo htmlspecialchars(implode(',', array_column($hobbies, 'hobby_name'))); ?>" readonly>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
@@ -305,11 +304,18 @@ if (isset($_SESSION['student_id'])) {
     <script src="js/modal.js"></script>
     <script src="js/student_profile.js"></script>
     <script src="js/perfil.js"></script>
-    <script src="js/dropdown.js"></script>
     <style>
-        .close { max-height: 0; }
-        .open { max-height: 1000px; }
-        .transition-all { transition: max-height 0.3s ease-in-out; }
+        .close {
+            max-height: 0;
+        }
+
+        .open {
+            max-height: 1000px;
+        }
+
+        .transition-all {
+            transition: max-height 0.3s ease-in-out;
+        }
     </style>
 </body>
 
