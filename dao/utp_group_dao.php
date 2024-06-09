@@ -135,6 +135,16 @@ class utp_group_dao
         $stmt->close();
         mysqli_close($cn->conecta());
     }
+
+    // OBTENER CURSO POR ID
+    function ObtenerCursoPorId($course_id) {
+        $cn = new connection();
+        $sql = "CALL ObtenerCursoPorId('$course_id')";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        $curso = mysqli_fetch_assoc($res);
+        mysqli_close($cn->conecta());
+        return $curso;
+    }
 }
 
 ?>

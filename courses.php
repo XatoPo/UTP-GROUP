@@ -22,12 +22,6 @@ if (isset($_SESSION['student_id'])) {
     exit();
 }
 
-foreach ($cursos as $curso) {
-    $_SESSION['course_name'] = $curso['course_name'];
-    $_SESSION['course_section'] = $curso['course_id'];
-    $_SESSION['course_modality'] = $curso['modality'];
-    break;
-}
 ?>
 
 <!DOCTYPE html>

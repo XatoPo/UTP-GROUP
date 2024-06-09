@@ -935,3 +935,15 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+-- 7. Procedure para obtener datos de un curso
+DELIMITER $$
+
+CREATE PROCEDURE ObtenerCursoPorId (
+    IN course_id_s INT(11)
+)
+BEGIN
+    SELECT course_name, professor_id, modality FROM courses WHERE course_id = course_id_s;
+END$$
+
+DELIMITER ;
