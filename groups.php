@@ -177,13 +177,14 @@ if (isset($_SESSION['student_id'])) {
                                     <div class="row-span-3 grid grid-cols-5">
                                         <div class="col-span-4 flex flex-col bg-white py-1.5 px-5">
                                             <h5 class="font-extrabold tracking-tight">Integrantes</h5>
-                                            <ol class="list-decimal-custom mt-1 space-y-5">
+                                            <ol class="list-decimal-custom space-y-7 mt-1 space-y-7">
                                                 <?php
                                                 $students_group = $obj->ObtenerAlumnosPorGrupoId($grupo['group_id']);
                                                 foreach ($students_group as $student) : ?>
                                                     <li class="text-sm font-bold"><?php echo $student['name']; ?></li>
                                                 <?php endforeach; ?>
                                             </ol>
+
                                         </div>
                                         <div class="col-span-1 flex flex-col items-center bg-gray-200 py-1.5">
                                             <h5 class="font-extrabold tracking-tight">Rol</h5>
@@ -192,7 +193,7 @@ if (isset($_SESSION['student_id'])) {
                                                 $assignedRoles = array_column($students_group, 'role_id');
                                                 foreach ($students_group as $student) :
                                                     $role_name_v = $obj->ObtenerRolAlumnoDelGrupo($grupo['group_id'], $student['student_id']);
-                                                    ?>
+                                                ?>
                                                     <div class="relative inline-block w-full text-gray-700">
                                                         <?php if ($student['student_id'] == $student_id) : ?>
                                                             <select class="block appearance-none w-10 bg-gray-400 border-0 rounded-md py-2 pl-5 pr-8 leading-tight focus:outline-none focus:bg-gray-300 focus:border-gray-500 role-select" name="" id="">
@@ -209,7 +210,7 @@ if (isset($_SESSION['student_id'])) {
                                                             </div>
                                                         <?php else : ?>
                                                             <span class="inline-block bg-gray-400 border-0 rounded-md py-2 pl-1 pr-8 leading-tight focus:outline-none focus:bg-gray-300 focus:border-gray-500">
-                                                                    <img src="images/roles/<?php echo $role_name_v['role_name']; ?>.png" class="w-6 h-6">
+                                                                <img src="images/roles/<?php echo $role_name_v['role_name']; ?>.png" class="w-6 h-6">
                                                             </span>
                                                         <?php endif; ?>
                                                     </div>
