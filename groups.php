@@ -188,18 +188,30 @@ if (isset($_SESSION['student_id'])) {
                                         <div class="col-span-1 flex flex-col items-center bg-gray-200 py-1.5">
                                             <h5 class="font-extrabold tracking-tight">Rol</h5>
                                             <div class="flex flex-col space-y-1">
-                                                <?php foreach ($students_group as $student) : ?>
+                                                <?php
+                                                $assignedRoles = array_column($students_group, 'role_id');
+                                                foreach ($students_group as $student) :
+                                                    $role_name_v = $obj->ObtenerRolAlumnoDelGrupo($grupo['group_id'], $student['student_id']);
+                                                    ?>
                                                     <div class="relative inline-block w-full text-gray-700">
-                                                        <select class="block appearance-none w-10 bg-gray-400 border-0 rounded-md py-2 pl-3 pr-8 leading-tight focus:outline-none focus:bg-gray-300 focus:border-gray-500 role-select" name="" id="" <?php echo ($student['student_id'] == $student_id) ? '' : 'disabled'; ?>>
-                                                            <?php foreach ($roles as $role) : ?>
-                                                                <option value="<?php echo $role['role_id']; ?>" data-image="images/roles/<?php echo $role['role_name']; ?>.png" <?php echo ($student['role_id'] == $role['role_id']) ? 'selected' : ''; ?>>
-                                                                    <?php echo $role['role_name']; ?>
-                                                                </option>
-                                                            <?php endforeach; ?>
-                                                        </select>
-                                                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2">
-                                                            <img src="images/roles/<?php echo $role['role_name']; ?>.png" class="role-image w-6 h-6">
-                                                        </div>
+                                                        <?php if ($student['student_id'] == $student_id) : ?>
+                                                            <select class="block appearance-none w-10 bg-gray-400 border-0 rounded-md py-2 pl-5 pr-8 leading-tight focus:outline-none focus:bg-gray-300 focus:border-gray-500 role-select" name="" id="">
+                                                                <?php foreach ($roles as $role) : ?>
+                                                                    <?php if (!in_array($role['role_id'], $assignedRoles) || $student['role_id'] == $role['role_id']) : ?>
+                                                                        <option value="<?php echo $role['role_id']; ?>" data-image="images/roles/<?php echo $role['role_name']; ?>.png" <?php echo ($role_name_v['role_id'] == $role['role_id']) ? 'selected' : ''; ?>>
+                                                                            <?php echo $role['role_name']; ?>
+                                                                        </option>
+                                                                    <?php endif; ?>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2">
+                                                                <img src="" class="role-image w-6 h-6">
+                                                            </div>
+                                                        <?php else : ?>
+                                                            <span class="inline-block bg-gray-400 border-0 rounded-md py-2 pl-1 pr-8 leading-tight focus:outline-none focus:bg-gray-300 focus:border-gray-500">
+                                                                    <img src="images/roles/<?php echo $role_name_v['role_name']; ?>.png" class="w-6 h-6">
+                                                            </span>
+                                                        <?php endif; ?>
                                                     </div>
                                                 <?php endforeach; ?>
                                             </div>

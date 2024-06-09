@@ -878,25 +878,20 @@ INSERT INTO students_groups (student_id, group_id, role_id) VALUES
 ('U21201392', 'GR1013', 'ROLE1'),
 ('U21201393', 'GR1013', 'ROLE3'),
 ('U21201394', 'GR1013', 'ROLE4'),
-('U21201395', 'GR1013', 'ROLE5'),
 
 ('U21201396', 'GR1014', 'ROLE1'),
-('U21201397', 'GR1014', 'ROLE2'),
 
 ('U21201401', 'GR1015', 'ROLE1'),
 ('U21201402', 'GR1015', 'ROLE2'),
-('U21201403', 'GR1015', 'ROLE5'),
 
 ('U21201406', 'GR1016', 'ROLE2'),
 ('U21201407', 'GR1016', 'ROLE3'),
 ('U21201408', 'GR1016', 'ROLE4'),
-('U21201409', 'GR1016', 'ROLE5'),
 
 ('U21201411', 'GR1017', 'ROLE1'),
 ('U21201412', 'GR1017', 'ROLE2'),
 ('U21201413', 'GR1017', 'ROLE3'),
-('U21201414', 'GR1017', 'ROLE4'),
-('U21201415', 'GR1017', 'ROLE5');
+('U21201414', 'GR1017', 'ROLE4');
 
 -- funcionales de la aplicacion
 -- 1. Login usuario
@@ -1039,12 +1034,23 @@ END$$
 CREATE PROCEDURE ObtenerRolAlumnoDelGrupo (
     IN group_id_s CHAR(6),
     IN student_id_s VARCHAR(10)
-)   
+)
 BEGIN
-    SELECT role_id FROM students_groups WHERE group_id = group_id_s AND student_id = student_id_s;
+    DECLARE role_id CHAR(6);
+    DECLARE role_name VARCHAR(100);
+    
+    -- Seleccionar el role_id del estudiante en el grupo dado
+    SELECT sg.role_id, r.role_name 
+    INTO role_id, role_name
+    FROM students_groups sg
+    INNER JOIN roles r ON sg.role_id = r.role_id
+    WHERE sg.group_id = group_id_s AND sg.student_id = student_id_s;
+    
+    -- Devolver el role_id y el nombre del rol
+    SELECT role_id, role_name;
 END$$
 
-DELIMITER ;
+
 
 -- 14. Procedure para listar los roles
 DELIMITER $$
