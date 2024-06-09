@@ -223,7 +223,7 @@ if (isset($_SESSION['student_id'])) {
                         </div>
 
                         <!-- Modal -->
-                        <div id="myModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                        <div id="myModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                             <div class="bg-white p-6 rounded shadow-lg">
                                 <h2 class="text-xl font-bold mb-4" id="modal-title">Confirmación de entrada al grupo</h2>
                                 <p class="mb-4" id="modal-content">¿Deseas entrar al grupo?</p>
@@ -257,22 +257,24 @@ if (isset($_SESSION['student_id'])) {
                                 const modalTitle = document.getElementById('modal-title');
                                 const modalContent = document.getElementById('modal-content');
                                 const confirmBtn = document.getElementById('confirmBtn');
-
+                                modal.classList.remove('hidden');
                                 if (action === 'unirse') {
                                     modalTitle.textContent = 'Confirmación de entrada al grupo';
                                     modalContent.textContent = '¿Deseas entrar al grupo?';
                                     confirmBtn.onclick = function() {
                                         realizarAccion('unirse', groupId);
+                                        modal.classList.add('hidden');
                                     };
                                 } else if (action === 'salir') {
                                     modalTitle.textContent = 'Confirmación de salida del grupo';
                                     modalContent.textContent = '¿Deseas salir del grupo?';
                                     confirmBtn.onclick = function() {
                                         realizarAccion('salir', groupId);
+                                        modal.classList.add('hidden');
                                     };
                                 }
 
-                                modal.classList.remove('hidden');
+                                
                             }
 
                             document.getElementById('closeModalBtn').addEventListener('click', function() {
