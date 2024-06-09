@@ -233,77 +233,77 @@ if (isset($_SESSION['student_id'])) {
                                 </div>
                             </div>
                         </div>
-                        <script src="js/dropdown.js"></script>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                const roleSelects = document.querySelectorAll('.role-select');
-                                roleSelects.forEach(select => {
-                                    select.addEventListener('change', function() {
-                                        const selectedOption = this.options[this.selectedIndex];
-                                        const imageUrl = selectedOption.getAttribute('data-image');
-                                        const roleImage = this.parentElement.querySelector('.role-image');
-                                        roleImage.src = imageUrl;
-                                    });
-
-                                    const initialOption = select.options[select.selectedIndex];
-                                    const initialImageUrl = initialOption.getAttribute('data-image');
-                                    const initialRoleImage = select.parentElement.querySelector('.role-image');
-                                    initialRoleImage.src = initialImageUrl;
-                                });
-                            });
-
-                            function openModal(action, groupId) {
-                                const modal = document.getElementById('myModal');
-                                const modalTitle = document.getElementById('modal-title');
-                                const modalContent = document.getElementById('modal-content');
-                                const confirmBtn = document.getElementById('confirmBtn');
-                                modal.classList.remove('hidden');
-                                if (action === 'unirse') {
-                                    modalTitle.textContent = 'Confirmación de entrada al grupo';
-                                    modalContent.textContent = '¿Deseas entrar al grupo?';
-                                    confirmBtn.onclick = function() {
-                                        realizarAccion('unirse', groupId);
-                                        modal.classList.add('hidden');
-                                    };
-                                } else if (action === 'salir') {
-                                    modalTitle.textContent = 'Confirmación de salida del grupo';
-                                    modalContent.textContent = '¿Deseas salir del grupo?';
-                                    confirmBtn.onclick = function() {
-                                        realizarAccion('salir', groupId);
-                                        modal.classList.add('hidden');
-                                    };
-                                }
-
-
-                            }
-
-                            document.getElementById('closeModalBtn').addEventListener('click', function() {
-                                document.getElementById('myModal').classList.add('hidden');
-                            });
-
-                            function realizarAccion(action, groupId) {
-                                const xhr = new XMLHttpRequest();
-                                xhr.open('POST', 'grupo_acciones.php', true);
-                                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-                                const studentId = '<?php echo $student_id; ?>';
-
-                                xhr.onload = function() {
-                                    if (xhr.status === 200) {
-                                        location.reload();
-                                    } else {
-                                        alert('Error en la solicitud');
-                                    }
-                                };
-
-                                xhr.send(`action=${action}&group_id=${groupId}&student_id=${studentId}`);
-                            }
-                        </script>
                     </section>
                 </div>
             </div>
         </div>
     </main>
+    <script src="js/dropdown.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleSelects = document.querySelectorAll('.role-select');
+            roleSelects.forEach(select => {
+                select.addEventListener('change', function() {
+                    const selectedOption = this.options[this.selectedIndex];
+                    const imageUrl = selectedOption.getAttribute('data-image');
+                    const roleImage = this.parentElement.querySelector('.role-image');
+                    roleImage.src = imageUrl;
+                });
+
+                const initialOption = select.options[select.selectedIndex];
+                const initialImageUrl = initialOption.getAttribute('data-image');
+                const initialRoleImage = select.parentElement.querySelector('.role-image');
+                initialRoleImage.src = initialImageUrl;
+            });
+        });
+
+        function openModal(action, groupId) {
+            const modal = document.getElementById('myModal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const confirmBtn = document.getElementById('confirmBtn');
+            modal.classList.remove('hidden');
+            if (action === 'unirse') {
+                modalTitle.textContent = 'Confirmación de entrada al grupo';
+                modalContent.textContent = '¿Deseas entrar al grupo?';
+                confirmBtn.onclick = function() {
+                    realizarAccion('unirse', groupId);
+                    modal.classList.add('hidden');
+                };
+            } else if (action === 'salir') {
+                modalTitle.textContent = 'Confirmación de salida del grupo';
+                modalContent.textContent = '¿Deseas salir del grupo?';
+                confirmBtn.onclick = function() {
+                    realizarAccion('salir', groupId);
+                    modal.classList.add('hidden');
+                };
+            }
+
+
+        }
+
+        document.getElementById('closeModalBtn').addEventListener('click', function() {
+            document.getElementById('myModal').classList.add('hidden');
+        });
+
+        function realizarAccion(action, groupId) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'grupo_acciones.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            const studentId = '<?php echo $student_id; ?>';
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    location.reload();
+                } else {
+                    alert('Error en la solicitud');
+                }
+            };
+
+            xhr.send(`action=${action}&group_id=${groupId}&student_id=${studentId}`);
+        }
+    </script>
 </body>
 
 </html>
