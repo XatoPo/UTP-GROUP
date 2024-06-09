@@ -886,7 +886,7 @@ BEGIN
 END$$
 DELIMITER ;
 
---Procedure para obtener cursos de un estudiante por su id
+-- 3. Procedure para obtener cursos de un estudiante por su id
 DELIMITER $$
 CREATE PROCEDURE ObtenerCursosEstudiantePorId (
     IN student_id_c VARCHAR(10)
@@ -900,7 +900,7 @@ BEGIN
 END$$
 DELIMITER ;
 
--- 3. Obtener Skills de un estudiante
+-- 4. Obtener Skills de un estudiante
 DELIMITER $$
 CREATE PROCEDURE ObtenerSkillsPorEstudiante (
     IN student_id_v VARCHAR(10)
@@ -910,12 +910,25 @@ BEGIN
 END$$
 DELIMITER ;
 
--- 4. Obtener Hobbies de un estudiante
+-- 5. Obtener Hobbies de un estudiante
 DELIMITER $$
 CREATE PROCEDURE ObtenerHobbiesPorEstudiante (
     IN student_id_v VARCHAR(10)
 )
 BEGIN
     SELECT hobby_id, hobby_name FROM hobbies WHERE student_id = student_id_v;
+END$$
+DELIMITER ;
+
+
+-- 6. Procedure para obtener estudiantes de un curso
+DELIMITER $$
+CREATE PROCEDURE ObtenerEstudiantesPorCursoId (
+    IN course_id_s INT(11)
+)
+BEGIN
+    SELECT s.student_id, s.name, s.career, s.birth_date , s.academic_cycle, s.profile_picture from students s
+    INNER JOIN student_courses sc ON s.student_id = sc.student_id 
+    WHERE sc.course_id = course_id_s
 END$$
 DELIMITER ;

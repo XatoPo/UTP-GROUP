@@ -10,6 +10,7 @@ if (isset($_SESSION['student_id'])) {
     $obj = new utp_group_dao();
 
     $student = $obj->ObtenerEstudiantePorId($student_id);
+    $estudiantes = $obj->ObtenerEstudiantesPorCurso(1001);
 
     if ($student) {
         $_SESSION['student_data'] = $student;
@@ -136,21 +137,33 @@ if (isset($_SESSION['student_id'])) {
                     </div>
                 </header>
                 <section class="grid grid-cols-3 gap-2 pt-2">
-                    <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
-                        <div class="col-span-1 flex justify-center items-center">
-                            <img src="images/perfil/U21201391-photo.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
-                        </div>
-                        <div class="col-span-2 flex flex-col justify-between py-5">
-                            <div class="flex flex-col">
-                                <p class="text-xl font-bold text-pretty">Morelia Paola Gonzales Valdivia</p>
-                                <p class="text-xs text-[#4f6168]">Ingeniería de Software - 20 años - 6to ciclo</p>
+                    <?php
+                    foreach ($estudiantes as $estudiante) {
+                    ?>
+                        <?php
+                        $fechaNacimiento = $estudiante['birth_date']; // dd/mm/yy
+                        $edad = DateTime::createFromFormat('Y-m-d', $fechaNacimiento)->diff(new DateTime())->y;
+                        ?>
+
+                        <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
+                            <div class="col-span-1 flex justify-center items-center">
+                                <img src="<?php echo htmlspecialchars($estudiante['profile_picture']);?>" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
                             </div>
-                            <div class="flex gap-x-2 me-10">
-                                <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all" onclick="javascript: openProfile('U21208430');">Ver perfil</button>
-                                <button class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all">Hacer grupo</button>
+                            <div class="col-span-2 flex flex-col justify-between py-5">
+                                <div class="flex flex-col">
+                                    <p class="text-xl font-bold text-pretty"><?php echo htmlspecialchars($estudiante['name']);?></p>
+                                    <p class="text-xs text-[#4f6168]"><?php echo htmlspecialchars($estudiante['career']);?> - <?php echo $edad;?> años - <?php echo htmlspecialchars($estudiante['academic_cycle']);?> Ciclo</p>
+                                </div>
+                                <div class="flex gap-x-2 me-10">
+                                    <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all" onclick="javascript: openProfile('<?php echo htmlspecialchars($estudiante['student_id']);?>');">Ver perfil</button>
+                                    <button class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all">Hacer grupo</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                    <?php
+                    }
+                    ?>
                     <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
                         <div class="col-span-1 flex justify-center items-center">
                             <img src="images/perfil/U21201391-photo.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
