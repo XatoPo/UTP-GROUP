@@ -193,6 +193,10 @@ if (isset($_SESSION['student_id'])) {
                                 </div>
                             <?php endforeach; ?>
                             <!-------------------------------------------------------------------------------------------------------------------------------------------->
+                        </div>
+                    </section>
+                </div>
+            </div>
             <!-- Modal -->
             <div id="myModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
                 <div class="bg-white p-6 rounded shadow-lg">

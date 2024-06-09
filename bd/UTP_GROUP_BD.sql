@@ -783,7 +783,14 @@ INSERT INTO groups (course_id, group_name, number_of_students) VALUES
 (1002, 'Grupo 3', 5),
 (1002, 'Grupo 4', 5), 
 (1002, 'Grupo 5', 5),
-(1002, 'Grupo 6', 6);
+(1002, 'Grupo 6', 6),
+
+(1003, 'Grupo 1', 5),
+(1003, 'Grupo 2', 5),
+(1003, 'Grupo 3', 5),
+(1003, 'Grupo 4', 5), 
+(1003, 'Grupo 5', 5),
+(1003, 'Grupo 6', 6);
 
 -- DATOS TABLA DE ESTUDIANTES-GRUPOS
 INSERT INTO students_groups (student_id, group_id, role_id) VALUES 
@@ -860,7 +867,44 @@ INSERT INTO students_groups (student_id, group_id, role_id) VALUES
 ('U21201413', 'GR1011', 'ROLE4'),
 ('U21201414', 'GR1011', 'ROLE5'),
 ('U21201415', 'GR1011', 'ROLE5'),
-('U21201416', 'GR1011', 'ROLE5');
+('U21201416', 'GR1011', 'ROLE5'),
+
+('U21201417', 'GR1012', 'ROLE1'),
+('U21201418', 'GR1012', 'ROLE2'),
+('U21201419', 'GR1012', 'ROLE3'),
+('U21201420', 'GR1012', 'ROLE4'),
+('U21201421', 'GR1012', 'ROLE5'),
+
+('U21201422', 'GR1013', 'ROLE1'),
+('U21201423', 'GR1013', 'ROLE2'),
+('U21201424', 'GR1013', 'ROLE3'),
+('U21201425', 'GR1013', 'ROLE4'),
+('U21201426', 'GR1013', 'ROLE5'),
+
+('U21201427', 'GR1014', 'ROLE1'),
+('U21201428', 'GR1014', 'ROLE2'),
+('U21201429', 'GR1014', 'ROLE3'),
+('U21201430', 'GR1014', 'ROLE4'),
+('U21201431', 'GR1014', 'ROLE5'),
+
+('U21201432', 'GR1015', 'ROLE1'),
+('U21201433', 'GR1015', 'ROLE2'),
+('U21201434', 'GR1015', 'ROLE3'),
+('U21201435', 'GR1015', 'ROLE4'),
+('U21201436', 'GR1015', 'ROLE5'),
+
+('U21201437', 'GR1016', 'ROLE1'),
+('U21201438', 'GR1016', 'ROLE2'),
+('U21201439', 'GR1016', 'ROLE3'),
+('U21201440', 'GR1016', 'ROLE4'),
+('U21201441', 'GR1016', 'ROLE5'),
+
+('U21201442', 'GR1017', 'ROLE1'),
+('U21201443', 'GR1017', 'ROLE2'),
+('U21201444', 'GR1017', 'ROLE3'),
+('U21201445', 'GR1017', 'ROLE4'),
+('U21201446', 'GR1017', 'ROLE5'),
+
 
 -- funcionales de la aplicacion
 -- 1. Login usuario
