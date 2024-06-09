@@ -12,8 +12,8 @@ if (isset($_SESSION['student_id'])) {
     $student = $obj->ObtenerEstudiantePorId($student_id);
 
     // Separar las habilidades blandas y técnicas
-    $skills_blandas = array_filter($skills, fn($skill) => $skill['skill_topic'] == 'Skills Blandas');
-    $skills_tecnicas = array_filter($skills, fn($skill) => $skill['skill_topic'] == 'Skills Técnicas');
+    $skills_blandas = array_filter($skills, fn ($skill) => $skill['skill_topic'] == 'Skills Blandas');
+    $skills_tecnicas = array_filter($skills, fn ($skill) => $skill['skill_topic'] == 'Skills Técnicas');
 
     // Asegurar que siempre haya 6 campos para cada tipo de habilidad
     while (count($skills_blandas) < 6) {
@@ -28,10 +28,10 @@ if (isset($_SESSION['student_id'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
-    $skills_blandas = array_filter($_POST['skills_blandas'], function($skill) {
+    $skills_blandas = array_filter($_POST['skills_blandas'], function ($skill) {
         return !empty(trim($skill));
     });
-    $skills_tecnicas = array_filter($_POST['skills_tecnicas'], function($skill) {
+    $skills_tecnicas = array_filter($_POST['skills_tecnicas'], function ($skill) {
         return !empty(trim($skill));
     });
     $hobbies = $_POST['hobbies'];
@@ -78,6 +78,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
     // Procesar y actualizar hobbies
     $hobbies_data = explode(',', $hobbies); // Utiliza los datos enviados por Tagify
     $obj->GuardarHobbies($hobbies_data, $student_id);
+
+    // Procesar la imagen de perfil
+    if (isset($_FILES['profile_picture_input']) && $_FILES['profile_picture_input']['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $_FILES['profile_picture_input']['tmp_name'];
+        $fileName = $_FILES['profile_picture_input']['name'];
+        $fileSize = $_FILES['profile_picture_input']['size'];
+        $fileType = $_FILES['profile_picture_input']['type'];
+        $fileNameCmps = explode(".", $fileName);
+        $fileExtension = strtolower(end($fileNameCmps));
+
+        // Sanitize file name
+        $newFileName = $_SESSION['student_id'] . '-photo.' . $fileExtension;
+
+        // Check if file has one of the following extensions
+        $allowedfileExtensions = array('jpg', 'gif', 'png', 'jpeg');
+        if (in_array($fileExtension, $allowedfileExtensions)) {
+            // Directory in which the uploaded file will be moved
+            $uploadFileDir = './images/perfil/';
+            $dest_path = $uploadFileDir . $newFileName;
+
+            if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                $message = 'Archivo subido exitosamente.';
+                // Actualizar la sesión con el nuevo nombre del archivo
+                $obj->ActualizarFotoPerfil($student_id, $newFileName);
+            } else {
+                $message = 'Hubo un error al mover el archivo subido al directorio de destino.';
+            }
+        } else {
+            $message = 'Subida de archivo fallida. Solo se permiten archivos con las siguientes extensiones: ' . implode(',', $allowedfileExtensions);
+        }
+    }
 
     // Actualizar la descripción del estudiante
     $obj->ActualizarDescripcionEstudiante($student_id, $student_description);
@@ -154,12 +185,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
             </div>
         </header>
         <main class="flex justify-center items-center flex-1">
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" enctype="multipart/form-data">
                 <div class="bg-white rounded-2xl shadow-lg w-[500px] py-5 px-12 box-border relative">
                     <div class="flex justify-between items-center">
-                        <div class="my-0 mx-auto">
+                        <div class="my-0 mx-auto relative inline-block">
                             <!-- IMAGEN DE PERFIL -->
-                            <img src="images/perfil/<?php echo htmlspecialchars($_SESSION['student_data']['profile_picture']); ?>" class="w-20 h-20 rounded-[50%] border-[3px] border-[#ff4081] object-cover" alt="Foto de perfil">
+                            <img id="profileImage" src="images/perfil/<?php echo htmlspecialchars($_SESSION['student_data']['profile_picture']); ?>" class="w-20 h-20 rounded-[50%] border-[3px] border-[#ff4081] object-cover block" alt="Foto de perfil">
+                            <label for="profile_picture_input" class="absolute bottom-0 right-0 rounded-full w-[24px] h-[24px] flex justify-center items-center bg-gray-950 cursor-pointer">
+                                <i class="fa-solid fa-pencil text-white text-xs"></i>
+                            </label>
+                            <input type="file" class="hidden" id="profile_picture_input" name="profile_picture_input" accept="image/*" onchange="previewImage(event)">
+
                         </div>
                     </div>
 
@@ -168,7 +204,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
                         <h2 class="text-xl font-semibold"><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></h2>
                         <h3 class="text-sm font-normal"><?php echo htmlspecialchars($_SESSION['student_data']['career']); ?></h3>
                     </div>
-
                     <div class="mt-5">
                         <h4 class="mb-2 font-bold">Descripción del Estudiante</h4>
                         <textarea name="student_description" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: 100%;"><?php echo htmlspecialchars($student['description'] ?? ''); ?></textarea>
@@ -206,7 +241,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
                             <input name="hobbies" id="hobbies" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="<?php echo htmlspecialchars(implode(',', array_column($hobbies, 'hobby_name'))); ?>">
                         </div>
                     </div>
-                    
+
                     <div class="mt-5">
                         <input type="submit" value="ACTUALIZAR" name="Actualizar" class="w-full p-[10px] bg-[#f94c61] text-white border border-[#f94c61] rounded-[5px] text-base cursor-pointer transition-all hover:text-[#f94c61] hover:bg-white">
                     </div>
@@ -219,11 +254,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
     <script src="js/perfil.js"></script>
     <script src="js/dropdown.js"></script>
     <style>
-        .close { max-height: 0; }
-        .open { max-height: 1000px; }
-        .transition-all { transition: max-height 0.3s ease-in-out; }
-    </style>
+        .close {
+            max-height: 0;
+        }
 
+        .open {
+            max-height: 1000px;
+        }
+
+        .transition-all {
+            transition: max-height 0.3s ease-in-out;
+        }
+    </style>
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const output = document.getElementById('profileImage');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 </body>
 
 </html>

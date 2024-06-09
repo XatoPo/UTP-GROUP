@@ -136,6 +136,18 @@ class utp_group_dao
         mysqli_close($cn->conecta());
     }
 
+    // ACTUALIZAR IMAGEN DE PERFIL
+    public function ActualizarFotoPerfil($student_id, $imagen)
+    {
+        $cn = new connection();
+        $sql = "UPDATE students SET profile_picture = ? WHERE student_id = ?";
+        $stmt = $cn->conecta()->prepare($sql);
+        $stmt->bind_param("ss", $imagen, $student_id);
+        $stmt->execute();
+        $stmt->close();
+        mysqli_close($cn->conecta());
+    }
+
     // OBTENER CURSO POR ID
     function ObtenerCursoPorId($course_id) {
         $cn = new connection();
