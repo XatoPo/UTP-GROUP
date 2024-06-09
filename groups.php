@@ -274,7 +274,7 @@ if (isset($_SESSION['student_id'])) {
                                     };
                                 }
 
-                                
+
                             }
 
                             document.getElementById('closeModalBtn').addEventListener('click', function() {
@@ -299,7 +299,11 @@ if (isset($_SESSION['student_id'])) {
                                 xhr.send(`action=${action}&group_id=${groupId}&student_id=${studentId}`);
                             }
                         </script>
-
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>
