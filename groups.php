@@ -71,11 +71,8 @@ if (isset($_SESSION['student_id'])) {
                         <i class="fa-regular fa-bell text-xl"></i>
                     </button>
                     <div class="flex flex-col items-end">
-                        <?php if (isset($_SESSION['student_data']['name'])) : ?>
-                            <p class="text-sm">Hola, <strong><?php echo $_SESSION['student_data']['name']; ?></strong></p>
-                        <?php else : ?>
-                            <p class="text-sm">Hola, Usuario</p>
-                        <?php endif; ?> <p class="text-xs">Estudiante</p>
+                        <p class="text-sm">Hola, <strong><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></strong></p>
+                        <p class="text-xs">Estudiante</p>
                     </div>
                     <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">
                         <i class="fa-solid fa-user"></i>
@@ -85,8 +82,8 @@ if (isset($_SESSION['student_id'])) {
                             <i class="fa-solid fa-chevron-down"></i>
                         </button>
                         <div id="dropdownMenu" class="absolute right-0 mt-5 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Perfil</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar Sesión</a>
+                            <a href="perfil_text.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Perfil</a>
+                            <a href="controller/logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar Sesión</a>
                         </div>
                     </div>
                 </div>
@@ -99,9 +96,9 @@ if (isset($_SESSION['student_id'])) {
                             <p class="text-xs font-extrabold">Volver a cursos</p>
                         </a>
                         <div class="flex gap-x-1 font-bold items-center ps-2">
-                            <p class="text-[#4A4F55] text-sm">Análisis y Diseño de Sistemas de Información - Sección 13758</p>
+                            <p class="text-[#4A4F55] text-sm"><?php echo $_SESSION['course_data']['course_name']; ?> - Sección <?php echo $_SESSION['course_id']; ?></p>
                             <div class="bg-[#B21F5F] text-[#FCDAE2] text-xs py-0.5 px-3 rounded-full">
-                                Virtual 24/7
+                                <?php echo $_SESSION['course_data']['modality']; ?>
                             </div>
                         </div>
                     </div>

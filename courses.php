@@ -102,11 +102,8 @@ if (isset($_SESSION['student_id'])) {
                             </div>
                         </div>
                         <div class="px-5 py-2.5 grid grid-cols-2 gap-2.5">
-                            <?php
-                            foreach ($cursos as $curso) {
-                            ?>
-
-                                <a href="students.php?course_name=<?php echo urlencode($curso['course_name']); ?>&course_section=<?php echo urlencode($curso['course_id']); ?>&course_modality=<?php echo urlencode($curso['modality']); ?>" class="col-span-1 grid grid-cols-3 h-[130px]">
+                            <?php foreach ($cursos as $curso) : ?>
+                                <a href="students.php?course_id=<?php echo $curso['course_id']; ?>" class="col-span-1 grid grid-cols-3 h-[130px]">
                                     <div class="col-span-1 bg-pink-200 rounded-l-md"></div>
                                     <div class="col-span-2 bg-white flex flex-col justify-between p-2 rounded-r-md">
                                         <div class="flex flex-col">
@@ -116,11 +113,7 @@ if (isset($_SESSION['student_id'])) {
                                         <p class="text-sm"><?php echo htmlspecialchars($curso['name']); ?></p>
                                     </div>
                                 </a>
-
-                            <?php
-                            }
-                            ?>
-
+                            <?php endforeach; ?>
                         </div>
                     </div>
                     <div class="col-span-1 flex flex-col">

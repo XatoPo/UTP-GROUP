@@ -8,23 +8,18 @@ if (isset($_SESSION['student_id'])) {
     $student_id = $_SESSION['student_id'];
 
     $obj = new utp_group_dao();
-
-    $student = $obj->ObtenerEstudiantePorId($student_id);
-    $estudiantes = $obj->ObtenerEstudiantesPorCurso(1001);
-
-    if ($student) {
-        $_SESSION['student_data'] = $student;
-    } else {
-        echo "No se pudieron obtener los datos del estudiante.";
+    if (isset($_GET['course_id'])) {
+        $curso_id = $_GET['course_id'];
+        $_SESSION['course_id'] = $curso_id;
+        $_SESSION['course_data'] = $obj->ObtenerCursoPorId($_SESSION['course_id']);
     }
+    $estudiantes = $obj->ObtenerEstudiantesPorCurso($_SESSION['course_id']);
+
 } else {
     header("Location: login.php");
     exit();
 }
 
-$course_name = isset($_GET['course_name']) ? htmlspecialchars($_GET['course_name']) : 'Nombre del curso no especificado';
-$course_section = isset($_GET['course_section']) ? htmlspecialchars($_GET['course_section']) : 'Sección no especificada';
-$course_modality = isset($_GET['course_modality']) ? htmlspecialchars($_GET['course_modality']) : 'Modalidad no especificada';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -68,18 +63,15 @@ $course_modality = isset($_GET['course_modality']) ? htmlspecialchars($_GET['cou
         </aside>
         <div class="flex-1 ml-16">
         <div class="flex-1">
-            <header class="bg-white flex items-center justify-between px-5 h-[65px] w-full">
+        <header class="bg-white flex items-center justify-between px-5 h-[65px] w-full">
                 <img src="images/logo/logo-pao-class.png" class="w-40" alt="">
                 <div class="flex items-center justify-center gap-x-3">
                     <button class="flex items-center justify-center rounded-full p-2 w-[40px] h-[40px] hover:bg-blue-950 hover:text-white transition-all">
                         <i class="fa-regular fa-bell text-xl"></i>
                     </button>
                     <div class="flex flex-col items-end">
-                        <?php if (isset($_SESSION['student_data']['name'])) : ?>
-                            <p class="text-sm">Hola, <strong><?php echo $_SESSION['student_data']['name']; ?></strong></p>
-                        <?php else : ?>
-                            <p class="text-sm">Hola, Usuario</p>
-                        <?php endif; ?> <p class="text-xs">Estudiante</p>
+                        <p class="text-sm">Hola, <strong><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></strong></p>
+                        <p class="text-xs">Estudiante</p>
                     </div>
                     <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">
                         <i class="fa-solid fa-user"></i>
@@ -88,10 +80,9 @@ $course_modality = isset($_GET['course_modality']) ? htmlspecialchars($_GET['cou
                         <button id="dropdownButton" class="flex items-center justify-center">
                             <i class="fa-solid fa-chevron-down"></i>
                         </button>
-                        <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                        <div id="dropdownMenu" class="absolute right-0 mt-5 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden">
+                            <a href="perfil_text.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Perfil</a>
+                            <a href="controller/logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar Sesión</a>
                         </div>
                     </div>
                 </div>
@@ -104,9 +95,9 @@ $course_modality = isset($_GET['course_modality']) ? htmlspecialchars($_GET['cou
                             <p class="text-xs font-extrabold">Volver a cursos</p>
                         </a>
                         <div class="flex gap-x-1 font-bold items-center ps-2">
-                            <p class="text-[#4A4F55] text-sm"><?php echo $course_name; ?> - Sección <?php echo $course_section; ?></p>
+                            <p class="text-[#4A4F55] text-sm"><?php echo $_SESSION['course_data']['course_name']; ?> - Sección <?php echo $_SESSION['course_id']; ?></p>
                             <div class="bg-[#B21F5F] text-[#FCDAE2] text-xs py-0.5 px-3 rounded-full">
-                                <?php echo $course_modality; ?>
+                                <?php echo $_SESSION['course_data']['modality']; ?>
                             </div>
                         </div>
                     </div>
