@@ -1,8 +1,20 @@
-
-
 <?php
+include_once 'dao/utp_group_dao.php';
+include_once 'util/connection.php';
 
 session_start();
+
+if (isset($_SESSION['student_id'])) {
+    $student_id = $_SESSION['student_id'];
+
+    $obj = new utp_group_dao();
+
+    $skills = $obj->ObtenerSkillsPorEstudiante($student_id);
+    $hobbies = $obj->ObtenerHobbiesPorEstudiante($student_id);
+} else {
+    header("Location: login.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,22 +33,24 @@ session_start();
 <body>
     <main>
 
-    <form action="controlller/control?opc=2" method="POST">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
         <div class="bg-white rounded-2xl shadow-lg w-[500px] py-5 px-12 box-border relative">
             <div class="flex justify-between items-center">
                 <div class="my-0 mx-auto">
-                    <img src="images/perfil/panda_full.jpg" class="w-20 h-20 rounded-[50%] border-[3px] border-[#ff4081] object-cover" alt="Foto de perfil">
+                    <!-- IMAGEN DE PERFIL -->
+                    <img src="images/perfil/<?php echo htmlspecialchars($_SESSION['student_data']['profile_picture']); ?>" class="w-20 h-20 rounded-[50%] border-[3px] border-[#ff4081] object-cover" alt="Foto de perfil">
                 </div>
             </div>
 
             <div class="text-center mt-5 my-[5px] mx-0 text-black">
-                <h2 class="text-xl font-semibold"><?php echo $_SESSION['nombre'] ?></h2>
-                <h3 class="text-sm font-normal"><?php echo $_SESSION['carrera'] ?></h3>
+                <!-- LLAMAR A TITULO DE PERFIL -->
+                <h2 class="text-xl font-semibold"><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></h2>
+                <h3 class="text-sm font-normal"><?php echo htmlspecialchars($_SESSION['student_data']['career']); ?></h3>
             </div>
 
             <div class="mt-5">
                 <h4 class="mb-2 font-bold">Descripción</h4>
-                <textarea name="descripcion" class="w-full h-[100px] p-[10px] box-border border border-[#ccc] rounded-md resize-none text-sm tracking-tight" placeholder="Soy una persona..."></textarea>
+                <textarea name="description" class="w-full h-[100px] p-[10px] box-border border border-[#ccc] rounded-md resize-none text-sm tracking-tight" placeholder="Soy una persona..."><?php echo htmlspecialchars($_SESSION['student_data']['description']); ?></textarea>
             </div>
             <div class="mt-5">
                 <div>
@@ -71,11 +85,7 @@ session_start();
                 <input class="text-sm border border-[#ccc] rounded-[5px]" name="tags-pasatiempos" placeholder="" value="">
             </div>
             <div class="mt-5">
-
-                <input type="submit" value="Guardar" name="Guardar" class="w-full p-[10px] bg-[#f94c61] text-white border border-[#f94c61] rounded-[5px] text-base cursor-pointer transition-all hover:text-[#f94c61] hover:bg-white">
-
-                
-
+                <input type="submit" value="ACTUALIZAR" name="Actualizar" class="w-full p-[10px] bg-[#f94c61] text-white border border-[#f94c61] rounded-[5px] text-base cursor-pointer transition-all hover:text-[#f94c61] hover:bg-white">
             </div>
         </div>
     </form>
