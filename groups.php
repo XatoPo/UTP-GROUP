@@ -1,5 +1,25 @@
 <?php
+include_once 'dao/utp_group_dao.php';
+include_once 'util/connection.php';
+
 session_start();
+
+if (isset($_SESSION['student_id'])) {
+    $student_id = $_SESSION['student_id'];
+
+    $obj = new utp_group_dao();
+
+    $student = $obj->ObtenerEstudiantePorId($student_id);
+
+    if ($student) {
+        $_SESSION['student_data'] = $student;
+    } else {
+        echo "No se pudieron obtener los datos del estudiante.";
+    }
+} else {
+    header("Location: login.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,8 +67,11 @@ session_start();
                         <i class="fa-regular fa-bell text-xl"></i>
                     </button>
                     <div class="flex flex-col items-end">
-                        <p class="text-sm">Hola, <strong><?php echo $_SESSION['nombre'] ?></strong></p>
-                        <p class="text-xs">Estudiante</p>
+                        <?php if (isset($_SESSION['student_data']['name'])) : ?>
+                            <p class="text-sm">Hola, <strong><?php echo $_SESSION['student_data']['name']; ?></strong></p>
+                        <?php else : ?>
+                            <p class="text-sm">Hola, Usuario</p>
+                        <?php endif; ?> <p class="text-xs">Estudiante</p>
                     </div>
                     <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">
                         <i class="fa-solid fa-user"></i>
@@ -104,10 +127,10 @@ session_start();
                             <p>Zoom</p>
                         </div>
                         <div class="py-2 px-3 cursor-pointer border-b-[3.5px] border-[#0661fc]">
-                            <p>Group</p>
+                            <a href="groups.php">Group</a>
                         </div>
                         <div class="py-2 px-3 cursor-pointer">
-                            <p>Class</p>
+                            <a href="students.php">Class</a>
                         </div>
                     </div>
                 </header>

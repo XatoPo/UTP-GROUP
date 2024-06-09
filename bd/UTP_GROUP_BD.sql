@@ -886,7 +886,6 @@ BEGIN
 END$$
 DELIMITER ;
 
-<<<<<<< HEAD
 --Procedure para obtener cursos de un estudiante por su id
 DELIMITER $$
 CREATE PROCEDURE ObtenerCursosEstudiantePorId (
@@ -901,7 +900,6 @@ BEGIN
 END$$
 DELIMITER ;
 
-=======
 -- 3. Obtener Skills de un estudiante
 DELIMITER $$
 CREATE PROCEDURE ObtenerSkillsPorEstudiante (
@@ -921,4 +919,3 @@ BEGIN
     SELECT hobby_id, hobby_name FROM hobbies WHERE student_id = student_id_v;
 END$$
 DELIMITER ;
->>>>>>> d258b03989cee8d42503d4103e49f361c846d457

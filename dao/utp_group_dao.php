@@ -27,7 +27,6 @@ class utp_group_dao
         return $student;
     }
 
-<<<<<<< HEAD
     function ObtenerCursosEstudiantePorId($student_id_c)
     {
         $cn = new connection();
@@ -44,7 +43,6 @@ class utp_group_dao
         return $cursos;
     }
         
-=======
     // OBTENER SKILLS DE USUARIO POR ESTUDIANTE
     function ObtenerSkillsPorEstudiante($student_id_v)
     {
@@ -72,7 +70,6 @@ class utp_group_dao
         mysqli_close($cn->conecta());
         return $hobbies;
     }
->>>>>>> d258b03989cee8d42503d4103e49f361c846d457
 }
 
 ?>
