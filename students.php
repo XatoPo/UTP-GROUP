@@ -73,7 +73,7 @@ if (isset($_SESSION['student_id'])) {
                             <p class="text-xs">Estudiante</p>
                         </div>
                         <div class="flex items-center justify-center">
-                            <img id="profileImage" src="images/perfil/<?php echo htmlspecialchars($_SESSION['student_data']['profile_picture']); ?>" class=" w-[40px] h-[40px] rounded-full block" alt="Foto de perfil">
+                            <img src="images/perfil/<?php echo htmlspecialchars($_SESSION['student_data']['profile_picture']); ?>" class=" w-[40px] h-[40px] rounded-full block" alt="Foto de perfil">
                         </div>
                         <div class="relative">
                             <button id="dropdownButton" class="flex items-center justify-center">
