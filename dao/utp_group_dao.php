@@ -231,6 +231,15 @@ class utp_group_dao
         return $roles;
     }
 
+    function EstaEnGrupo($student_id, $group_id) {
+        $cn = new connection();
+        $sql = "SELECT COUNT(*) as count FROM students_groups WHERE student_id = '$student_id' AND group_id = '$group_id'";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        $row = mysqli_fetch_assoc($res);
+        mysqli_close($cn->conecta());
+        return $row['count'] > 0;
+    }
+
 }
 
 ?>
