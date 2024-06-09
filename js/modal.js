@@ -62,7 +62,7 @@ function openProfile(id) {
             });
             document.getElementById('skillsTecnicasInfo').innerHTML = html_skills_tecnicas;
 
-            document.getElementById("imagePerfil").src = base_url +"/images/perfil/" + data.informacion.profile_picture;
+            document.getElementById("imagePerfil").src = "images/perfil/" + data.informacion.profile_picture;
 
             document.getElementById('hobbies_text').innerText = data.hobbies.map(hobby => hobby.hobby_name).join( ', ');
 
