@@ -90,7 +90,7 @@ if (isset($_SESSION['student_id'])) {
             <div class="divide-y-2 divide-[#4f6168] px-5 py-2.5">
                 <header>
                     <div class="flex py-2.5 px-5 divide-x-2 divide-black gap-x-2">
-                        <a href="#" class="flex items-center text-[#0661fc] gap-x-1">
+                        <a href="courses.php" class="flex items-center text-[#0661fc] gap-x-1">
                             <i class="fa-solid fa-arrow-left"></i>
                             <p class="text-xs font-extrabold">Volver a cursos</p>
                         </a>

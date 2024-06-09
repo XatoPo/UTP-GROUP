@@ -4,12 +4,23 @@ include_once 'util/connection.php';
 
 session_start();
 
+// Verificar si las variables de sesión existen
+$course_name = isset($_SESSION['course_name']) ? htmlspecialchars($_SESSION['course_name']) : 'Nombre del curso no especificado';
+$course_section = isset($_SESSION['course_section']) ? htmlspecialchars($_SESSION['course_section']) : 'Sección no especificada';
+$course_modality = isset($_SESSION['course_modality']) ? htmlspecialchars($_SESSION['course_modality']) : 'Modalidad no especificada';
+
+// Limpiar las variables de sesión después de usarlas, si es necesario
+unset($_SESSION['course_name']);
+unset($_SESSION['course_section']);
+unset($_SESSION['course_modality']);
+
 if (isset($_SESSION['student_id'])) {
     $student_id = $_SESSION['student_id'];
 
     $obj = new utp_group_dao();
 
     $student = $obj->ObtenerEstudiantePorId($student_id);
+    $estudiantes = $obj->ObtenerEstudiantesPorCurso(1001);
 
     if ($student) {
         $_SESSION['student_data'] = $student;
@@ -20,9 +31,13 @@ if (isset($_SESSION['student_id'])) {
     header("Location: login.php");
     exit();
 }
+
+$course_name = isset($_POST['course_name']) ? htmlspecialchars($_POST['course_name']) : 'Nombre del curso no especificado';
+$course_section = isset($_POST['course_section']) ? htmlspecialchars($_POST['course_section']) : 'Sección no especificada';
+$course_modality = isset($_POST['course_modality']) ? htmlspecialchars($_POST['course_modality']) : 'Modalidad no especificada';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -91,14 +106,14 @@ if (isset($_SESSION['student_id'])) {
             <div class="divide-y-2 divide-[#4f6168] px-5 py-2.5">
                 <header>
                     <div class="flex py-2.5 px-5 divide-x-2 divide-black gap-x-2">
-                        <a href="#" class="flex items-center text-[#0661fc] gap-x-1">
+                        <a href="courses.php" class="flex items-center text-[#0661fc] gap-x-1">
                             <i class="fa-solid fa-arrow-left"></i>
                             <p class="text-xs font-extrabold">Volver a cursos</p>
                         </a>
                         <div class="flex gap-x-1 font-bold items-center ps-2">
-                            <p class="text-[#4A4F55] text-sm">Análisis y Diseño de Sistemas de Información - Sección 13758</p>
+                            <p class="text-[#4A4F55] text-sm"><?php echo $course_name; ?> - Sección <?php echo $course_section; ?></p>
                             <div class="bg-[#B21F5F] text-[#FCDAE2] text-xs py-0.5 px-3 rounded-full">
-                                Virtual 24/7
+                                <?php echo $course_modality; ?>
                             </div>
                         </div>
                     </div>
@@ -136,21 +151,33 @@ if (isset($_SESSION['student_id'])) {
                     </div>
                 </header>
                 <section class="grid grid-cols-3 gap-2 pt-2">
-                    <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
-                        <div class="col-span-1 flex justify-center items-center">
-                            <img src="images/perfil/U21201391-photo.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
-                        </div>
-                        <div class="col-span-2 flex flex-col justify-between py-5">
-                            <div class="flex flex-col">
-                                <p class="text-xl font-bold text-pretty">Morelia Paola Gonzales Valdivia</p>
-                                <p class="text-xs text-[#4f6168]">Ingeniería de Software - 20 años - 6to ciclo</p>
+                    <?php
+                    foreach ($estudiantes as $estudiante) {
+                    ?>
+                        <?php
+                        $fechaNacimiento = $estudiante['birth_date']; // dd/mm/yy
+                        $edad = DateTime::createFromFormat('Y-m-d', $fechaNacimiento)->diff(new DateTime())->y;
+                        ?>
+
+                        <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
+                            <div class="col-span-1 flex justify-center items-center">
+                                <img src="<?php echo htmlspecialchars($estudiante['profile_picture']);?>" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
                             </div>
-                            <div class="flex gap-x-2 me-10">
-                                <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all" onclick="javascript: openProfile('U21208430');">Ver perfil</button>
-                                <button class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all">Hacer grupo</button>
+                            <div class="col-span-2 flex flex-col justify-between py-5">
+                                <div class="flex flex-col">
+                                    <p class="text-xl font-bold text-pretty"><?php echo htmlspecialchars($estudiante['name']);?></p>
+                                    <p class="text-xs text-[#4f6168]"><?php echo htmlspecialchars($estudiante['career']);?> - <?php echo $edad;?> años - <?php echo htmlspecialchars($estudiante['academic_cycle']);?> Ciclo</p>
+                                </div>
+                                <div class="flex gap-x-2 me-10">
+                                    <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all" onclick="javascript: openProfile('<?php echo htmlspecialchars($estudiante['student_id']);?>');">Ver perfil</button>
+                                    <button class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all">Hacer grupo</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                    <?php
+                    }
+                    ?>
                     <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
                         <div class="col-span-1 flex justify-center items-center">
                             <img src="images/perfil/U21201391-photo.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
