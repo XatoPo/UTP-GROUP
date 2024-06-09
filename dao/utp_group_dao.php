@@ -70,6 +70,20 @@ class utp_group_dao
         return $hobbies;
     }
 
+    function ObtenerEstudiantesPorCurso($curso_id_s)
+    {
+        $cn = new connection();
+        $sql = "CALL ObtenerEstudiantesPorCursoId('$curso_id_s')";
+        
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        $estudiantes = array();
+        while ($fila = mysqli_fetch_assoc($res)) {
+            $estudiantes[] = $fila;
+        }
+        mysqli_close($cn->conecta());
+        return $estudiantes;
+    }
+
     // ACTUALIZAR O INSERTAR SKILLS
     function GuardarSkills($skills, $student_id) {
         $cn = new connection();
@@ -107,5 +121,7 @@ class utp_group_dao
         }
         mysqli_close($cn->conecta());
     }
+
 }
+
 ?>
