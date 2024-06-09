@@ -2,14 +2,23 @@
 include_once 'dao/utp_group_dao.php';
 include_once 'util/connection.php';
 
-$obj = new utp_group_dao();
-$student = $obj->obtenerEstudiantePor($_SESSION['student_id']);
+session_start();
+
 if (isset($_SESSION['student_id'])) {
     $student_id = $_SESSION['student_id'];
 
+    $obj = new utp_group_dao();
+
     $student = $obj->obtenerEstudiantePor($student_id);
 
-    $_SESSION['$student_data'] = $student;
+    if ($student) {
+        $_SESSION['student_data'] = $student;
+    } else {
+        echo "No se pudieron obtener los datos del estudiante.";
+    }
+} else {
+    header("Location: login.php");
+    exit();
 }
 ?>
 
@@ -60,7 +69,7 @@ if (isset($_SESSION['student_id'])) {
                         <i class="fa-regular fa-bell text-xl"></i>
                     </button>
                     <div class="flex flex-col items-end">
-                        <p class="text-sm">Hola, <strong><?php echo isset($_SESSION['user_data']['name']) ?></strong></p>
+                        <p class="text-sm">Hola, <strong><?php echo htmlspecialchars($_SESSION['student_data']['name']);?></strong></p>
                         <p class="text-xs">Estudiante</p>
                     </div>
                     <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">
@@ -72,7 +81,7 @@ if (isset($_SESSION['student_id'])) {
                         </button>
                         <div id="dropdownMenu" class="absolute right-0 mt-5 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden">
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Perfil</a>
-                            <a href="logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar Sesión</a>
+                            <a href="controller/logout.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar Sesión</a>
                         </div>
                     </div>
                 </div>

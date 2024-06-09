@@ -2,7 +2,6 @@
 include_once 'dao/utp_group_dao.php';
 include_once 'util/connection.php';
 
-// Inicia la sesión
 session_start();
 
 if (isset($_SESSION['student_id'])) {
@@ -12,31 +11,27 @@ if (isset($_SESSION['student_id'])) {
 
 $obj = new utp_group_dao();
 $mensaje_error = '';
-// Verifica si se han enviado datos del formulario
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $studentId = filter_input(INPUT_POST, 'student_id', FILTER_SANITIZE_STRING);
+    $student_id = filter_input(INPUT_POST, 'student_id', FILTER_SANITIZE_STRING);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-    if (!preg_match('/^U/i', $studentId)) {
-        $mensaje_error = "El ID del estudiante debe comenzar con la letra 'U' o 'u'.";
+    if (!preg_match('/^U/i', $student_id)) {
+        $mensaje_error = "El código del estudiante debe comenzar con la letra 'U' o 'u'.";
     } else {
-        if ($obj->validarLogin($studentId, $password)) {
-            $_SESSION['user_id'] = $studentId;  // Cambiado a 'user_id' para ser más apropiado si no es un email
-            header("Location: inicio.php");
+        if ($obj->validarLogin($student_id, $password)) {
+            $_SESSION['student_id'] = strtoupper($student_id);
+            header("Location: courses.php");
             exit();
         } else {
             $mensaje_error = "Credenciales incorrectas. Intente de nuevo.";
         }
     }
-    
 }
-
-
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -77,5 +72,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </main>
 </body>
-
 </html>

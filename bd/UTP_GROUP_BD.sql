@@ -817,6 +817,6 @@ CREATE PROCEDURE ObtenerEstudiantePorId (
     IN student_id_v VARCHAR(10)
 )
 BEGIN
-    SELECT * FROM students WHERE student_id_v = student_id;
+    SELECT * FROM students WHERE student_id = student_id_v;
 END$$
 DELIMITER ;
