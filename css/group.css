@@ -1,0 +1,16 @@
+        .list-decimal-custom {
+            counter-reset: list-counter;
+        }
+        .list-decimal-custom li {
+            list-style-type: none;
+            position: relative;
+            padding-left: 1.5em;
+        }
+        .list-decimal-custom li::before {
+            content: counter(list-counter);
+            counter-increment: list-counter;
+            position: absolute;
+            left: 0;
+            width: 1.5em;
+            text-align: left;
+        }

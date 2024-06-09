@@ -52,9 +52,16 @@ session_start();
                     <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">
                         <i class="fa-solid fa-user"></i>
                     </div>
-                    <button>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </button>
+                    <div class="relative">
+                        <button id="dropdownButton" class="flex items-center justify-center">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                        </div>
+                    </div>
                 </div>
             </header>
             <div class="divide-y-2 divide-[#4f6168] px-5 py-2.5">
@@ -143,7 +150,7 @@ session_start();
                     <!-- Diseño tarjeta 3 -->
                     <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
                         <div class="col-span-1 flex justify-center items-center">
-                            <img src="images/perfil/panda_full.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
+                            <img src="images/perfil/U21201391-photo.jpg" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
                         </div>
                         <div class="col-span-2 flex flex-col justify-between py-5">
                             <div class="flex flex-col">
