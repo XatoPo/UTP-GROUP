@@ -125,7 +125,7 @@ class utp_group_dao
         mysqli_close($cn->conecta());
     }
 
-    // ACTUALIZAR DESCRIPCION DEL ESTUDIANTE
+    // ACTUALIZAR DESCRIPCIÓN DEL ESTUDIANTE
     function ActualizarDescripcionEstudiante($student_id, $description) {
         $cn = new connection();
         $sql = "UPDATE students SET description = ? WHERE student_id = ?";
