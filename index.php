@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $studentId = filter_input(INPUT_POST, 'student_id', FILTER_SANITIZE_STRING);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-    if (!preg_match('/^U/', $studentId)) {
+    if (!preg_match('/^U/i', $studentId)) {
         $mensaje_error = "El ID del estudiante debe comenzar con la letra 'U'.";
     } else {
         if ($obj->validarLogin($studentId, $password)) {

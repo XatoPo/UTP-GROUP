@@ -810,3 +810,15 @@ BEGIN
     RETURN existe;
 END$$
 DELIMITER ;
+
+-- 2. Obtener Datos de Estudiante
+DELIMITER $$
+CREATE FUNCTION ObtenerUsuarioPorCorreo (
+    usuario_correo VARCHAR(35)
+) RETURNS CHAR(6)
+BEGIN
+    DECLARE codigo_usuario CHAR(6);
+    SELECT COD_USER INTO codigo_usuario FROM USUARIO WHERE CORREO = usuario_correo;
+    RETURN codigo_usuario;
+END$$
+DELIMITER ;
