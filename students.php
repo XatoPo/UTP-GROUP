@@ -9,22 +9,13 @@ if (isset($_SESSION['student_id'])) {
 
     $obj = new utp_group_dao();
 
-    $student = $obj->ObtenerEstudiantePorId($student_id);
     $estudiantes = $obj->ObtenerEstudiantesPorCurso(1001);
+    
 
-    if ($student) {
-        $_SESSION['student_data'] = $student;
-    } else {
-        echo "No se pudieron obtener los datos del estudiante.";
-    }
 } else {
     header("Location: login.php");
     exit();
 }
-
-$course_name = isset($_GET['course_name']) ? htmlspecialchars($_GET['course_name']) : 'Nombre del curso no especificado';
-$course_section = isset($_GET['course_section']) ? htmlspecialchars($_GET['course_section']) : 'Sección no especificada';
-$course_modality = isset($_GET['course_modality']) ? htmlspecialchars($_GET['course_modality']) : 'Modalidad no especificada';
 ?>
 <!DOCTYPE html>
 <html lang="es">
