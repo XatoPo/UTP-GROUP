@@ -108,21 +108,18 @@ foreach ($cursos as $curso) {
                             <?php
                             foreach ($cursos as $curso) {
                             ?>
-                                <form action="students.php" method="post" class="col-span-1 grid grid-cols-3 h-[130px]">
-                                    <input type="hidden" name="course_name" value="<?php echo urlencode($curso['course_name']); ?>">
-                                    <input type="hidden" name="course_section" value="<?php echo urlencode($curso['course_id']); ?>">
-                                    <input type="hidden" name="course_modality" value="<?php echo urlencode($curso['modality']); ?>">
-                                    <button type="submit" class="w-full">
-                                        <div class="col-span-1 bg-pink-200 rounded-l-md"></div>
-                                        <div class="col-span-2 bg-white flex flex-col justify-between p-2 rounded-r-md">
-                                            <div class="flex flex-col">
-                                                <h5 class="font-bold text-lg"><?php echo htmlspecialchars($curso['course_name']); ?></h5>
-                                                <p><?php echo htmlspecialchars($curso['course_id']); ?> - <?php echo htmlspecialchars($curso['modality']); ?></p>
-                                            </div>
-                                            <p class="text-sm"><?php echo htmlspecialchars($curso['name']); ?></p>
+
+                                <a href="students.php?course_name=<?php echo urlencode($curso['course_name']); ?>&course_section=<?php echo urlencode($curso['course_id']); ?>&course_modality=<?php echo urlencode($curso['modality']); ?>" class="col-span-1 grid grid-cols-3 h-[130px]">
+                                    <div class="col-span-1 bg-pink-200 rounded-l-md"></div>
+                                    <div class="col-span-2 bg-white flex flex-col justify-between p-2 rounded-r-md">
+                                        <div class="flex flex-col">
+                                            <h5 class="font-bold text-lg"><?php echo htmlspecialchars($curso['course_name']); ?></h5>
+                                            <p><?php echo htmlspecialchars($curso['course_id']); ?> - <?php echo htmlspecialchars($curso['modality']); ?></p>
                                         </div>
-                                    </button>
-                                </form>
+                                        <p class="text-sm"><?php echo htmlspecialchars($curso['name']); ?></p>
+                                    </div>
+                                </a>
+
                             <?php
                             }
                             ?>
