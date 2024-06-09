@@ -191,7 +191,6 @@ if (isset($_SESSION['student_id'])) {
         ?>
             <div id="myModal<?php echo htmlspecialchars($student['student_id']); ?>" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
                 
-                
                 <div class="student_id"></div>
                 <div class="bg-white rounded-2xl shadow-lg w-[500px] py-5 px-12 box-border relative">
                     <div class="flex justify-between items-center">
@@ -257,81 +256,41 @@ if (isset($_SESSION['student_id'])) {
                         <h4 class="mb-2 font-bold">Descripción</h4>
                         <p class="descripcion text-sm text-pretty"><?php echo htmlspecialchars($student['description']); ?></p>
                     </div>
-                    
-                    <div class="mt-5 inline-flex items-center gap-x-2 cursor-pointer" onclick="javascript: toggle(this);">
-                        <i class="fa-solid fa-caret-down bg-[#203672] rounded-sm px-1 text-white"></i>
-                        <h4 class="font-bold">Skills blandas</h4>
-                    </div>
 
-                    <div class="max-h-0 overflow-hidden grid grid-cols-2 gap-x-5 close">
-                        <div class="col-span-1 flex flex-col">
-                            <div class="mb-2 flex items-center gap-x-1">
-                                <p class="font-extrabold text-gray-600">1</p>
-                                <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">Comunicación</p>
-                            </div>
-                            <div class="mb-2 flex items-center gap-x-1">
-                                <p class="font-extrabold text-gray-600">2</p>
-                                <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">Trabajo en equipo</p>
-                            </div>
-                            <div class="flex items-center gap-x-1">
-                                <p class="font-extrabold text-gray-600">3</p>
-                                <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">Creatividad</p>
+                    <div class="mt-5">
+                        <div>
+                            <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="toggleSection('skillsBlandas', 'skillsTecnicas');">Skills Blandas</h4>
+                            <div id="skillsBlandas" class="max-h-0 overflow-hidden transition-all close">
+                                <div class="flex flex-wrap gap-[10px] mt-[10px]">
+                                    <?php
+                                    foreach ($skills_blandas as $index => $skill) {
+                                        echo '<input name="skills_blandas[' . $skill['skill_id'] . ']" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="' . htmlspecialchars($skill['skill_name']) . '" placeholder="Skill ' . ($index + 1) . '">';
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-span-1 flex flex-col">
-                            <div class="mb-2 flex items-center gap-x-1">
-                                <p class="font-extrabold text-gray-600">4</p>
-                                <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">Diseño de PPTs</p>
-                            </div>
-                            <div class="mb-2 flex items-center gap-x-1">
-                                <p class="font-extrabold text-gray-600">5</p>
-                                <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">UX/UI en Figma</p>
-                            </div>
-                            <div class="flex items-center gap-x-1">
-                                <p class="font-extrabold text-gray-600">6</p>
-                                <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">HTML, CSS, PHP, Python</p>
+                        <div class="mt-5">
+                            <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="toggleSection('skillsTecnicas', 'skillsBlandas');">Skills Técnicas</h4>
+                            <div id="skillsTecnicas" class="max-h-0 overflow-hidden transition-all close">
+                                <div class="flex flex-wrap gap-[10px] mt-[10px]">
+                                    <?php
+                                    foreach ($skills_tecnicas as $index => $skill) {
+                                        echo '<input name="skills_tecnicas[' . $skill['skill_id'] . ']" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="' . htmlspecialchars($skill['skill_name']) . '" placeholder="Skill ' . ($index + 1) . '">';
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-5 inline-flex items-center gap-x-2 cursor-pointer" onclick="javascript: toggle(this);">
-                        <i class="fa-solid fa-caret-down bg-[#203672] rounded-sm px-1 text-white"></i>
-                        <h4 class="font-bold">Skills duras</h4>
-                    </div>
-                    <div class="max-h-0 overflow-hidden grid grid-cols-2 gap-x-5 close">
-                        <div class="col-span-1 flex flex-col">
-                            <div class="mb-2 flex items-center gap-x-1">
-                                <p class="font-extrabold text-gray-600">1</p>
-                                <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">Comunicación</p>
-                            </div>
-                            <div class="mb-2 flex items-center gap-x-1">
-                                <p class="font-extrabold text-gray-600">2</p>
-                                <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">Trabajo en equipo</p>
-                            </div>
-                            <div class="flex items-center gap-x-1">
-                                <p class="font-extrabold text-gray-600">3</p>
-                                <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">Creatividad</p>
-                            </div>
-                        </div>
-                        <div class="col-span-1 flex flex-col">
-                            <div class="mb-2 flex items-center gap-x-1">
-                                <p class="font-extrabold text-gray-600">4</p>
-                                <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">Diseño de PPTs</p>
-                            </div>
-                            <div class="mb-2 flex items-center gap-x-1">
-                                <p class="font-extrabold text-gray-600">5</p>
-                                <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">UX/UI en Figma</p>
-                            </div>
-                            <div class="flex items-center gap-x-1">
-                                <p class="font-extrabold text-gray-600">6</p>
-                                <p class="py-1 px-2 text-sm border border-[#ccc] rounded-[5px] w-full">HTML, CSS, PHP, Python</p>
-                            </div>
-                        </div>
-                    </div>
                     <div class="mt-5">
                         <h4 class="mb-2 font-bold">Pasatiempos</h4>
-                        <input class="text-sm border-0" readonly value="Música, TKD, More Academy">
+                        <div class="flex flex-wrap gap-[10px]">
+                            <input name="hobbies" id="hobbies" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="<?php echo htmlspecialchars(implode(',', array_column($hobbies, 'hobby_name'))); ?>" readonly>
+                        </div>
                     </div>
+
                 </div>
             </div>
         <?php
@@ -343,6 +302,13 @@ if (isset($_SESSION['student_id'])) {
     <script src="js/dropdown.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/student_profile.js"></script>
+    <script src="js/perfil.js"></script>
+    <script src="js/dropdown.js"></script>
+    <style>
+        .close { max-height: 0; }
+        .open { max-height: 1000px; }
+        .transition-all { transition: max-height 0.3s ease-in-out; }
+    </style>
 </body>
 
 </html>
