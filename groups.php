@@ -170,7 +170,7 @@ if (isset($_SESSION['student_id'])) {
                                                     <?php foreach ($roles as $role) : ?>
                                                         <!-- hacer cambio para qeu se vea la imagen y no el nombre del rol -->
                                                         <option value="<?php echo $role['role_id']; ?>">
-                                                            <img src="images/roles/<?php echo $role['role_name'];?>.png" class="w-6 h-6"> <?php echo $role['role_name']; ?>
+                                                            <?php echo $role['role_name']; ?>
                                                         </option>
                                                     <?php endforeach; ?>
                                                 </select>
