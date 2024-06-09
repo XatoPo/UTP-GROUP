@@ -7,7 +7,6 @@ session_start();
 if (isset($_SESSION['student_id'])) {
     $student_id = $_SESSION['student_id'];
     $obj = new utp_group_dao();
-
     $skills = $obj->ObtenerSkillsPorEstudiante($student_id);
     $hobbies = $obj->ObtenerHobbiesPorEstudiante($student_id);
     $student = $obj->ObtenerEstudiantePorId($student_id);

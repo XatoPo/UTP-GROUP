@@ -1,6 +1,9 @@
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js";
+
+
 document.addEventListener('DOMContentLoaded', (event) => {
     const closeModalBtn = document.getElementById('closeModalBtn');
-    const modal = document.getElementById('myModal');
+    const modal = document.getElementById('myModal'+idg);
 
     closeModalBtn.addEventListener('click', () => {
         modal.classList.add('hidden');
@@ -26,7 +29,11 @@ function openModal(number) {
 }
 
 function openProfile(id) {
-    const modal = document.getElementById('myModal');
+    idg = id;
+    const modal = document.getElementById('myModal'+id);
     modal.classList.remove('hidden');
     modal.classList.add('flex');
+
 }
+
+var idg;

@@ -4,19 +4,8 @@ include "util/connection.php";
 
 class utp_group_dao
 {
-    // LOGIN DE USUARIO
-    function validarLogin($student_id_v, $password_v)
-    {
-        $cn = new connection();
-        $sql = "SELECT validarLogin('$student_id_v', '$password_v') AS resultado";
-        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
-        $row = mysqli_fetch_assoc($res);
-        $resultado = $row['resultado'];
-        return $resultado === '1';
-    }
-
-    // OBTENER DATOS DE USUARIO POR CORREO
-    function ObtenerEstudiantePorId($student_id_v)
+    // Obtener Estudiante por ID
+    public function ObtenerEstudiantePorId($student_id_v)
     {
         $cn = new connection();
         $sql = "CALL ObtenerEstudiantePorId('$student_id_v')";
@@ -26,7 +15,48 @@ class utp_group_dao
         return $student;
     }
 
-    function ObtenerCursosEstudiantePorId($student_id_c)
+    // Obtener Skills por Estudiante
+    public function ObtenerSkillsPorEstudiante($student_id_v)
+    {
+        $cn = new connection();
+        $sql = "CALL ObtenerSkillsPorEstudiante('$student_id_v')";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        $skills = array();
+        while ($fila = mysqli_fetch_assoc($res)) {
+            $skills[] = $fila;
+        }
+        mysqli_close($cn->conecta());
+        return $skills;
+    }
+
+    // Obtener Hobbies por Estudiante
+    public function ObtenerHobbiesPorEstudiante($student_id_v)
+    {
+        $cn = new connection();
+        $sql = "CALL ObtenerHobbiesPorEstudiante('$student_id_v')";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        $hobbies = array();
+        while ($fila = mysqli_fetch_assoc($res)) {
+            $hobbies[] = $fila;
+        }
+        mysqli_close($cn->conecta());
+        return $hobbies;
+    }
+
+    // LOGIN DE USUARIO
+    public function validarLogin($student_id_v, $password_v)
+    {
+        $cn = new connection();
+        $sql = "SELECT validarLogin('$student_id_v', '$password_v') AS resultado";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        $row = mysqli_fetch_assoc($res);
+        $resultado = $row['resultado'];
+        mysqli_close($cn->conecta());
+        return $resultado === '1';
+    }
+
+    // OBTENER CURSOS POR ESTUDIANTE
+    public function ObtenerCursosEstudiantePorId($student_id_c)
     {
         $cn = new connection();
         $sql = "CALL ObtenerCursosEstudiantePorId('$student_id_c')";
@@ -41,40 +71,13 @@ class utp_group_dao
         mysqli_close($cn->conecta());
         return $cursos;
     }
-        
-    // OBTENER SKILLS DE USUARIO POR ESTUDIANTE
-    function ObtenerSkillsPorEstudiante($student_id_v)
-    {
-        $cn = new connection();
-        $sql = "CALL ObtenerSkillsPorEstudiante('$student_id_v')";
-        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
-        $skills = array();
-        while ($fila = mysqli_fetch_assoc($res)) {
-            $skills[] = $fila;
-        }
-        mysqli_close($cn->conecta());
-        return $skills;
-    }
 
-    // OBTENER HOBBIES DE USUARIO POR ESTUDIANTE
-    function ObtenerHobbiesPorEstudiante($student_id_v)
-    {
-        $cn = new connection();
-        $sql = "CALL ObtenerHobbiesPorEstudiante('$student_id_v')";
-        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
-        $hobbies = array();
-        while ($fila = mysqli_fetch_assoc($res)) {
-            $hobbies[] = $fila;
-        }
-        mysqli_close($cn->conecta());
-        return $hobbies;
-    }
-
-    function ObtenerEstudiantesPorCurso($curso_id_s)
+    // OBTENER ESTUDIANTES POR CURSO
+    public function ObtenerEstudiantesPorCurso($curso_id_s)
     {
         $cn = new connection();
         $sql = "CALL ObtenerEstudiantesPorCursoId('$curso_id_s')";
-        
+
         $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
         $estudiantes = array();
         while ($fila = mysqli_fetch_assoc($res)) {
@@ -85,7 +88,8 @@ class utp_group_dao
     }
 
     // ACTUALIZAR O INSERTAR SKILLS
-    function GuardarSkills($skills, $student_id) {
+    public function GuardarSkills($skills, $student_id) 
+    {
         $cn = new connection();
         foreach ($skills as $skill) {
             if (isset($skill['skill_id'])) {
@@ -104,7 +108,8 @@ class utp_group_dao
     }
 
     // ACTUALIZAR O INSERTAR HOBBIES
-    function GuardarHobbies($hobbies, $student_id) {
+    public function GuardarHobbies($hobbies, $student_id) 
+    {
         $cn = new connection();
 
         // Eliminar todos los hobbies actuales del estudiante
@@ -126,7 +131,8 @@ class utp_group_dao
     }
 
     // ACTUALIZAR DESCRIPCIÓN DEL ESTUDIANTE
-    function ActualizarDescripcionEstudiante($student_id, $description) {
+    public function ActualizarDescripcionEstudiante($student_id, $description) 
+    {
         $cn = new connection();
         $sql = "UPDATE students SET description = ? WHERE student_id = ?";
         $stmt = $cn->conecta()->prepare($sql);
@@ -137,7 +143,8 @@ class utp_group_dao
     }
 
     // OBTENER CURSO POR ID
-    function ObtenerCursoPorId($course_id) {
+    public function ObtenerCursoPorId($course_id) 
+    {
         $cn = new connection();
         $sql = "CALL ObtenerCursoPorId('$course_id')";
         $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
@@ -145,6 +152,34 @@ class utp_group_dao
         mysqli_close($cn->conecta());
         return $curso;
     }
+}
+
+// Comprueba si se ha recibido una solicitud y si la acción es válida
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['accion'])) {
+    $utp_group_dao = new utp_group_dao();
+    $accion = $_GET['accion'];
+    $student_id = $_GET['student_id']; // Recoge el ID del estudiante
+
+    // Dependiendo de la acción, llama a la función correspondiente
+    switch ($accion) {
+        case 'obtenerEstudiante':
+            $resultado = $utp_group_dao->ObtenerEstudiantePorId($student_id);
+            break;
+        case 'obtenerSkills':
+            $resultado = $utp_group_dao->ObtenerSkillsPorEstudiante($student_id);
+            break;
+        case 'obtenerHobbies':
+            $resultado = $utp_group_dao->ObtenerHobbiesPorEstudiante($student_id);
+            break;
+        default:
+            // Si la acción no es válida, devuelve un error
+            $resultado = array('error' => 'Acción no válida');
+            break;
+    }
+
+    // Devuelve los resultados como JSON
+    echo json_encode($resultado);
+    exit;
 }
 
 ?>
