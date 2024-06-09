@@ -885,3 +885,18 @@ BEGIN
     SELECT * FROM students WHERE student_id = student_id_v;
 END$$
 DELIMITER ;
+
+--Procedure para obtener cursos de un estudiante por su id
+DELIMITER $$
+CREATE PROCEDURE ObtenerCursosEstudiantePorId (
+    IN student_id_c VARCHAR(10)
+)
+BEGIN
+    SELECT c.course_id, c.course_name, c.modality, p.name from courses c 
+    INNER JOIN student_courses sc ON c.course_id = sc.course_id 
+    INNER JOIN professors p ON c.professor_id = p.professor_id 
+    WHERE sc.student_id = student_id_c
+    ORDER by c.course_name ;
+END$$
+DELIMITER ;
+

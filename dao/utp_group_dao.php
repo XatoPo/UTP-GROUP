@@ -26,6 +26,23 @@ class utp_group_dao
         mysqli_close($cn->conecta());
         return $student;
     }
+
+    function ObtenerCursosEstudiantePorId($student_id_c)
+    {
+        $cn = new connection();
+        $sql = "CALL ObtenerCursosEstudiantePorId('$student_id_c')";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+
+        // Obtener todas las filas de resultado
+        $cursos = array();
+        while ($fila = mysqli_fetch_assoc($res)) {
+            $cursos[] = $fila;
+        }
+
+        mysqli_close($cn->conecta());
+        return $cursos;
+    }
+        
 }
 
 ?>

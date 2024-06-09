@@ -10,6 +10,7 @@ if (isset($_SESSION['student_id'])) {
     $obj = new utp_group_dao();
 
     $student = $obj->ObtenerEstudiantePorId($student_id);
+    $cursos = $obj->ObtenerCursosEstudiantePorId($student_id);
 
     if ($student) {
         $_SESSION['student_data'] = $student;
@@ -100,72 +101,26 @@ if (isset($_SESSION['student_id'])) {
                             </div>
                         </div>
                         <div class="px-5 py-2.5 grid grid-cols-2 gap-2.5">
-                            <div class="col-span-1 grid grid-cols-3 h-[130px]">
-                                <div class="col-span-1 bg-pink-200 rounded-l-md">
-                                </div>
-                                <div class="col-span-2 bg-white flex flex-col justify-between p-2 rounded-r-md">
-                                    <div class="flex flex-col">
-                                        <h5 class="font-bold text-lg">Análisis y Diseño de Sistemas de Información</h5>
-                                        <p>13758 - Virtual 24/7</p>
+                            <?php
+                            foreach ($cursos as $curso) {
+                            ?>
+
+                                <div class="col-span-1 grid grid-cols-3 h-[130px]">
+                                    <div class="col-span-1 bg-pink-200 rounded-l-md">
                                     </div>
-                                    <p class="text-sm">Christian Eduardo Espinoza Paredes</p>
-                                </div>
-                            </div>
-                            <div class="col-span-1 grid grid-cols-3 h-[130px]">
-                                <div class="col-span-1 bg-pink-200 rounded-l-md">
-                                </div>
-                                <div class="col-span-2 bg-white flex flex-col justify-between p-2 rounded-r-md">
-                                    <div class="flex flex-col">
-                                        <h5 class="font-bold text-lg">Ciudadanía y Reflexión Ética</h5>
-                                        <p>47971 - Virtual 24/7</p>
+                                    <div class="col-span-2 bg-white flex flex-col justify-between p-2 rounded-r-md">
+                                        <div class="flex flex-col">
+                                            <h5 class="font-bold text-lg"><?php echo htmlspecialchars($curso['course_name']);?></h5>
+                                            <p><?php echo htmlspecialchars($curso['course_id']);?> - <?php echo htmlspecialchars($curso['modality']);?></p>
+                                        </div>
+                                        <p class="text-sm"><?php echo htmlspecialchars($curso['name']);?></p>
                                     </div>
-                                    <p class="text-sm">Juana Andrea Ballena Aguilar</p>
                                 </div>
-                            </div>
-                            <div class="col-span-1 grid grid-cols-3 h-[130px]">
-                                <div class="col-span-1 bg-pink-200 rounded-l-md">
-                                </div>
-                                <div class="col-span-2 bg-white flex flex-col justify-between p-2 rounded-r-md">
-                                    <div class="flex flex-col">
-                                        <h5 class="font-bold text-lg">Herramientas para la Comunicación Efectiva</h5>
-                                        <p>13148 - Virtual 24/7</p>
-                                    </div>
-                                    <p class="text-sm">Martin Remberto Horna Romero</p>
-                                </div>
-                            </div>
-                            <div class="col-span-1 grid grid-cols-3 h-[130px]">
-                                <div class="col-span-1 bg-pink-200 rounded-l-md">
-                                </div>
-                                <div class="col-span-2 bg-white flex flex-col justify-between p-2 rounded-r-md">
-                                    <div class="flex flex-col">
-                                        <h5 class="font-bold text-lg">Programación Lógica y Funcional</h5>
-                                        <p>24795 - Presencial</p>
-                                    </div>
-                                    <p class="text-sm">Jhonatan Derlin Jordan Pereda</p>
-                                </div>
-                            </div>
-                            <div class="col-span-1 grid grid-cols-3 h-[130px]">
-                                <div class="col-span-1 bg-pink-200 rounded-l-md">
-                                </div>
-                                <div class="col-span-2 bg-white flex flex-col justify-between p-2 rounded-r-md">
-                                    <div class="flex flex-col">
-                                        <h5 class="font-bold text-lg">Programación de Videojuegos con C++</h5>
-                                        <p>30405 - Presencial</p>
-                                    </div>
-                                    <p class="text-sm">David William Cota Sencara</p>
-                                </div>
-                            </div>
-                            <div class="col-span-1 grid grid-cols-3 h-[130px]">
-                                <div class="col-span-1 bg-pink-200 rounded-l-md">
-                                </div>
-                                <div class="col-span-2 bg-white flex flex-col justify-between p-2 rounded-r-md">
-                                    <div class="flex flex-col">
-                                        <h5 class="font-bold text-lg">Seguridad Informática</h5>
-                                        <p>13413 - Virtual 24/7</p>
-                                    </div>
-                                    <p class="text-sm">Juana Andrea Ballena Aguilar</p>
-                                </div>
-                            </div>
+
+                            <?php
+                            }
+                            ?>
+
                         </div>
                     </div>
                     <div class="col-span-1 flex flex-col">
