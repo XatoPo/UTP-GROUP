@@ -947,3 +947,74 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+DELIMITER $$
+
+-- 8. Procedure para obtener los grupos de un curso
+CREATE PROCEDURE ObtenerGruposPorCursoId (
+    IN course_id_s INT(11)
+)
+BEGIN
+    SELECT g.group_id, g.course_id, g.group_name, g.number_of_students
+    FROM groups g
+    WHERE g.course_id = course_id_s;
+END$$
+
+-- 9. Procedure para obtener los alumnos de un grupo
+CREATE PROCEDURE ObtenerAlumnosPorGrupoId (
+    IN group_id_s CHAR(6)
+)
+BEGIN
+    SELECT s.student_id, s.name, s.career, s.birth_date, s.academic_cycle, s.profile_picture 
+    FROM students s
+    INNER JOIN students_groups sg ON s.student_id = sg.student_id 
+    WHERE sg.group_id = group_id_s;
+END$$
+
+-- 10. Procedure para agregar un alumno a un grupo
+CREATE PROCEDURE AgregarAlumnoEnGrupo (
+    IN group_id_s CHAR(6),
+    IN student_id_s VARCHAR(10)
+)   
+BEGIN
+    INSERT INTO students_groups (group_id, student_id) VALUES (group_id_s, student_id_s);
+END$$
+
+-- 11. Procedure para eliminar un alumno de un grupo
+CREATE PROCEDURE EliminarAlumnoDelGrupo (
+    IN group_id_s CHAR(6),
+    IN student_id_s VARCHAR(10)
+)   
+BEGIN
+    DELETE FROM students_groups WHERE group_id = group_id_s AND student_id = student_id_s;
+END$$
+
+-- 12. Procedure para editar el rol de un alumno de un grupo
+CREATE PROCEDURE EditarRolAlumnoDelGrupo (
+    IN group_id_s CHAR(6),
+    IN student_id_s VARCHAR(10),
+    IN role_id_s CHAR(6)
+)   
+BEGIN
+    UPDATE students_groups SET role_id = role_id_s WHERE group_id = group_id_s AND student_id = student_id_s;
+END$$
+
+-- 13. Procedure para obtener el rol de un alumno de un grupo
+CREATE PROCEDURE ObtenerRolAlumnoDelGrupo (
+    IN group_id_s CHAR(6),
+    IN student_id_s VARCHAR(10)
+)   
+BEGIN
+    SELECT role_id FROM students_groups WHERE group_id = group_id_s AND student_id = student_id_s;
+END$$
+
+DELIMITER ;
+
+-- 14. Procedure para listar los roles
+DELIMITER $$
+CREATE PROCEDURE ListarRoles ()
+BEGIN
+    SELECT * FROM roles;
+END$$
+
+DELIMITER ;
