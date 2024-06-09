@@ -141,6 +141,8 @@ if (isset($_SESSION['student_id'])) {
                         <?php
                         $fechaNacimiento = $estudiante['birth_date']; // dd/mm/yy
                         $edad = DateTime::createFromFormat('Y-m-d', $fechaNacimiento)->diff(new DateTime())->y;
+
+                        $cellphone_sin_espacios = str_replace(' ', '', $estudiante['cellphone']);
                         ?>
 
                         <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
@@ -153,8 +155,8 @@ if (isset($_SESSION['student_id'])) {
                                     <p class="text-xs text-[#4f6168]"><?php echo htmlspecialchars($estudiante['career']); ?> - <?php echo $edad; ?> años - <?php echo htmlspecialchars($estudiante['academic_cycle']); ?> Ciclo</p>
                                 </div>
                                 <div class="flex gap-x-2 me-10">
-                                    <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all" onclick="javascript: openProfile('<?php echo htmlspecialchars($estudiante['student_id']); ?>');">Ver perfil</button>
-                                    <button class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all">Hacer grupo</button>
+                                    <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all" onclick="javascript: openProfile('<?php echo htmlspecialchars($estudiante['student_id']); ?>');"> <i class="fa-solid fa-eye"></i> </button>
+                                    <a class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all flex items-center justify-center" href="https://wa.me/<?php echo $cellphone_sin_espacios; ?>" target="_blank"> <i class="fa-solid fa-comment"></i> </a>                                
                                 </div>
                             </div>
                         </div>
@@ -169,7 +171,9 @@ if (isset($_SESSION['student_id'])) {
         <!-- Modal -->
         <?php
         foreach ($estudiantes as $estudiante) {
+        ?>
 
+        <?php
             $id = $estudiante['student_id'];
             $student = $obj->ObtenerEstudiantePorId($id);
             $skills = $obj->ObtenerSkillsPorEstudiante($id);
