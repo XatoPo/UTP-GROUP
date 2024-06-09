@@ -4,6 +4,16 @@ include_once 'util/connection.php';
 
 session_start();
 
+// Verificar si las variables de sesión existen
+$course_name = isset($_SESSION['course_name']) ? htmlspecialchars($_SESSION['course_name']) : 'Nombre del curso no especificado';
+$course_section = isset($_SESSION['course_section']) ? htmlspecialchars($_SESSION['course_section']) : 'Sección no especificada';
+$course_modality = isset($_SESSION['course_modality']) ? htmlspecialchars($_SESSION['course_modality']) : 'Modalidad no especificada';
+
+// Limpiar las variables de sesión después de usarlas, si es necesario
+unset($_SESSION['course_name']);
+unset($_SESSION['course_section']);
+unset($_SESSION['course_modality']);
+
 if (isset($_SESSION['student_id'])) {
     $student_id = $_SESSION['student_id'];
 
@@ -21,9 +31,13 @@ if (isset($_SESSION['student_id'])) {
     header("Location: login.php");
     exit();
 }
+
+$course_name = isset($_POST['course_name']) ? htmlspecialchars($_POST['course_name']) : 'Nombre del curso no especificado';
+$course_section = isset($_POST['course_section']) ? htmlspecialchars($_POST['course_section']) : 'Sección no especificada';
+$course_modality = isset($_POST['course_modality']) ? htmlspecialchars($_POST['course_modality']) : 'Modalidad no especificada';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -92,14 +106,14 @@ if (isset($_SESSION['student_id'])) {
             <div class="divide-y-2 divide-[#4f6168] px-5 py-2.5">
                 <header>
                     <div class="flex py-2.5 px-5 divide-x-2 divide-black gap-x-2">
-                        <a href="#" class="flex items-center text-[#0661fc] gap-x-1">
+                        <a href="courses.php" class="flex items-center text-[#0661fc] gap-x-1">
                             <i class="fa-solid fa-arrow-left"></i>
                             <p class="text-xs font-extrabold">Volver a cursos</p>
                         </a>
                         <div class="flex gap-x-1 font-bold items-center ps-2">
-                            <p class="text-[#4A4F55] text-sm">Análisis y Diseño de Sistemas de Información - Sección 13758</p>
+                            <p class="text-[#4A4F55] text-sm"><?php echo $course_name; ?> - Sección <?php echo $course_section; ?></p>
                             <div class="bg-[#B21F5F] text-[#FCDAE2] text-xs py-0.5 px-3 rounded-full">
-                                Virtual 24/7
+                                <?php echo $course_modality; ?>
                             </div>
                         </div>
                     </div>

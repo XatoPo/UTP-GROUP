@@ -10,6 +10,7 @@ if (isset($_SESSION['student_id'])) {
 
     $skills = $obj->ObtenerSkillsPorEstudiante($student_id);
     $hobbies = $obj->ObtenerHobbiesPorEstudiante($student_id);
+    $student = $obj->ObtenerEstudiantePorId($student_id);
 } else {
     header("Location: login.php");
     exit();
@@ -19,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
     $skills_blandas = $_POST['skills_blandas'];
     $skills_tecnicas = $_POST['skills_tecnicas'];
     $hobbies = $_POST['hobbies'];
+    $student_description = $_POST['student_description'];
 
     // Procesar y actualizar skills
     $skills_data = [];
@@ -59,26 +61,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
     $obj->GuardarSkills($skills_data, $student_id);
 
     // Procesar y actualizar hobbies
-    $hobbies_data = [];
-    foreach ($hobbies as $hobby) {
-        $hobbies_data[] = [
-            'hobby_id' => $hobby['hobby_id'],
-            'hobby_name' => $hobbies[$hobby['hobby_id']]
-        ];
-    }
-
-    // Insertar nuevos hobbies si no existen
-    foreach ($hobbies as $hobby_name) {
-        if (!in_array($hobby_name, array_column($hobbies_data, 'hobby_name'))) {
-            $hobbies_data[] = [
-                'hobby_name' => $hobby_name
-            ];
-        }
-    }
-
+    $hobbies_data = explode(',', $hobbies); // Utiliza los datos enviados por Tagify
     $obj->GuardarHobbies($hobbies_data, $student_id);
 
-    header("Location: perfil.php");
+    // Actualizar la descripción del estudiante
+    $obj->ActualizarDescripcionEstudiante($student_id, $student_description);
+
+    // Redireccionar para evitar reenvío de formulario
+    header("Location: index.php");
     exit();
 }
 ?>
@@ -115,8 +105,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
                 </div>
 
                 <div class="mt-5">
-                    <h4 class="mb-2 font-bold">Descripción</h4>
-                    <textarea name="description" class="w-full h-[100px] p-[10px] box-border border border-[#ccc] rounded-md resize-none text-sm tracking-tight" placeholder="Soy una persona..."><?php echo htmlspecialchars($_SESSION['student_data']['description']); ?></textarea>
+                    <h4 class="mb-2 font-bold">Descripción del Estudiante</h4>
+                    <textarea name="student_description" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: 100%;"><?php echo htmlspecialchars($student['description'] ?? ''); ?></textarea>
                 </div>
 
                 <div class="mt-5">
@@ -148,9 +138,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
                 <div class="mt-5">
                     <h4 class="mb-2 font-bold">Pasatiempos</h4>
                     <div class="flex flex-wrap gap-[10px]">
-                        <input name="hobbies" id="hobbies" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="<?php echo implode(',', array_column($hobbies, 'hobby_name')); ?>">
+                        <input name="hobbies" id="hobbies" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="<?php echo htmlspecialchars(implode(',', array_column($hobbies, 'hobby_name'))); ?>">
                     </div>
                 </div>
+                
                 <div class="mt-5">
                     <input type="submit" value="ACTUALIZAR" name="Actualizar" class="w-full p-[10px] bg-[#f94c61] text-white border border-[#f94c61] rounded-[5px] text-base cursor-pointer transition-all hover:text-[#f94c61] hover:bg-white">
                 </div>
@@ -158,29 +149,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
         </form>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            new Tagify(document.querySelector('#hobbies'));
-
-            const toggleSection = (showId, hideId) => {
-                document.getElementById(showId).classList.toggle('close');
-                document.getElementById(showId).classList.toggle('open');
-                document.getElementById(hideId).classList.add('close');
-                document.getElementById(hideId).classList.remove('open');
-            };
-
-            document.querySelectorAll('h4.cursor-pointer').forEach(header => {
-                header.addEventListener('click', () => {
-                    const sectionId = header.nextElementSibling.id;
-                    const otherSectionId = sectionId === 'skillsBlandas' ? 'skillsTecnicas' : 'skillsBlandas';
-                    toggleSection(sectionId, otherSectionId);
-                });
-            });
-        });
-    </script>
+    <script src="js/perfil.js"></script>
     <style>
         .close { max-height: 0; }
-        .open { max-height: 1000px; } /* Arbitrary large value to allow full expansion */
+        .open { max-height: 1000px; }
         .transition-all { transition: max-height 0.3s ease-in-out; }
     </style>
 </body>

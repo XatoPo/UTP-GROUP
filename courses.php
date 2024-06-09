@@ -21,10 +21,17 @@ if (isset($_SESSION['student_id'])) {
     header("Location: login.php");
     exit();
 }
+
+foreach ($cursos as $curso) {
+    $_SESSION['course_name'] = $curso['course_name'];
+    $_SESSION['course_section'] = $curso['course_id'];
+    $_SESSION['course_modality'] = $curso['modality'];
+    break;
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -32,9 +39,7 @@ if (isset($_SESSION['student_id'])) {
     <title>Cursos | UTP + class</title>
     <link rel="shortcut icon" href="images/icon/favicon-utp-class.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 </head>
 
@@ -65,12 +70,11 @@ if (isset($_SESSION['student_id'])) {
             <header class="bg-white flex items-center justify-between px-5 h-[65px] w-full">
                 <img src="images/logo/logo-pao-class.png" class="w-40" alt="">
                 <div class="flex items-center justify-center gap-x-3">
-                    <button
-                        class="flex items-center justify-center rounded-full p-2 w-[40px] h-[40px] hover:bg-blue-950 hover:text-white transition-all">
+                    <button class="flex items-center justify-center rounded-full p-2 w-[40px] h-[40px] hover:bg-blue-950 hover:text-white transition-all">
                         <i class="fa-regular fa-bell text-xl"></i>
                     </button>
                     <div class="flex flex-col items-end">
-                        <p class="text-sm">Hola, <strong><?php echo htmlspecialchars($_SESSION['student_data']['name']);?></strong></p>
+                        <p class="text-sm">Hola, <strong><?php echo htmlspecialchars($_SESSION['student_data']['name']); ?></strong></p>
                         <p class="text-xs">Estudiante</p>
                     </div>
                     <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">
@@ -104,22 +108,27 @@ if (isset($_SESSION['student_id'])) {
                             <?php
                             foreach ($cursos as $curso) {
                             ?>
-
-                                <div class="col-span-1 grid grid-cols-3 h-[130px]">
-                                    <div class="col-span-1 bg-pink-200 rounded-l-md">
-                                    </div>
-                                    <div class="col-span-2 bg-white flex flex-col justify-between p-2 rounded-r-md">
-                                        <div class="flex flex-col">
-                                            <h5 class="font-bold text-lg"><?php echo htmlspecialchars($curso['course_name']);?></h5>
-                                            <p><?php echo htmlspecialchars($curso['course_id']);?> - <?php echo htmlspecialchars($curso['modality']);?></p>
+                                <form action="students.php" method="post" class="col-span-1 grid grid-cols-3 h-[130px]">
+                                    <input type="hidden" name="course_name" value="<?php echo urlencode($curso['course_name']); ?>">
+                                    <input type="hidden" name="course_section" value="<?php echo urlencode($curso['course_id']); ?>">
+                                    <input type="hidden" name="course_modality" value="<?php echo urlencode($curso['modality']); ?>">
+                                    <button type="submit" class="w-full">
+                                        <div class="col-span-1 bg-pink-200 rounded-l-md"></div>
+                                        <div class="col-span-2 bg-white flex flex-col justify-between p-2 rounded-r-md">
+                                            <div class="flex flex-col">
+                                                <h5 class="font-bold text-lg"><?php echo htmlspecialchars($curso['course_name']); ?></h5>
+                                                <p><?php echo htmlspecialchars($curso['course_id']); ?> - <?php echo htmlspecialchars($curso['modality']); ?></p>
+                                            </div>
+                                            <p class="text-sm"><?php echo htmlspecialchars($curso['name']); ?></p>
                                         </div>
-                                        <p class="text-sm"><?php echo htmlspecialchars($curso['name']);?></p>
-                                    </div>
-                                </div>
-
+                                    </button>
+                                </form>
                             <?php
                             }
                             ?>
+
+
+
 
                         </div>
                     </div>
