@@ -223,7 +223,7 @@ if (isset($_SESSION['student_id'])) {
                         </div>
 
                         <!-- Modal -->
-                        <div id="myModal" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
+                        <div id="myModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                             <div class="bg-white p-6 rounded shadow-lg">
                                 <h2 class="text-xl font-bold mb-4" id="modal-title">Confirmación de entrada al grupo</h2>
                                 <p class="mb-4" id="modal-content">¿Deseas entrar al grupo?</p>
