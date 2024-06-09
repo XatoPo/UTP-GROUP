@@ -1,6 +1,6 @@
 <?php
 require_once 'dao/utp_group_dao.php';
-// include_once 'util/connection.php';
+//include_once 'util/connection.php';
 
 session_start();
 
