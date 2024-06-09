@@ -1,6 +1,6 @@
 <?php
 
-require_once  $_SERVER['DOCUMENT_ROOT'] . "/UTP-GROUP/util/connection.php";
+require_once  $_SERVER['DOCUMENT_ROOT'] . "/util/connection.php";
 
 class utp_group_dao
 {
