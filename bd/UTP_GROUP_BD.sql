@@ -813,12 +813,10 @@ DELIMITER ;
 
 -- 2. Obtener Datos de Estudiante
 DELIMITER $$
-CREATE FUNCTION ObtenerUsuarioPorCorreo (
-    usuario_correo VARCHAR(35)
-) RETURNS CHAR(6)
+CREATE PROCEDURE ObtenerEstudiantePorId (
+    IN student_id_v VARCHAR(10)
+)
 BEGIN
-    DECLARE codigo_usuario CHAR(6);
-    SELECT COD_USER INTO codigo_usuario FROM USUARIO WHERE CORREO = usuario_correo;
-    RETURN codigo_usuario;
+    SELECT * FROM students WHERE student_id_v = student_id;
 END$$
 DELIMITER ;

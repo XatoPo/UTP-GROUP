@@ -1,5 +1,16 @@
 <?php
-session_start();
+include_once 'dao/utp_group_dao.php';
+include_once 'util/connection.php';
+
+$obj = new utp_group_dao();
+$student = $obj->obtenerEstudiantePor($_SESSION['student_id']);
+if (isset($_SESSION['student_id'])) {
+    $student_id = $_SESSION['student_id'];
+
+    $student = $obj->obtenerEstudiantePor($student_id);
+
+    $_SESSION['$student_data'] = $student;
+}
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +60,7 @@ session_start();
                         <i class="fa-regular fa-bell text-xl"></i>
                     </button>
                     <div class="flex flex-col items-end">
-                        <p class="text-sm">Hola, <strong><?php echo $_SESSION['nombre']?></strong></p>
+                        <p class="text-sm">Hola, <strong><?php echo isset($_SESSION['user_data']['name']) ?></strong></p>
                         <p class="text-xs">Estudiante</p>
                     </div>
                     <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">

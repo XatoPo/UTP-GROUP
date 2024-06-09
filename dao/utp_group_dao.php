@@ -17,14 +17,14 @@ class utp_group_dao
     }
 
     // OBTENER DATOS DE USUARIO POR CORREO
-    function obtenerEstudiantePor($usuario_correo)
+    function obtenerEstudiantePor($student_id_v)
     {
         $cn = new connection();
-        $sql = "CALL ObtenerUsuarioPorCorreo('$usuario_correo')";
+        $sql = "CALL ObtenerEstudiantePorId('$student_id_v')";
         $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
-        $row = mysqli_fetch_assoc($res);
-        $codigo_usuario = $row['COD_USER'];
-        return $codigo_usuario;
+        $student = mysqli_fetch_assoc($res);
+        mysqli_close($cn->conecta());
+        return $student;
     }
 }
 

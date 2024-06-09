@@ -18,16 +18,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
     if (!preg_match('/^U/i', $studentId)) {
-        $mensaje_error = "El ID del estudiante debe comenzar con la letra 'U'.";
+        $mensaje_error = "El ID del estudiante debe comenzar con la letra 'U' o 'u'.";
     } else {
         if ($obj->validarLogin($studentId, $password)) {
-            $_SESSION['student_id'] = $studentId; 
-            header("Location: courses.php");
+            $_SESSION['user_id'] = $studentId;  // Cambiado a 'user_id' para ser más apropiado si no es un email
+            header("Location: inicio.php");
             exit();
         } else {
             $mensaje_error = "Credenciales incorrectas. Intente de nuevo.";
         }
     }
+    
 }
 
 
