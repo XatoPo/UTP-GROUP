@@ -45,15 +45,15 @@ foreach ($cursos as $curso) {
 
 <body class="bg-[#f6f9ff] h-screen">
     <main class="flex h-full">
-        <aside class="bg-[#000f37] flex flex-col gap-y-1 w-[65px] h-full">
+        <aside class="bg-[#000f37] flex flex-col gap-y-1 w-[65px] h-full fixed">
             <div class="p-1 flex flex-col items-center justify-center w-[65px] h-[65px]">
                 <i class="fa-solid fa-bars text-2xl text-white"></i>
             </div>
             <a href="courses.php">
-            <div class="p-1 flex flex-col items-center justify-center w-[65px] h-[65px]">
-                <i class="fa-solid fa-book text-2xl text-white"></i>
-                <p class="text-white text-xs">Cursos</p>
-            </div>
+                <div class="p-1 flex flex-col items-center justify-center w-[65px] h-[65px]">
+                    <i class="fa-solid fa-book text-2xl text-white"></i>
+                    <p class="text-white text-xs">Cursos</p>
+                </div>
             </a>
             <div class="p-1 flex flex-col items-center justify-center w-[65px] h-[65px]">
                 <i class="fa-regular fa-comment text-2xl text-white"></i>
@@ -68,6 +68,7 @@ foreach ($cursos as $curso) {
                 <p class="text-white text-xs">Ayuda</p>
             </div>
         </aside>
+        <div class="flex-1 ml-16">
         <div class="flex-1">
             <header class="bg-white flex items-center justify-between px-5 h-[65px] w-full">
                 <img src="images/logo/logo-pao-class.png" class="w-40" alt="">
