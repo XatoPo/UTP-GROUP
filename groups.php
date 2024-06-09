@@ -154,23 +154,23 @@ if (isset($_SESSION['student_id'])) {
                                 <div class="col-span-1 grid grid-rows-4">
                                     <div class="row-span-1 grid grid-cols-5">
                                         <div class="col-span-4 flex bg-[#000f37] justify-center items-center">
-                                            <p class="font-bold text-2xl text-white p-2"><?php echo $grupo['group_name']; ?> - <?php echo $grupo['group_id']; ?></p>
+                                            <p class="font-bold text-2xl text-white p-2"><?php echo $grupo['group_name']; ?></p>
                                         </div>
                                         <?php
                                         $isMember = $obj->EstaEnGrupo($student_id, $grupo['group_id']);
                                         $isFull = count($obj->ObtenerAlumnosPorGrupoId($grupo['group_id'])) >= $grupo['number_of_students'];
                                         if ($isFull) {
                                             echo '<button class="col-span-1 bg-gray-400 flex text-white justify-center items-center text-3xl hover:text-4xl transition-all" disabled>
-                            <i class="fa-solid fa-lock"></i>
-                        </button>';
+                                                    <i class="fa-solid fa-lock"></i>
+                                                </button>';
                                         } elseif ($isMember) {
                                             echo '<button onclick="javascript: openModal(\'salir\', \'' . $grupo['group_id'] . '\');" class="col-span-1 bg-[#f94c61] flex text-white justify-center items-center text-3xl hover:text-4xl transition-all">
-                            <i class="fa-solid fa-minus"></i>
-                        </button>';
+                                                    <i class="fa-solid fa-minus"></i>
+                                                </button>';
                                         } else {
                                             echo '<button onclick="javascript: openModal(\'unirse\', \'' . $grupo['group_id'] . '\');" class="col-span-1 bg-[#3ddcda] flex text-white justify-center items-center text-3xl hover:text-4xl transition-all">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>';
+                                                    <i class="fa-solid fa-plus"></i>
+                                                </button>';
                                         }
                                         ?>
                                     </div>
