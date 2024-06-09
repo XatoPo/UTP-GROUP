@@ -923,12 +923,15 @@ DELIMITER ;
 
 -- 6. Procedure para obtener estudiantes de un curso
 DELIMITER $$
+
 CREATE PROCEDURE ObtenerEstudiantesPorCursoId (
     IN course_id_s INT(11)
 )
 BEGIN
-    SELECT s.student_id, s.name, s.career, s.birth_date , s.academic_cycle, s.profile_picture from students s
+    SELECT s.student_id, s.name, s.career, s.birth_date , s.academic_cycle, s.profile_picture 
+    FROM students s
     INNER JOIN student_courses sc ON s.student_id = sc.student_id 
-    WHERE sc.course_id = course_id_s
+    WHERE sc.course_id = course_id_s;
 END$$
+
 DELIMITER ;
