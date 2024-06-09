@@ -55,9 +55,15 @@ session_start();
                     <div class="flex items-center justify-center rounded-full bg-lime-200 p-2 w-[40px] h-[40px]">
                         <i class="fa-solid fa-user"></i>
                     </div>
-                    <button>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </button>
+                    <div class="relative">
+                        <button id="dropdownButton" class="flex items-center justify-center">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div id="dropdownMenu" class="absolute right-0 mt-5 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver Perfil</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar Sesión</a>
+                        </div>
+                    </div>
                 </div>
             </header>
             <div>
@@ -152,6 +158,7 @@ session_start();
         </div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="js/dropdown.js"></script>
 </body>
 
 </html>
