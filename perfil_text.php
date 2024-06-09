@@ -11,27 +11,43 @@ if (isset($_SESSION['student_id'])) {
     $skills = $obj->ObtenerSkillsPorEstudiante($student_id);
     $hobbies = $obj->ObtenerHobbiesPorEstudiante($student_id);
     $student = $obj->ObtenerEstudiantePorId($student_id);
+
+    // Separar las habilidades blandas y técnicas
+    $skills_blandas = array_filter($skills, fn($skill) => $skill['skill_topic'] == 'Skills Blandas');
+    $skills_tecnicas = array_filter($skills, fn($skill) => $skill['skill_topic'] == 'Skills Técnicas');
+
+    // Asegurar que siempre haya 6 campos para cada tipo de habilidad
+    while (count($skills_blandas) < 6) {
+        $skills_blandas[] = ['skill_id' => 'new_blanda_' . count($skills_blandas), 'skill_name' => '', 'skill_topic' => 'Skills Blandas'];
+    }
+    while (count($skills_tecnicas) < 6) {
+        $skills_tecnicas[] = ['skill_id' => 'new_tecnica_' . count($skills_tecnicas), 'skill_name' => '', 'skill_topic' => 'Skills Técnicas'];
+    }
 } else {
     header("Location: login.php");
     exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
-    $skills_blandas = $_POST['skills_blandas'];
-    $skills_tecnicas = $_POST['skills_tecnicas'];
+    $skills_blandas = array_filter($_POST['skills_blandas'], function($skill) {
+        return !empty(trim($skill));
+    });
+    $skills_tecnicas = array_filter($_POST['skills_tecnicas'], function($skill) {
+        return !empty(trim($skill));
+    });
     $hobbies = $_POST['hobbies'];
     $student_description = $_POST['student_description'];
 
     // Procesar y actualizar skills
     $skills_data = [];
     foreach ($skills as $skill) {
-        if ($skill['skill_topic'] == 'Skills Blandas') {
+        if ($skill['skill_topic'] == 'Skills Blandas' && isset($skills_blandas[$skill['skill_id']])) {
             $skills_data[] = [
                 'skill_id' => $skill['skill_id'],
                 'skill_name' => $skills_blandas[$skill['skill_id']],
                 'skill_topic' => 'Skills Blandas'
             ];
-        } else {
+        } elseif ($skill['skill_topic'] == 'Skills Técnicas' && isset($skills_tecnicas[$skill['skill_id']])) {
             $skills_data[] = [
                 'skill_id' => $skill['skill_id'],
                 'skill_name' => $skills_tecnicas[$skill['skill_id']],
@@ -41,16 +57,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
     }
 
     // Insertar nuevas habilidades si no existen
-    foreach ($skills_blandas as $skill_name) {
-        if (!in_array($skill_name, array_column($skills_data, 'skill_name'))) {
+    foreach ($skills_blandas as $skill_id => $skill_name) {
+        if (!in_array($skill_name, array_column($skills_data, 'skill_name')) && !empty(trim($skill_name))) {
             $skills_data[] = [
                 'skill_name' => $skill_name,
                 'skill_topic' => 'Skills Blandas'
             ];
         }
     }
-    foreach ($skills_tecnicas as $skill_name) {
-        if (!in_array($skill_name, array_column($skills_data, 'skill_name'))) {
+    foreach ($skills_tecnicas as $skill_id => $skill_name) {
+        if (!in_array($skill_name, array_column($skills_data, 'skill_name')) && !empty(trim($skill_name))) {
             $skills_data[] = [
                 'skill_name' => $skill_name,
                 'skill_topic' => 'Skills Técnicas'
@@ -72,6 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
     exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -114,11 +131,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
                         <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="toggleSection('skillsBlandas', 'skillsTecnicas');">Skills Blandas</h4>
                         <div id="skillsBlandas" class="max-h-0 overflow-hidden transition-all close">
                             <div class="flex flex-wrap gap-[10px] mt-[10px]">
-                                <?php foreach ($skills as $index => $skill): ?>
-                                    <?php if ($skill['skill_topic'] == 'Skills Blandas'): ?>
-                                        <input name="skills_blandas[<?php echo $skill['skill_id']; ?>]" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="<?php echo htmlspecialchars($skill['skill_name']); ?>" placeholder="Skill <?php echo $index + 1; ?>">
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
+                                <?php
+                                foreach ($skills_blandas as $index => $skill) {
+                                    echo '<input name="skills_blandas[' . $skill['skill_id'] . ']" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="' . htmlspecialchars($skill['skill_name']) . '" placeholder="Skill ' . ($index + 1) . '">';
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -126,11 +143,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
                         <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="toggleSection('skillsTecnicas', 'skillsBlandas');">Skills Técnicas</h4>
                         <div id="skillsTecnicas" class="max-h-0 overflow-hidden transition-all close">
                             <div class="flex flex-wrap gap-[10px] mt-[10px]">
-                                <?php foreach ($skills as $index => $skill): ?>
-                                    <?php if ($skill['skill_topic'] == 'Skills Técnicas'): ?>
-                                        <input name="skills_tecnicas[<?php echo $skill['skill_id']; ?>]" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="<?php echo htmlspecialchars($skill['skill_name']); ?>" placeholder="Skill <?php echo $index + 1; ?>">
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
+                                <?php
+                                foreach ($skills_tecnicas as $index => $skill) {
+                                    echo '<input name="skills_tecnicas[' . $skill['skill_id'] . ']" class="text-sm p-[10px] box-border border border-[#ccc] rounded-[5px]" style="width: calc(50% - 10px);" type="text" value="' . htmlspecialchars($skill['skill_name']) . '" placeholder="Skill ' . ($index + 1) . '">';
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
