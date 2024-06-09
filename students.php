@@ -73,7 +73,7 @@ if (isset($_SESSION['student_id'])) {
                             <p class="text-xs">Estudiante</p>
                         </div>
                         <div class="flex items-center justify-center">
-                            <img src="images/perfil/<?php echo htmlspecialchars($_SESSION['student_data']['profile_picture']); ?>" class=" w-[40px] h-[40px] rounded-full block" alt="Foto de perfil">
+                            <img id="profile-picture" src="images/perfil/<?php echo htmlspecialchars($_SESSION['student_data']['profile_picture']); ?>" class="w-[40px] h-[40px] rounded-full block" alt="Foto de perfil" onerror="this.onerror=null;this.src='images/perfil/default-photo.jpg';">
                         </div>
                         <div class="relative">
                             <button id="dropdownButton" class="flex items-center justify-center">
@@ -144,124 +144,123 @@ if (isset($_SESSION['student_id'])) {
                             $cellphone_sin_espacios = str_replace(' ', '', $estudiante['cellphone']);
                             ?>
 
-                        <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
-                            <div class="col-span-1 flex justify-center items-center">
-                                <img src="images/perfil/<?php echo htmlspecialchars($estudiante['profile_picture']); ?>" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="">
-                            </div>
-                            <div class="col-span-2 flex flex-col justify-between py-5">
-                                <div class="flex flex-col">
-                                    <p class="text-xl font-bold text-pretty"><?php echo htmlspecialchars($estudiante['name']); ?></p>
-                                    <p class="text-xs text-[#4f6168]"><?php echo htmlspecialchars($estudiante['career']); ?> - <?php echo $edad; ?> años - <?php echo htmlspecialchars($estudiante['academic_cycle']); ?> Ciclo</p>
+                            <div class="col-span-1 bg-white grid grid-cols-3 rounded-lg h-[130px]">
+                                <div class="col-span-1 flex justify-center items-center">
+                                    <img src="images/perfil/<?php echo htmlspecialchars($estudiante['profile_picture']); ?>" class="rounded-full border-[3px] border-[#f94c61] w-24 h-24 object-cover" alt="" onerror="this.onerror=null;this.src='images/perfil/default-photo.jpg';">
                                 </div>
-                                <div class="flex gap-x-2 me-10">
-                                    <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all"
-                                        onclick="javascript:openProfile('<?php echo htmlspecialchars($estudiante['student_id']); ?>');"> <i class="fa-solid fa-eye"></i>
-                                    </button>
-                                    <a class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all flex items-center justify-center" href="https://wa.me/<?php echo $cellphone_sin_espacios; ?>" target="_blank"> <i class="fa-solid fa-comment"></i> </a>                                
+                                <div class="col-span-2 flex flex-col justify-between py-5">
+                                    <div class="flex flex-col">
+                                        <p class="text-xl font-bold text-pretty"><?php echo htmlspecialchars($estudiante['name']); ?></p>
+                                        <p class="text-xs text-[#4f6168]"><?php echo htmlspecialchars($estudiante['career']); ?> - <?php echo $edad; ?> años - <?php echo htmlspecialchars($estudiante['academic_cycle']); ?> Ciclo</p>
+                                    </div>
+                                    <div class="flex gap-x-2 me-10">
+                                        <button class="flex-1 bg-[#f94c61] border border-[#f94c61] py-1 text-white rounded-md text-sm hover:bg-white hover:text-[#f94c61] transition-all" onclick="javascript:openProfile('<?php echo htmlspecialchars($estudiante['student_id']); ?>');"> <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <a class="flex-1 border border-black py-1 text-black rounded-md text-sm hover:bg-gray-200 transition-all flex items-center justify-center" href="https://wa.me/<?php echo $cellphone_sin_espacios; ?>" target="_blank"> <i class="fa-solid fa-comment"></i> </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
                         <?php
                         }
                         ?>
 
-                </section>
+                    </section>
+                </div>
             </div>
-        </div>
-        <!-- Modal -->
+            <!-- Modal -->
 
-        <div id="myModalEstudiante" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
-            <div class="student_id"></div>
-            <div class="bg-white rounded-2xl shadow-lg w-[500px] py-5 px-12 box-border relative">
-                <div class="flex justify-between items-center">
-                    <div class="my-0 mx-auto">
-                        <img id="imagePerfil" src="" class="image w-20 h-20 rounded-[50%] border-[3px] border-[#ff4081] object-cover" alt="Foto de perfil">
+            <div id="myModalEstudiante" class="fixed inset-0 hidden items-center justify-center bg-black bg-opacity-50">
+                <div class="student_id"></div>
+                <div class="bg-white rounded-2xl shadow-lg w-[500px] py-5 px-12 box-border relative">
+                    <div class="flex justify-between items-center">
+                        <div class="my-0 mx-auto">
+                            <img id="imagePerfil" src="" class="image w-20 h-20 rounded-[50%] border-[3px] border-[#ff4081] object-cover" alt="Foto de perfil">
+                        </div>
+                        <div id="closeModalBtn" class="text-3xl cursor-pointer text-[#f94c61]">&times;</div>
                     </div>
-                    <div id="closeModalBtn" class="text-3xl cursor-pointer text-[#f94c61]">&times;</div>
-                </div>
-                <div class="text-center mt-5 my-[5px] mx-0 text-black">
-                    <h2 id="NombreCodigoEstudiante" class="text-xl font-semibold"></h2>
-                    <h3 id="CarreraEstudiante" class="text-sm font-normal"></h3>
-                </div>
-                
-                <div class="mt-5 flex justify-center gap-x-4">
-                    <div class="flex flex-col items-center relative">
-                        <div class="flex justify-center bg-[#FFBDBD] w-12 rounded-md">
-                            <p>👑</p>
-                        </div>
-                        <p class="text-xs">Líder</p>
-                        <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
-                            <p class="text-white text-xs">45</p>
-                        </div>
+                    <div class="text-center mt-5 my-[5px] mx-0 text-black">
+                        <h2 id="NombreCodigoEstudiante" class="text-xl font-semibold"></h2>
+                        <h3 id="CarreraEstudiante" class="text-sm font-normal"></h3>
                     </div>
-                    <div class="flex flex-col items-center relative">
-                        <div class="flex justify-center bg-[#A4E2D3] w-12 rounded-md">
-                            <p>😁</p>
-                        </div>
-                        <p class="text-xs">Motivador</p>
-                        <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
-                            <p class="text-white text-xs">45</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col items-center relative">
-                        <div class="flex justify-center bg-[#F1E2BE] w-12 rounded-md">
-                            <p>🎨</p>
-                        </div>
-                        <p class="text-xs">Creativo</p>
-                        <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
-                            <p class="text-white text-xs">45</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col items-center relative">
-                        <div class="flex justify-center bg-[#BDDFFF] w-12 rounded-md">
-                            <p>🧘‍♂</p>
-                        </div>
-                        <p class="text-xs">Mediador</p>
-                        <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
-                            <p class="text-white text-xs">45</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col items-center relative">
-                        <div class="flex justify-center bg-[#D2A5E7] w-12 rounded-md">
-                            <p>🕵‍♂</p>
-                        </div>
-                        <p class="text-xs">Investigador</p>
-                        <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
-                            <p class="text-white text-xs">45</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="mt-5">
-                    <h4 class="mb-2 font-bold">Descripción</h4>
-                    <p class="descripcion p-[7.5px] border border-[#ccc] rounded-[5px] text-sm text-pretty h-[75px] overflow-auto" id="descripcion_estudiante"></p>
-                </div>
-
-                <div class="mt-5">
-                    <div>
-                        <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="toggleSection('skillsBlandas', 'skillsTecnicas');">Skills Blandas</h4>
-                        <div id="skillsBlandas" class="max-h-0 overflow-hidden transition-all close">
-                            <div class="flex flex-wrap gap-[10px] mt-[10px]" id="skillsBlandasInfo">
+                    <div class="mt-5 flex justify-center gap-x-4">
+                        <div class="flex flex-col items-center relative">
+                            <div class="flex justify-center bg-[#FFBDBD] w-12 rounded-md">
+                                <p>👑</p>
+                            </div>
+                            <p class="text-xs">Líder</p>
+                            <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                                <p class="text-white text-xs">45</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center relative">
+                            <div class="flex justify-center bg-[#A4E2D3] w-12 rounded-md">
+                                <p>😁</p>
+                            </div>
+                            <p class="text-xs">Motivador</p>
+                            <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                                <p class="text-white text-xs">45</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center relative">
+                            <div class="flex justify-center bg-[#F1E2BE] w-12 rounded-md">
+                                <p>🎨</p>
+                            </div>
+                            <p class="text-xs">Creativo</p>
+                            <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                                <p class="text-white text-xs">45</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center relative">
+                            <div class="flex justify-center bg-[#BDDFFF] w-12 rounded-md">
+                                <p>🧘‍♂</p>
+                            </div>
+                            <p class="text-xs">Mediador</p>
+                            <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                                <p class="text-white text-xs">45</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center relative">
+                            <div class="flex justify-center bg-[#D2A5E7] w-12 rounded-md">
+                                <p>🕵‍♂</p>
+                            </div>
+                            <p class="text-xs">Investigador</p>
+                            <div class="rounded-full w-5 h-5 flex justify-center items-center bg-green-400 absolute -top-2 -right-2">
+                                <p class="text-white text-xs">45</p>
                             </div>
                         </div>
                     </div>
+
                     <div class="mt-5">
-                        <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="toggleSection('skillsTecnicas', 'skillsBlandas');">Skills Técnicas</h4>
-                        <div id="skillsTecnicas" class="max-h-0 overflow-hidden transition-all close">
-                            <div class="flex flex-wrap gap-[10px] mt-[10px]" id ="skillsTecnicasInfo">
+                        <h4 class="mb-2 font-bold">Descripción</h4>
+                        <p class="descripcion p-[7.5px] border border-[#ccc] rounded-[5px] text-sm text-pretty h-[75px] overflow-auto" id="descripcion_estudiante"></p>
+                    </div>
+
+                    <div class="mt-5">
+                        <div>
+                            <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="toggleSection('skillsBlandas', 'skillsTecnicas');">Skills Blandas</h4>
+                            <div id="skillsBlandas" class="max-h-0 overflow-hidden transition-all close">
+                                <div class="flex flex-wrap gap-[10px] mt-[10px]" id="skillsBlandasInfo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <h4 class="cursor-pointer m-0 p-[10px] bg-[#f1f1f1] rounded-[5px] font-bold" onclick="toggleSection('skillsTecnicas', 'skillsBlandas');">Skills Técnicas</h4>
+                            <div id="skillsTecnicas" class="max-h-0 overflow-hidden transition-all close">
+                                <div class="flex flex-wrap gap-[10px] mt-[10px]" id="skillsTecnicasInfo">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="mt-5">
-                    <h4 class="mb-2 font-bold">Pasatiempos</h4>
-                    <p id="hobbies_text"></p>
-                </div>
+                    <div class="mt-5">
+                        <h4 class="mb-2 font-bold">Pasatiempos</h4>
+                        <p id="hobbies_text"></p>
+                    </div>
 
+                </div>
             </div>
-        </div>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
