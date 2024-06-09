@@ -26,6 +26,34 @@ class utp_group_dao
         mysqli_close($cn->conecta());
         return $student;
     }
+
+    // OBTENER SKILLS DE USUARIO POR ESTUDIANTE
+    function ObtenerSkillsPorEstudiante($student_id_v)
+    {
+        $cn = new connection();
+        $sql = "CALL ObtenerSkillsPorEstudiante('$student_id_v')";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        $skills = array();
+        while ($fila = mysqli_fetch_assoc($res)) {
+            $skills[] = $fila;
+        }
+        mysqli_close($cn->conecta());
+        return $skills;
+    }
+
+        // OBTENER HOBBIES DE USUARIO POR ESTUDIANTE
+    function ObtenerHobbiesPorEstudiante($student_id_v)
+    {
+        $cn = new connection();
+        $sql = "CALL ObtenerHobbiesPorEstudiante('$student_id_v')";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        $hobbies = array();
+        while ($fila = mysqli_fetch_assoc($res)) {
+            $hobbies[] = $fila;
+        }
+        mysqli_close($cn->conecta());
+        return $hobbies;
+    }
 }
 
 ?>
