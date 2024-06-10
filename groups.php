@@ -301,7 +301,7 @@ if (isset($_SESSION['student_id'])) {
                 }
             };
 
-            xhr.send(action=${action}&group_id=${groupId}&student_id=${studentId});
+            xhr.send('action=' + action + '&group_id=' + groupId + '&student_id=' + studentId);
         }
     </script>
 </body>
