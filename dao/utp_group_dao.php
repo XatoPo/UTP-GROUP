@@ -42,7 +42,7 @@ class utp_group_dao
         mysqli_close($cn->conecta());
         return $cursos;
     }
-        
+
     // OBTENER SKILLS DE USUARIO POR ESTUDIANTE
     function ObtenerSkillsPorEstudiante($student_id_v)
     {
@@ -75,7 +75,7 @@ class utp_group_dao
     {
         $cn = new connection();
         $sql = "CALL ObtenerEstudiantesPorCursoId('$curso_id_s')";
-        
+
         $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
         $estudiantes = array();
         while ($fila = mysqli_fetch_assoc($res)) {
@@ -86,7 +86,8 @@ class utp_group_dao
     }
 
     // ACTUALIZAR O INSERTAR SKILLS
-    function GuardarSkills($skills, $student_id) {
+    function GuardarSkills($skills, $student_id)
+    {
         $cn = new connection();
         foreach ($skills as $skill) {
             if (isset($skill['skill_id'])) {
@@ -104,7 +105,8 @@ class utp_group_dao
         mysqli_close($cn->conecta());
     }
 
-    function EliminarSkill($skill_id) {
+    function EliminarSkill($skill_id)
+    {
         $cn = new connection();
         $sql = "DELETE FROM skills WHERE skill_id = ?";
         $stmt = $cn->conecta()->prepare($sql);
@@ -115,7 +117,8 @@ class utp_group_dao
     }
 
     // ACTUALIZAR O INSERTAR HOBBIES
-    function GuardarHobbies($hobbies, $student_id) {
+    function GuardarHobbies($hobbies, $student_id)
+    {
         $cn = new connection();
 
         // Eliminar todos los hobbies actuales del estudiante
@@ -137,7 +140,8 @@ class utp_group_dao
     }
 
     // ACTUALIZAR DESCRIPCIÓN DEL ESTUDIANTE
-    function ActualizarDescripcionEstudiante($student_id, $description) {
+    function ActualizarDescripcionEstudiante($student_id, $description)
+    {
         $cn = new connection();
         $sql = "UPDATE students SET description = ? WHERE student_id = ?";
         $stmt = $cn->conecta()->prepare($sql);
@@ -160,7 +164,8 @@ class utp_group_dao
     }
 
     // OBTENER CURSO POR ID
-    function ObtenerCursoPorId($course_id) {
+    function ObtenerCursoPorId($course_id)
+    {
         $cn = new connection();
         $sql = "CALL ObtenerCursoPorId('$course_id')";
         $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
@@ -170,7 +175,8 @@ class utp_group_dao
     }
 
     // OBTENER GRUPOS POR CURSO
-    function ObtenerGruposPorCursoId($course_id) {
+    function ObtenerGruposPorCursoId($course_id)
+    {
         $cn = new connection();
         $sql = "CALL ObtenerGruposPorCursoId('$course_id')";
         $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
@@ -183,7 +189,8 @@ class utp_group_dao
     }
 
     // OBTENER ALUMNOS POR GRUPO
-    function ObtenerAlumnosPorGrupoId($group_id) {
+    function ObtenerAlumnosPorGrupoId($group_id)
+    {
         $cn = new connection();
         $sql = "CALL ObtenerAlumnosPorGrupoId('$group_id')";
         $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
@@ -195,24 +202,53 @@ class utp_group_dao
         return $alumnos;
     }
 
-    // PROCEDURE PARA AGREGAR ALUMNO EN GRUPO
-    function AgregarAlumnoEnGrupo($group_id, $student_id) {
+    // Verificar si el estudiante ya está en un grupo del mismo curso
+    function EstaEnCurso($student_id, $course_id)
+    {
         $cn = new connection();
+        $sql = "SELECT COUNT(*) as count FROM students_groups sg
+                JOIN groups g ON sg.group_id = g.group_id
+                WHERE sg.student_id = '$student_id' AND g.course_id = '$course_id'";
+        $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
+        $row = mysqli_fetch_assoc($res);
+        mysqli_close($cn->conecta());
+        return $row['count'] > 0;
+    }
+
+    // Procedimiento para agregar alumno en grupo
+    function AgregarAlumnoEnGrupo($group_id, $student_id)
+    {
+        $cn = new connection();
+
+        // Obtener el curso al que pertenece el grupo
+        $sqlCurso = "SELECT course_id FROM groups WHERE group_id = '$group_id'";
+        $resCurso = mysqli_query($cn->conecta(), $sqlCurso) or die(mysqli_error($cn->conecta()));
+        $rowCurso = mysqli_fetch_assoc($resCurso);
+        $course_id = $rowCurso['course_id'];
+
+        // Verificar si el estudiante ya está en un grupo del mismo curso
+        if ($this->EstaEnCurso($student_id, $course_id)) {
+            throw new Exception("El estudiante ya está en un grupo de este curso.");
+        }
+
+        // Agregar el alumno al grupo
         $sql = "CALL AgregarAlumnoEnGrupo('$group_id', '$student_id')";
         $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
         mysqli_close($cn->conecta());
     }
 
     // PROCEDURE PARA ELIMINAR ALUMNO DEL GRUPO
-    function EliminarAlumnoDelGrupo($group_id, $student_id) {
-        $cn = new connection();        
+    function EliminarAlumnoDelGrupo($group_id, $student_id)
+    {
+        $cn = new connection();
         $sql = "CALL EliminarAlumnoDelGrupo('$group_id', '$student_id')";
         $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
         mysqli_close($cn->conecta());
     }
 
     // PROCEDURE PARA EDITAR ROL DEL ALUMNO DEL GRUPO
-    function EditarRolAlumnoDelGrupo($group_id, $student_id, $role_id) {
+    function EditarRolAlumnoDelGrupo($group_id, $student_id, $role_id)
+    {
         $cn = new connection();
         $sql = "CALL EditarRolAlumnoDelGrupo('$group_id', '$student_id', '$role_id')";
         $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
@@ -220,7 +256,8 @@ class utp_group_dao
     }
 
     // PROCEDURE PARA OBTENER ROL DEL ALUMNO DEL GRUPO
-    function ObtenerRolAlumnoDelGrupo($group_id, $student_id) {
+    function ObtenerRolAlumnoDelGrupo($group_id, $student_id)
+    {
         $cn = new connection();
         $sql = "CALL ObtenerRolAlumnoDelGrupo('$group_id', '$student_id')";
         $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
@@ -228,9 +265,10 @@ class utp_group_dao
         mysqli_close($cn->conecta());
         return $rol;
     }
-    
+
     // PROCEDURE PARA LISTRAR ROLES
-    function ListarRoles() {
+    function ListarRoles()
+    {
         $cn = new connection();
         $sql = "CALL ListarRoles()";
         $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
@@ -242,7 +280,8 @@ class utp_group_dao
         return $roles;
     }
 
-    function EstaEnGrupo($student_id, $group_id) {
+    function EstaEnGrupo($student_id, $group_id)
+    {
         $cn = new connection();
         $sql = "SELECT COUNT(*) as count FROM students_groups WHERE student_id = '$student_id' AND group_id = '$group_id'";
         $res = mysqli_query($cn->conecta(), $sql) or die(mysqli_error($cn->conecta()));
@@ -250,7 +289,4 @@ class utp_group_dao
         mysqli_close($cn->conecta());
         return $row['count'] > 0;
     }
-
 }
-
-?>

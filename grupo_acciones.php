@@ -12,12 +12,16 @@ if (isset($_POST['action']) && isset($_POST['group_id']) && isset($_POST['studen
     $obj = new utp_group_dao();
 
     if ($action === 'unirse') {
-        $obj->AgregarAlumnoEnGrupo($group_id, $student_id);
+        try {
+            $obj->AgregarAlumnoEnGrupo($group_id, $student_id);
+            echo 'success';
+        } catch (Exception $e) {
+            echo 'error: ' . $e->getMessage();
+        }
     } elseif ($action === 'salir') {
         $obj->EliminarAlumnoDelGrupo($group_id, $student_id);
+        echo 'success';
     }
-
-    echo 'success';
 } else {
     echo 'error';
 }

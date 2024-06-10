@@ -303,6 +303,28 @@ if (isset($_SESSION['student_id'])) {
 
             xhr.send('action=' + action + '&group_id=' + groupId + '&student_id=' + studentId);
         }
+
+        function realizarAccion(action, groupId) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'grupo_acciones.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            const studentId = '<?php echo $student_id; ?>';
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    if (xhr.responseText.includes('error')) {
+                        alert(xhr.responseText.replace('error:', '').trim());
+                    } else {
+                        location.reload();
+                    }
+                } else {
+                    alert('Error en la solicitud');
+                }
+            };
+
+            xhr.send('action=' + action + '&group_id=' + groupId + '&student_id=' + studentId);
+        }
     </script>
 </body>
 
