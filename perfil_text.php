@@ -91,8 +91,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Actualizar'])) {
     $obj->GuardarSkills($skills_data, $student_id);
 
     // Procesar y actualizar hobbies
-    $hobbies_data = explode(',', $hobbies); // Utiliza los datos enviados por Tagify
-    $obj->GuardarHobbies($hobbies_data, $student_id);
+    $hobbies_data = json_decode($hobbies, true);
+    $filtered_hobbies = [];
+    
+    foreach ($hobbies_data as $hobby) {
+        if (isset($hobby['value'])) {
+            $filtered_hobbies[] = $hobby['value'];
+        }
+    }
+    
+    $obj->GuardarHobbies($filtered_hobbies, $student_id);
+    
 
     // Procesar la imagen de perfil
     if (isset($_FILES['profile_picture_input']) && $_FILES['profile_picture_input']['error'] === UPLOAD_ERR_OK) {
